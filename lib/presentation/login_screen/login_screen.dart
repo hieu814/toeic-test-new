@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'controller/login_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:toeic_test/core/app_export.dart';
@@ -243,11 +245,12 @@ class LoginScreen extends GetWidget<LoginController> {
   onTapRowgoogle() async {
     await GoogleAuthHelper().googleSignInProcess().then((googleUser) {
       if (googleUser != null) {
-        //TODO Actions to be performed after signin
+        print("---------------------googleUser ${googleUser}");
       } else {
         Get.snackbar('Error', 'user data is empty');
       }
     }).catchError((onError) {
+      print(onError.toString());
       Get.snackbar('Error', onError.toString());
     });
   }

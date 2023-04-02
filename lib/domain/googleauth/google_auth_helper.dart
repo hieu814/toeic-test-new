@@ -6,26 +6,25 @@ final GoogleSignIn googleSignIn = GoogleSignIn();
 
 class GoogleAuthHelper {
   /// Handle Google Signin to authenticate user
-  Future<GoogleSignInAccount?> googleSignInProcess() async {
+  Future<UserCredential?> googleSignInProcess() async {
     // Trigger the authentication flow
+
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
     // Obtain the auth details from the request
     final GoogleSignInAuthentication? googleAuth =
         await googleUser?.authentication;
 
-    // Create a new credential
     final credential = GoogleAuthProvider.credential(
       accessToken: googleAuth?.accessToken,
       idToken: googleAuth?.idToken,
     );
-    print("ADsdaddas ${credential.toString()}");
-    // Once signed in, return the UserCredential
+
     final _credential =
         await FirebaseAuth.instance.signInWithCredential(credential);
-    print("ADsdaddas ${_credential.toString()}");
+
     if (_credential != null) {
-      return googleUser;
+      return _credential;
     }
   }
 
