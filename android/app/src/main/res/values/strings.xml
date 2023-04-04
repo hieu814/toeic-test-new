@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">toeic_test</string>
     <!--TODO: Replace "000000000000" with your Facebook App ID here-->
-    <string name="facebook_app_id">000000000000</string>
+    <string name="facebook_app_id">3376459392609200</string>
     <!--TODO: Replace "YOUR_CLIENT_ACCESS_TOKEN" with your client access token here-->
-    <string name="facebook_client_token">YOUR_CLIENT_ACCESS_TOKEN</string>
+    <string name="facebook_client_token">885f7ad5ba98c1555d24377059b934ca</string>
 </resources>

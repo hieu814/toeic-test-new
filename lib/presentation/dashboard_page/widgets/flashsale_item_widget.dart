@@ -1,13 +1,13 @@
 import '../controller/dashboard_controller.dart';
-import '../models/flashsale_item_model.dart';
+import '../models/exam_category_item_model.dart';
 import 'package:flutter/material.dart';
 import 'package:toeic_test/core/app_export.dart';
 
 // ignore: must_be_immutable
-class FlashsaleItemWidget extends StatelessWidget {
-  FlashsaleItemWidget(this.flashsaleItemModelObj, {this.onTapProduct});
+class ExamCategoryItemWidget extends StatelessWidget {
+  ExamCategoryItemWidget(this.ExamCategoryItemModelObj, {this.onTapProduct});
 
-  FlashsaleItemModel flashsaleItemModelObj;
+  ExamCategoryItemModel ExamCategoryItemModelObj;
 
   var controller = Get.find<DashboardController>();
 
@@ -74,7 +74,7 @@ class FlashsaleItemWidget extends StatelessWidget {
                     top: 11,
                   ),
                   child: Text(
-                    "lbl_299_43".tr,
+                    "${"lbl_exam".tr}",
                     overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.left,
                     style: AppStyle.txtPoppinsBold12.copyWith(
@@ -82,41 +82,6 @@ class FlashsaleItemWidget extends StatelessWidget {
                         0.5,
                       ),
                     ),
-                  ),
-                ),
-                Padding(
-                  padding: getPadding(
-                    top: 9,
-                  ),
-                  child: Row(
-                    children: [
-                      Text(
-                        "lbl_534_33".tr,
-                        overflow: TextOverflow.ellipsis,
-                        textAlign: TextAlign.left,
-                        style: AppStyle.txtPoppinsRegular10.copyWith(
-                          letterSpacing: getHorizontalSize(
-                            0.5,
-                          ),
-                          decoration: TextDecoration.lineThrough,
-                        ),
-                      ),
-                      Padding(
-                        padding: getPadding(
-                          left: 8,
-                        ),
-                        child: Text(
-                          "lbl_24_off".tr,
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.left,
-                          style: AppStyle.txtPoppinsBold10.copyWith(
-                            letterSpacing: getHorizontalSize(
-                              0.5,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
                   ),
                 ),
               ],

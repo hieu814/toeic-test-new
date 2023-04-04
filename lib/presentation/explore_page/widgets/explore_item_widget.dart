@@ -30,7 +30,7 @@ class ExploreItemWidget extends StatelessWidget {
           ),
           child: Obx(
             () => Text(
-              exploreItemModelObj.manshirtTxt.value,
+              exploreItemModelObj.categoryPartTxt.value,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.left,
               style: AppStyle.txtPoppinsRegular10.copyWith(

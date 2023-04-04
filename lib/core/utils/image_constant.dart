@@ -1,4 +1,33 @@
 class ImageConstant {
+  String getCategoryPartImage(int part) {
+    switch (part) {
+      case 1:
+        return imgpart1;
+      case 2:
+        return imgpart2;
+      case 3:
+        return imgpart3;
+      case 4:
+        return imgpart4;
+      case 5:
+        return imgpart5;
+      case 6:
+        return imgpart6;
+      case 7:
+        return imgpart7;
+      default:
+    }
+    return "";
+  }
+
+  static String imgpart1 = 'assets/images/img_part1.png';
+  static String imgpart2 = 'assets/images/img_part2.png';
+  static String imgpart3 = 'assets/images/img_part3.png';
+  static String imgpart4 = 'assets/images/img_part4.png';
+  static String imgpart5 = 'assets/images/img_part5.png';
+  static String imgpart6 = 'assets/images/img_part6.png';
+  static String imgpart7 = 'assets/images/img_part7.png';
+
   static String imgClose8x8 = 'assets/images/img_close_8x8.svg';
 
   static String imgRecomendedproduct206x343 =

@@ -4,7 +4,7 @@ import 'package:toeic_test/core/app_export.dart';
 class CustomIconButton extends StatelessWidget {
   CustomIconButton(
       {this.shape,
-      this.padding,
+      this.padding = IconButtonPadding.PaddingAll0,
       this.variant,
       this.alignment,
       this.margin,
@@ -86,6 +86,14 @@ class CustomIconButton extends StatelessWidget {
       case IconButtonPadding.PaddingAll8:
         return getPadding(
           all: 8,
+        );
+      case IconButtonPadding.PaddingAll5:
+        return getPadding(
+          all: 5,
+        );
+      case IconButtonPadding.PaddingAll0:
+        return getPadding(
+          all: 0,
         );
       default:
         return getPadding(
@@ -181,6 +189,8 @@ enum IconButtonPadding {
   PaddingAll20,
   PaddingAll28,
   PaddingAll8,
+  PaddingAll5,
+  PaddingAll0,
 }
 
 enum IconButtonVariant {

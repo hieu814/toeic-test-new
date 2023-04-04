@@ -1,8 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:toeic_test/core/app_export.dart';
 import 'package:toeic_test/presentation/register_form_screen/models/register_form_model.dart';
 import 'package:flutter/material.dart';
-import 'package:toeic_test/data/models/register/post_register_resp.dart';
-import 'package:toeic_test/data/apiClient/api_client.dart';
+import 'package:toeic_test/domain/firebase/firebase.dart';
 
 class RegisterFormController extends GetxController {
   TextEditingController fullnameController = TextEditingController();
@@ -15,8 +15,7 @@ class RegisterFormController extends GetxController {
 
   Rx<RegisterFormModel> registerFormModelObj = RegisterFormModel().obs;
 
-  PostRegisterResp postRegisterResp = PostRegisterResp();
-
+  UserCredential? postLoginResp;
   @override
   void onReady() {
     super.onReady();
@@ -33,17 +32,14 @@ class RegisterFormController extends GetxController {
 
   Future<void> callCreateRegister(Map req) async {
     try {
-      postRegisterResp = await Get.find<ApiClient>().createRegister(headers: {
-        'Content-type': 'application/json',
-      }, requestData: req);
-      _handleCreateRegisterSuccess();
-    } on PostRegisterResp catch (e) {
-      postRegisterResp = e;
-      rethrow;
+      postLoginResp = await FirebaseAuthHelper().signUp(req);
+    } catch (e) {
+      throw e;
     }
   }
 
   void _handleCreateRegisterSuccess() {
-    Get.find<PrefUtils>().setId(postRegisterResp.data!.id!.toString());
+    Get.find<PrefUtils>()
+        .setToken(postLoginResp!.credential!.accessToken ?? "");
   }
 }

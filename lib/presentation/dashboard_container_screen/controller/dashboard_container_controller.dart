@@ -3,9 +3,9 @@ import 'package:toeic_test/presentation/dashboard_container_screen/models/dashbo
 import 'package:toeic_test/widgets/custom_bottom_bar.dart';
 
 class DashboardContainerController extends GetxController {
-  var token = Get.arguments[NavigationArgs.token];
+  // var token = Get.arguments[NavigationArgs.token];
 
-  var id = Get.arguments[NavigationArgs.id];
+  // var id = Get.arguments[NavigationArgs.id];
 
   Rx<DashboardContainerModel> dashboardContainerModelObj =
       DashboardContainerModel().obs;

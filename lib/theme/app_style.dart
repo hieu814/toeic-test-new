@@ -163,7 +163,14 @@ class AppStyle {
     fontFamily: 'Roboto',
     fontWeight: FontWeight.w400,
   );
-
+  static TextStyle txtRobotoRegular10 = TextStyle(
+    color: ColorConstant.black900,
+    fontSize: getFontSize(
+      10,
+    ),
+    fontFamily: 'Roboto',
+    fontWeight: FontWeight.w400,
+  );
   static TextStyle txtPoppinsBold14Indigo900 = TextStyle(
     color: ColorConstant.indigo900,
     fontSize: getFontSize(

@@ -148,6 +148,11 @@ class RegisterFormScreen extends GetWidget<RegisterFormController> {
   }
 
   Future<void> onTapSignup() async {
+    if (controller.passwordagainController.text !=
+        controller.passwordController.text) {
+      Get.rawSnackbar(message: "Password do not match");
+      return;
+    }
     PostRegisterReq postRegisterReq = PostRegisterReq(
       username: controller.youremailController.text,
       password: controller.passwordController.text,
@@ -160,12 +165,8 @@ class RegisterFormScreen extends GetWidget<RegisterFormController> {
         postRegisterReq.toJson(),
       );
       _onOnTapSignUpSuccess();
-    } on PostRegisterResp {
-      _onOnTapSignUpError();
-    } on NoInternetException catch (e) {
-      Get.rawSnackbar(message: e.toString());
     } catch (e) {
-      //TODO: Handle generic errors
+      Get.rawSnackbar(message: e.toString());
     }
   }
 
@@ -174,9 +175,9 @@ class RegisterFormScreen extends GetWidget<RegisterFormController> {
   }
 
   void _onOnTapSignUpError() {
-    Fluttertoast.showToast(
-      msg: controller.postRegisterResp.message!.toString(),
-    );
+    // Fluttertoast.showToast(
+    //     // msg: controller.postRegisterResp.message!.toString(),
+    //     );
   }
 
   onTapTxtHaveanaccount() {

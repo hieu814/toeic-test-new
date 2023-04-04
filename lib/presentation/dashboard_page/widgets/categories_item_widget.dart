@@ -29,7 +29,7 @@ class CategoriesItemWidget extends StatelessWidget {
                 height: 70,
                 width: 70,
                 child: CustomImageView(
-                  svgPath: ImageConstant.imgArrowleftLightBlueA20070x70,
+                  imagePath: categoriesItemModelObj.image,
                 ),
               ),
               Padding(
@@ -38,12 +38,12 @@ class CategoriesItemWidget extends StatelessWidget {
                 ),
                 child: Obx(
                   () => Text(
-                    categoriesItemModelObj.manshirtTxt.value,
+                    categoriesItemModelObj.categoryPartTxt.value,
                     overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.left,
-                    style: AppStyle.txtPoppinsRegular10.copyWith(
+                    style: AppStyle.txtRobotoRegular10.copyWith(
                       letterSpacing: getHorizontalSize(
-                        0.5,
+                        1,
                       ),
                     ),
                   ),

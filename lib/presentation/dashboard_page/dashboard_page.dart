@@ -7,7 +7,7 @@ import 'controller/dashboard_controller.dart';
 import 'models/categories_item_model.dart';
 import 'models/dashboard_item_model.dart';
 import 'models/dashboard_model.dart';
-import 'models/flashsale_item_model.dart';
+import 'models/exam_category_item_model.dart';
 import 'models/megasale_item_model.dart';
 import 'models/sliderofferbannertitl_item_model.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -121,13 +121,14 @@ class DashboardPage extends StatelessWidget {
                                           dotColor: ColorConstant.blue50,
                                           dotHeight: getVerticalSize(8),
                                           dotWidth: getHorizontalSize(8))))),
+                              // listening category
                               Padding(
                                   padding: getPadding(top: 25, right: 16),
                                   child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Text("lbl_category".tr,
+                                        Text("lbl_listening".tr,
                                             overflow: TextOverflow.ellipsis,
                                             textAlign: TextAlign.left,
                                             style: AppStyle
@@ -136,19 +137,6 @@ class DashboardPage extends StatelessWidget {
                                                     letterSpacing:
                                                         getHorizontalSize(
                                                             0.5))),
-                                        GestureDetector(
-                                            onTap: () {
-                                              onTapTxtMorecategorylin();
-                                            },
-                                            child: Text("lbl_more_category".tr,
-                                                overflow: TextOverflow.ellipsis,
-                                                textAlign: TextAlign.left,
-                                                style: AppStyle
-                                                    .txtPoppinsBold14LightblueA200
-                                                    .copyWith(
-                                                        letterSpacing:
-                                                            getHorizontalSize(
-                                                                0.5))))
                                       ])),
                               Align(
                                   alignment: Alignment.centerRight,
@@ -164,16 +152,60 @@ class DashboardPage extends StatelessWidget {
                                           itemCount: controller
                                               .dashboardModelObj
                                               .value
-                                              .categoriesItemList
+                                              .categoriesListeningItemList
                                               .length,
                                           itemBuilder: (context, index) {
-                                            CategoriesItemModel model =
-                                                controller
+                                            CategoriesItemModel model = controller
                                                     .dashboardModelObj
                                                     .value
-                                                    .categoriesItemList[index];
+                                                    .categoriesListeningItemList[
+                                                index];
                                             return CategoriesItemWidget(model);
                                           })))),
+                              // -- listening category
+                              // reading category
+                              Padding(
+                                  padding: getPadding(top: 25, right: 16),
+                                  child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text("lbl_reading".tr,
+                                            overflow: TextOverflow.ellipsis,
+                                            textAlign: TextAlign.left,
+                                            style: AppStyle
+                                                .txtPoppinsBold14Indigo900
+                                                .copyWith(
+                                                    letterSpacing:
+                                                        getHorizontalSize(
+                                                            0.5))),
+                                      ])),
+                              Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Container(
+                                      height: getVerticalSize(118),
+                                      child: Obx(() => ListView.separated(
+                                          padding: getPadding(top: 10),
+                                          scrollDirection: Axis.horizontal,
+                                          separatorBuilder: (context, index) {
+                                            return SizedBox(
+                                                height: getVerticalSize(12));
+                                          },
+                                          itemCount: controller
+                                              .dashboardModelObj
+                                              .value
+                                              .categoriesReadingItemList
+                                              .length,
+                                          itemBuilder: (context, index) {
+                                            CategoriesItemModel model = controller
+                                                    .dashboardModelObj
+                                                    .value
+                                                    .categoriesReadingItemList[
+                                                index];
+                                            return CategoriesItemWidget(model);
+                                          })))),
+                              // -- reading category
+                              // full test
                               GestureDetector(
                                   onTap: () {
                                     onTapRowflashsale();
@@ -184,7 +216,7 @@ class DashboardPage extends StatelessWidget {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Text("lbl_flash_sale".tr,
+                                            Text("lbl_full_test".tr,
                                                 overflow: TextOverflow.ellipsis,
                                                 textAlign: TextAlign.left,
                                                 style: AppStyle
@@ -217,17 +249,20 @@ class DashboardPage extends StatelessWidget {
                                           itemCount: controller
                                               .dashboardModelObj
                                               .value
-                                              .flashsaleItemList
+                                              .fullTestCategoryItemList
                                               .length,
                                           itemBuilder: (context, index) {
-                                            FlashsaleItemModel model =
+                                            ExamCategoryItemModel model =
                                                 controller
-                                                    .dashboardModelObj
-                                                    .value
-                                                    .flashsaleItemList[index];
-                                            return FlashsaleItemWidget(model,
+                                                        .dashboardModelObj
+                                                        .value
+                                                        .fullTestCategoryItemList[
+                                                    index];
+                                            return ExamCategoryItemWidget(model,
                                                 onTapProduct: onTapProduct);
                                           })))),
+                              // -- full test
+                              // mini test
                               GestureDetector(
                                   onTap: () {
                                     onTapMegasaleheader();
@@ -240,7 +275,7 @@ class DashboardPage extends StatelessWidget {
                                           children: [
                                             Padding(
                                                 padding: getPadding(top: 1),
-                                                child: Text("lbl_mega_sale".tr,
+                                                child: Text("lbl_mini_test".tr,
                                                     overflow:
                                                         TextOverflow.ellipsis,
                                                     textAlign: TextAlign.left,
@@ -266,9 +301,9 @@ class DashboardPage extends StatelessWidget {
                               Align(
                                   alignment: Alignment.centerRight,
                                   child: Container(
-                                      height: getVerticalSize(248),
+                                      height: getVerticalSize(250),
                                       child: Obx(() => ListView.separated(
-                                          padding: getPadding(top: 10),
+                                          padding: getPadding(top: 12),
                                           scrollDirection: Axis.horizontal,
                                           separatorBuilder: (context, index) {
                                             return SizedBox(
@@ -277,49 +312,19 @@ class DashboardPage extends StatelessWidget {
                                           itemCount: controller
                                               .dashboardModelObj
                                               .value
-                                              .megasaleItemList
+                                              .miniTestCategoryItemList
                                               .length,
                                           itemBuilder: (context, index) {
-                                            MegasaleItemModel model = controller
-                                                .dashboardModelObj
-                                                .value
-                                                .megasaleItemList[index];
-                                            return MegasaleItemWidget(model,
-                                                onTapMegaSaleProduct:
-                                                    onTapMegaSaleProduct);
+                                            ExamCategoryItemModel model =
+                                                controller
+                                                        .dashboardModelObj
+                                                        .value
+                                                        .miniTestCategoryItemList[
+                                                    index];
+                                            return ExamCategoryItemWidget(model,
+                                                onTapProduct: onTapProduct);
                                           })))),
-                              CustomImageView(
-                                  imagePath:
-                                      ImageConstant.imgRecomendedproduct206x343,
-                                  height: getVerticalSize(206),
-                                  width: getHorizontalSize(343),
-                                  radius: BorderRadius.circular(
-                                      getHorizontalSize(5)),
-                                  margin: getMargin(top: 29)),
-                              Padding(
-                                  padding: getPadding(top: 16, right: 16),
-                                  child: Obx(() => GridView.builder(
-                                      shrinkWrap: true,
-                                      gridDelegate:
-                                          SliverGridDelegateWithFixedCrossAxisCount(
-                                              mainAxisExtent:
-                                                  getVerticalSize(283),
-                                              crossAxisCount: 2,
-                                              mainAxisSpacing:
-                                                  getHorizontalSize(13),
-                                              crossAxisSpacing:
-                                                  getHorizontalSize(13)),
-                                      physics: NeverScrollableScrollPhysics(),
-                                      itemCount: controller.dashboardModelObj
-                                          .value.dashboardItemList.length,
-                                      itemBuilder: (context, index) {
-                                        DashboardItemModel model = controller
-                                            .dashboardModelObj
-                                            .value
-                                            .dashboardItemList[index];
-                                        return DashboardItemWidget(model,
-                                            onTapProducts: onTapProducts);
-                                      })))
+                              // -- mini test
                             ]))))));
   }
 

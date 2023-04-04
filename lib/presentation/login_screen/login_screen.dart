@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:toeic_test/domain/firebase/firebase.dart';
+
 import 'controller/login_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:toeic_test/core/app_export.dart';
@@ -10,7 +12,6 @@ import 'package:toeic_test/data/models/login/post_login_req.dart';
 import 'package:toeic_test/data/models/login/post_login_resp.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:toeic_test/domain/googleauth/google_auth_helper.dart';
-import 'package:toeic_test/domain/facebookauth/facebook_auth_helper.dart';
 
 class LoginScreen extends GetWidget<LoginController> {
   @override
@@ -223,12 +224,8 @@ class LoginScreen extends GetWidget<LoginController> {
         postLoginReq.toJson(),
       );
       _onOnTapSignInSuccess();
-    } on PostLoginResp {
-      _onOnTapSignInError();
-    } on NoInternetException catch (e) {
-      Get.rawSnackbar(message: e.toString());
     } catch (e) {
-      //TODO: Handle generic errors
+      Get.rawSnackbar(message: e.toString());
     }
   }
 
@@ -243,24 +240,21 @@ class LoginScreen extends GetWidget<LoginController> {
   }
 
   onTapRowgoogle() async {
-    await GoogleAuthHelper().googleSignInProcess().then((googleUser) {
-      if (googleUser != null) {
-        print("---------------------googleUser ${googleUser}");
-      } else {
-        Get.snackbar('Error', 'user data is empty');
-      }
-    }).catchError((onError) {
-      print(onError.toString());
-      Get.snackbar('Error', onError.toString());
-    });
+    try {
+      await controller.callCreateLoginGoogle();
+      _onOnTapSignInSuccess();
+    } catch (e) {
+      Get.rawSnackbar(message: e.toString());
+    }
   }
 
   onTapRowfacebook() async {
-    await FacebookAuthHelper().facebookSignInProcess().then((facebookUser) {
-      //TODO Actions to be performed after signin
-    }).catchError((onError) {
-      Get.snackbar('Error', onError.toString());
-    });
+    try {
+      await controller.callCreateLoginFacebook();
+      _onOnTapSignInSuccess();
+    } catch (e) {
+      Get.rawSnackbar(message: e.toString());
+    }
   }
 
   onTapTxtDonthaveana() {
