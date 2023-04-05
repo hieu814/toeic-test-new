@@ -207,8 +207,11 @@ class DashboardPage extends StatelessWidget {
                               // -- reading category
                               // full test
                               GestureDetector(
-                                  onTap: () {
-                                    onTapRowflashsale();
+                                  onTap: () async {
+                                    print("-----");
+                                    await controller.callFetchExamCategory();
+
+                                    // onTapRowflashsale();
                                   },
                                   child: Padding(
                                       padding: getPadding(top: 23, right: 16),

@@ -40,6 +40,7 @@ class PrefUtils {
     try {
       return _sharedPreferences!.getString('token') ?? '';
     } catch (e) {
+      print("get token error ${e}");
       return '';
     }
   }

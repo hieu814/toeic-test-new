@@ -1,7 +1,9 @@
 import 'dart:math';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:toeic_test/core/utils/progress_dialog_utils.dart';
 import 'package:toeic_test/core/app_export.dart';
+import 'package:toeic_test/data/apiClient/api_client.dart';
 import 'package:toeic_test/domain/firebase/firebase.dart';
 import 'package:toeic_test/presentation/login_screen/models/login_model.dart';
 import 'package:flutter/material.dart';
@@ -27,9 +29,12 @@ class LoginController extends GetxController {
   }
 
   Future<void> callCreateLogin(Map req) async {
+    ProgressDialogUtils.showProgressDialog();
     try {
       postLoginResp = await FirebaseAuthHelper()
           .signInWithEmailAndPassword(req['username'], req['password']);
+      await _handleCreateLoginSuccess();
+      ProgressDialogUtils.hideProgressDialog();
     } catch (e) {
       throw e;
     }
@@ -38,6 +43,8 @@ class LoginController extends GetxController {
   Future<void> callCreateLoginGoogle() async {
     try {
       postLoginResp = await FirebaseAuthHelper().googleSignInProcess();
+      await _handleCreateLoginSuccess();
+      ProgressDialogUtils.hideProgressDialog();
     } catch (e) {
       throw e;
     }
@@ -46,13 +53,26 @@ class LoginController extends GetxController {
   Future<void> callCreateLoginFacebook() async {
     try {
       postLoginResp = await FirebaseAuthHelper().signInWithFacebook();
+      await _handleCreateLoginSuccess();
+      ProgressDialogUtils.hideProgressDialog();
     } catch (e) {
       throw e;
     }
   }
 
-  void _handleCreateLoginSuccess() {
-    Get.find<PrefUtils>()
-        .setToken(postLoginResp!.credential!.accessToken ?? "");
+  Future<void> _handleCreateLoginSuccess() async {
+    try {
+      final idtoken = await postLoginResp?.user?.getIdToken();
+      final res = await Get.find<ApiClient>().getTokenFromServer(idtoken ?? "");
+      String _token = res["data"]?["token"] ?? "";
+      print(_token);
+      if (_token.isNotEmpty) {
+        await Get.find<PrefUtils>().setToken(_token);
+      } else {
+        throw "Cannot access server";
+      }
+    } catch (e) {
+      throw "Cannot access server: $e";
+    }
   }
 }
