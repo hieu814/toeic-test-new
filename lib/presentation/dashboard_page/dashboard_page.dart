@@ -19,9 +19,6 @@ import 'package:toeic_test/widgets/app_bar/custom_app_bar.dart';
 
 // ignore_for_file: must_be_immutable
 class DashboardPage extends StatelessWidget {
-  DashboardController controller =
-      Get.put(DashboardController(DashboardModel().obs));
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -72,263 +69,315 @@ class DashboardPage extends StatelessWidget {
                 ]),
             body: SizedBox(
                 width: size.width,
-                child: SingleChildScrollView(
-                    child: Padding(
-                        padding: getPadding(left: 16, top: 43, bottom: 5),
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Padding(
-                                  padding: getPadding(right: 16),
-                                  child: Obx(() => CarouselSlider.builder(
-                                      options: CarouselOptions(
-                                          height: getVerticalSize(206),
-                                          initialPage: 0,
-                                          autoPlay: true,
-                                          viewportFraction: 1.0,
-                                          enableInfiniteScroll: false,
-                                          scrollDirection: Axis.horizontal,
-                                          onPageChanged: (index, reason) {
-                                            controller.silderIndex.value =
-                                                index;
-                                          }),
-                                      itemCount: controller
-                                          .dashboardModelObj
-                                          .value
-                                          .sliderofferbannertitlItemList
-                                          .length,
-                                      itemBuilder: (context, index, realIndex) {
-                                        SliderofferbannertitlItemModel model =
-                                            controller.dashboardModelObj.value
-                                                    .sliderofferbannertitlItemList[
-                                                index];
-                                        return SliderofferbannertitlItemWidget(
-                                            model);
-                                      }))),
-                              Obx(() => Container(
-                                  height: getVerticalSize(8),
-                                  margin: getMargin(left: 135, top: 16),
-                                  child: AnimatedSmoothIndicator(
-                                      activeIndex: controller.silderIndex.value,
-                                      count: controller.dashboardModelObj.value
-                                          .sliderofferbannertitlItemList.length,
-                                      axisDirection: Axis.horizontal,
-                                      effect: ScrollingDotsEffect(
-                                          spacing: 8,
-                                          activeDotColor:
-                                              ColorConstant.lightBlueA200,
-                                          dotColor: ColorConstant.blue50,
-                                          dotHeight: getVerticalSize(8),
-                                          dotWidth: getHorizontalSize(8))))),
-                              // listening category
-                              Padding(
-                                  padding: getPadding(top: 25, right: 16),
-                                  child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text("lbl_listening".tr,
-                                            overflow: TextOverflow.ellipsis,
-                                            textAlign: TextAlign.left,
-                                            style: AppStyle
-                                                .txtPoppinsBold14Indigo900
-                                                .copyWith(
-                                                    letterSpacing:
-                                                        getHorizontalSize(
-                                                            0.5))),
-                                      ])),
-                              Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Container(
-                                      height: getVerticalSize(118),
-                                      child: Obx(() => ListView.separated(
-                                          padding: getPadding(top: 10),
-                                          scrollDirection: Axis.horizontal,
-                                          separatorBuilder: (context, index) {
-                                            return SizedBox(
-                                                height: getVerticalSize(12));
-                                          },
-                                          itemCount: controller
-                                              .dashboardModelObj
-                                              .value
-                                              .categoriesListeningItemList
-                                              .length,
-                                          itemBuilder: (context, index) {
-                                            CategoriesItemModel model = controller
+                child: GetBuilder<DashboardController>(
+                    init: DashboardController(),
+                    builder: (controller) {
+                      // controller.getAll();
+                      return SingleChildScrollView(
+                          child: Padding(
+                              padding: getPadding(left: 16, top: 43, bottom: 5),
+                              child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                        padding: getPadding(right: 16),
+                                        child: Obx(() => CarouselSlider.builder(
+                                            options: CarouselOptions(
+                                                height: getVerticalSize(206),
+                                                initialPage: 0,
+                                                autoPlay: true,
+                                                viewportFraction: 1.0,
+                                                enableInfiniteScroll: false,
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                                onPageChanged: (index, reason) {
+                                                  controller.silderIndex.value =
+                                                      index;
+                                                }),
+                                            itemCount: controller
+                                                .dashboardModelObj
+                                                .value
+                                                .sliderofferbannertitlItemList
+                                                .length,
+                                            itemBuilder:
+                                                (context, index, realIndex) {
+                                              SliderofferbannertitlItemModel
+                                                  model = controller
+                                                          .dashboardModelObj
+                                                          .value
+                                                          .sliderofferbannertitlItemList[
+                                                      index];
+                                              return SliderofferbannertitlItemWidget(
+                                                  model);
+                                            }))),
+                                    Obx(() => Container(
+                                        height: getVerticalSize(8),
+                                        margin: getMargin(left: 135, top: 16),
+                                        child: AnimatedSmoothIndicator(
+                                            activeIndex:
+                                                controller.silderIndex.value,
+                                            count: controller
+                                                .dashboardModelObj
+                                                .value
+                                                .sliderofferbannertitlItemList
+                                                .length,
+                                            axisDirection: Axis.horizontal,
+                                            effect: ScrollingDotsEffect(
+                                                spacing: 8,
+                                                activeDotColor:
+                                                    ColorConstant.lightBlueA200,
+                                                dotColor: ColorConstant.blue50,
+                                                dotHeight: getVerticalSize(8),
+                                                dotWidth:
+                                                    getHorizontalSize(8))))),
+                                    // listening category
+                                    Padding(
+                                        padding: getPadding(top: 25, right: 16),
+                                        child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text("lbl_listening".tr,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  textAlign: TextAlign.left,
+                                                  style: AppStyle
+                                                      .txtPoppinsBold14Indigo900
+                                                      .copyWith(
+                                                          letterSpacing:
+                                                              getHorizontalSize(
+                                                                  0.5))),
+                                            ])),
+                                    Align(
+                                        alignment: Alignment.centerRight,
+                                        child: Container(
+                                            height: getVerticalSize(118),
+                                            child: Obx(() => ListView.separated(
+                                                padding: getPadding(top: 10),
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                                separatorBuilder:
+                                                    (context, index) {
+                                                  return SizedBox(
+                                                      height:
+                                                          getVerticalSize(12));
+                                                },
+                                                itemCount: controller
                                                     .dashboardModelObj
                                                     .value
-                                                    .categoriesListeningItemList[
-                                                index];
-                                            return CategoriesItemWidget(model);
-                                          })))),
-                              // -- listening category
-                              // reading category
-                              Padding(
-                                  padding: getPadding(top: 25, right: 16),
-                                  child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text("lbl_reading".tr,
-                                            overflow: TextOverflow.ellipsis,
-                                            textAlign: TextAlign.left,
-                                            style: AppStyle
-                                                .txtPoppinsBold14Indigo900
-                                                .copyWith(
-                                                    letterSpacing:
-                                                        getHorizontalSize(
-                                                            0.5))),
-                                      ])),
-                              Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Container(
-                                      height: getVerticalSize(118),
-                                      child: Obx(() => ListView.separated(
-                                          padding: getPadding(top: 10),
-                                          scrollDirection: Axis.horizontal,
-                                          separatorBuilder: (context, index) {
-                                            return SizedBox(
-                                                height: getVerticalSize(12));
-                                          },
-                                          itemCount: controller
-                                              .dashboardModelObj
-                                              .value
-                                              .categoriesReadingItemList
-                                              .length,
-                                          itemBuilder: (context, index) {
-                                            CategoriesItemModel model = controller
+                                                    .categoriesListeningItemList
+                                                    .length,
+                                                itemBuilder: (context, index) {
+                                                  CategoriesItemModel model =
+                                                      controller
+                                                              .dashboardModelObj
+                                                              .value
+                                                              .categoriesListeningItemList[
+                                                          index];
+                                                  return CategoriesItemWidget(
+                                                      model);
+                                                })))),
+                                    // -- listening category
+                                    // reading category
+                                    Padding(
+                                        padding: getPadding(top: 25, right: 16),
+                                        child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text("lbl_reading".tr,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  textAlign: TextAlign.left,
+                                                  style: AppStyle
+                                                      .txtPoppinsBold14Indigo900
+                                                      .copyWith(
+                                                          letterSpacing:
+                                                              getHorizontalSize(
+                                                                  0.5))),
+                                            ])),
+                                    Align(
+                                        alignment: Alignment.centerRight,
+                                        child: Container(
+                                            height: getVerticalSize(118),
+                                            child: Obx(() => ListView.separated(
+                                                padding: getPadding(top: 10),
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                                separatorBuilder:
+                                                    (context, index) {
+                                                  return SizedBox(
+                                                      height:
+                                                          getVerticalSize(12));
+                                                },
+                                                itemCount: controller
                                                     .dashboardModelObj
                                                     .value
-                                                    .categoriesReadingItemList[
-                                                index];
-                                            return CategoriesItemWidget(model);
-                                          })))),
-                              // -- reading category
-                              // full test
-                              GestureDetector(
-                                  onTap: () async {
-                                    print("-----");
-                                    await controller.callFetchExamCategory();
+                                                    .categoriesReadingItemList
+                                                    .length,
+                                                itemBuilder: (context, index) {
+                                                  CategoriesItemModel model =
+                                                      controller
+                                                              .dashboardModelObj
+                                                              .value
+                                                              .categoriesReadingItemList[
+                                                          index];
+                                                  return CategoriesItemWidget(
+                                                      model);
+                                                })))),
+                                    // -- reading category
+                                    // full test
+                                    GestureDetector(
+                                        onTap: () async {
+                                          print("-----");
 
-                                    // onTapRowflashsale();
-                                  },
-                                  child: Padding(
-                                      padding: getPadding(top: 23, right: 16),
-                                      child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text("lbl_full_test".tr,
-                                                overflow: TextOverflow.ellipsis,
-                                                textAlign: TextAlign.left,
-                                                style: AppStyle
-                                                    .txtPoppinsBold14Indigo900
-                                                    .copyWith(
-                                                        letterSpacing:
-                                                            getHorizontalSize(
-                                                                0.5))),
-                                            Text("lbl_see_more".tr,
-                                                overflow: TextOverflow.ellipsis,
-                                                textAlign: TextAlign.left,
-                                                style: AppStyle
-                                                    .txtPoppinsBold14LightblueA200
-                                                    .copyWith(
-                                                        letterSpacing:
-                                                            getHorizontalSize(
-                                                                0.5)))
-                                          ]))),
-                              Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Container(
-                                      height: getVerticalSize(250),
-                                      child: Obx(() => ListView.separated(
-                                          padding: getPadding(top: 12),
-                                          scrollDirection: Axis.horizontal,
-                                          separatorBuilder: (context, index) {
-                                            return SizedBox(
-                                                height: getVerticalSize(16));
-                                          },
-                                          itemCount: controller
-                                              .dashboardModelObj
-                                              .value
-                                              .fullTestCategoryItemList
-                                              .length,
-                                          itemBuilder: (context, index) {
-                                            ExamCategoryItemModel model =
-                                                controller
+                                          await controller.getAll();
+
+                                          // onTapRowflashsale();
+                                        },
+                                        child: Padding(
+                                            padding:
+                                                getPadding(top: 23, right: 16),
+                                            child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Text("lbl_full_test".tr,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      textAlign: TextAlign.left,
+                                                      style: AppStyle
+                                                          .txtPoppinsBold14Indigo900
+                                                          .copyWith(
+                                                              letterSpacing:
+                                                                  getHorizontalSize(
+                                                                      0.5))),
+                                                  Text("lbl_see_more".tr,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      textAlign: TextAlign.left,
+                                                      style: AppStyle
+                                                          .txtPoppinsBold14LightblueA200
+                                                          .copyWith(
+                                                              letterSpacing:
+                                                                  getHorizontalSize(
+                                                                      0.5)))
+                                                ]))),
+                                    Align(
+                                        alignment: Alignment.centerRight,
+                                        child: Container(
+                                            height: getVerticalSize(250),
+                                            child: Obx(() => ListView.separated(
+                                                padding: getPadding(top: 12),
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                                separatorBuilder:
+                                                    (context, index) {
+                                                  return SizedBox(
+                                                      height:
+                                                          getVerticalSize(16));
+                                                },
+                                                itemCount: controller
+                                                    .dashboardModelObj
+                                                    .value
+                                                    .fullTestCategoryItemList
+                                                    .length,
+                                                itemBuilder: (context, index) {
+                                                  ExamCategoryItemModel model =
+                                                      controller
+                                                              .dashboardModelObj
+                                                              .value
+                                                              .fullTestCategoryItemList[
+                                                          index];
+                                                  return ExamCategoryItemWidget(
+                                                      model,
+                                                      onTapProduct:
+                                                          onTapProduct);
+                                                })))),
+                                    // -- full test
+                                    // mini test
+                                    GestureDetector(
+                                        onTap: () {
+                                          onTapMegasaleheader();
+                                        },
+                                        child: Padding(
+                                            padding:
+                                                getPadding(top: 23, right: 16),
+                                            child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Padding(
+                                                      padding:
+                                                          getPadding(top: 1),
+                                                      child: Text(
+                                                          "lbl_mini_test".tr,
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                          textAlign:
+                                                              TextAlign.left,
+                                                          style: AppStyle
+                                                              .txtPoppinsBold14Indigo900
+                                                              .copyWith(
+                                                                  letterSpacing:
+                                                                      getHorizontalSize(
+                                                                          0.5)))),
+                                                  Padding(
+                                                      padding:
+                                                          getPadding(bottom: 1),
+                                                      child: Text(
+                                                          "lbl_see_more".tr,
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                          textAlign:
+                                                              TextAlign.left,
+                                                          style: AppStyle
+                                                              .txtPoppinsBold14LightblueA200
+                                                              .copyWith(
+                                                                  letterSpacing:
+                                                                      getHorizontalSize(
+                                                                          0.5))))
+                                                ]))),
+                                    Align(
+                                        alignment: Alignment.centerRight,
+                                        child: Container(
+                                            height: getVerticalSize(250),
+                                            child: Obx(() => ListView.separated(
+                                                padding: getPadding(top: 12),
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                                separatorBuilder:
+                                                    (context, index) {
+                                                  return SizedBox(
+                                                      height:
+                                                          getVerticalSize(16));
+                                                },
+                                                itemCount: (controller
                                                         .dashboardModelObj
                                                         .value
-                                                        .fullTestCategoryItemList[
-                                                    index];
-                                            return ExamCategoryItemWidget(model,
-                                                onTapProduct: onTapProduct);
-                                          })))),
-                              // -- full test
-                              // mini test
-                              GestureDetector(
-                                  onTap: () {
-                                    onTapMegasaleheader();
-                                  },
-                                  child: Padding(
-                                      padding: getPadding(top: 23, right: 16),
-                                      child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Padding(
-                                                padding: getPadding(top: 1),
-                                                child: Text("lbl_mini_test".tr,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    textAlign: TextAlign.left,
-                                                    style: AppStyle
-                                                        .txtPoppinsBold14Indigo900
-                                                        .copyWith(
-                                                            letterSpacing:
-                                                                getHorizontalSize(
-                                                                    0.5)))),
-                                            Padding(
-                                                padding: getPadding(bottom: 1),
-                                                child: Text("lbl_see_more".tr,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    textAlign: TextAlign.left,
-                                                    style: AppStyle
-                                                        .txtPoppinsBold14LightblueA200
-                                                        .copyWith(
-                                                            letterSpacing:
-                                                                getHorizontalSize(
-                                                                    0.5))))
-                                          ]))),
-                              Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Container(
-                                      height: getVerticalSize(250),
-                                      child: Obx(() => ListView.separated(
-                                          padding: getPadding(top: 12),
-                                          scrollDirection: Axis.horizontal,
-                                          separatorBuilder: (context, index) {
-                                            return SizedBox(
-                                                height: getVerticalSize(16));
-                                          },
-                                          itemCount: controller
-                                              .dashboardModelObj
-                                              .value
-                                              .miniTestCategoryItemList
-                                              .length,
-                                          itemBuilder: (context, index) {
-                                            ExamCategoryItemModel model =
-                                                controller
-                                                        .dashboardModelObj
-                                                        .value
-                                                        .miniTestCategoryItemList[
-                                                    index];
-                                            return ExamCategoryItemWidget(model,
-                                                onTapProduct: onTapProduct);
-                                          })))),
-                              // -- mini test
-                            ]))))));
+                                                        .miniTestCategoryItemList
+                                                        .length) ??
+                                                    0,
+                                                itemBuilder: (context, index) {
+                                                  ExamCategoryItemModel model =
+                                                      controller
+                                                              .dashboardModelObj
+                                                              .value
+                                                              .miniTestCategoryItemList[
+                                                          index];
+                                                  print(
+                                                      "------------------ ${controller.dashboardModelObj.value.miniTestCategoryItemList.length}");
+                                                  return ExamCategoryItemWidget(
+                                                      model,
+                                                      onTapProduct:
+                                                          onTapProduct);
+                                                })))),
+                                    // -- mini test
+                                  ])));
+                    }))));
   }
 
   onTapTxtMorecategorylin() {

@@ -5,9 +5,9 @@ import 'package:toeic_test/core/app_export.dart';
 
 // ignore: must_be_immutable
 class ExamCategoryItemWidget extends StatelessWidget {
-  ExamCategoryItemWidget(this.ExamCategoryItemModelObj, {this.onTapProduct});
+  ExamCategoryItemWidget(this.examCategoryItemModelObj, {this.onTapProduct});
 
-  ExamCategoryItemModel ExamCategoryItemModelObj;
+  ExamCategoryItemModel examCategoryItemModelObj;
 
   var controller = Get.find<DashboardController>();
 
@@ -38,7 +38,9 @@ class ExamCategoryItemWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 CustomImageView(
-                  imagePath: ImageConstant.imgProductimage109x1091,
+                  url: ApiConstant.getFileUrl(
+                      examCategoryItemModelObj.image ?? ""),
+                  // imagePath: ImageConstant.imgProductimage109x1091,
                   height: getSize(
                     109,
                   ),
@@ -59,7 +61,7 @@ class ExamCategoryItemWidget extends StatelessWidget {
                     top: 7,
                   ),
                   child: Text(
-                    "msg_fs_nike_air_m".tr,
+                    examCategoryItemModelObj.name ?? "",
                     maxLines: null,
                     textAlign: TextAlign.left,
                     style: AppStyle.txtPoppinsBold12Indigo900.copyWith(
@@ -74,7 +76,7 @@ class ExamCategoryItemWidget extends StatelessWidget {
                     top: 11,
                   ),
                   child: Text(
-                    "${"lbl_exam".tr}",
+                    "${examCategoryItemModelObj.count ?? 0} ${"lbl_exam".tr}",
                     overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.left,
                     style: AppStyle.txtPoppinsBold12.copyWith(

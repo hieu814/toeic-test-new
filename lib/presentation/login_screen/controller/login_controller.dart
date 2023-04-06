@@ -29,33 +29,38 @@ class LoginController extends GetxController {
   }
 
   Future<void> callCreateLogin(Map req) async {
-    ProgressDialogUtils.showProgressDialog();
     try {
+      ProgressDialogUtils.showProgressDialog();
       postLoginResp = await FirebaseAuthHelper()
           .signInWithEmailAndPassword(req['username'], req['password']);
       await _handleCreateLoginSuccess();
       ProgressDialogUtils.hideProgressDialog();
     } catch (e) {
+      ProgressDialogUtils.hideProgressDialog();
       throw e;
     }
   }
 
   Future<void> callCreateLoginGoogle() async {
     try {
+      ProgressDialogUtils.showProgressDialog();
       postLoginResp = await FirebaseAuthHelper().googleSignInProcess();
       await _handleCreateLoginSuccess();
       ProgressDialogUtils.hideProgressDialog();
     } catch (e) {
+      ProgressDialogUtils.hideProgressDialog();
       throw e;
     }
   }
 
   Future<void> callCreateLoginFacebook() async {
     try {
+      ProgressDialogUtils.showProgressDialog();
       postLoginResp = await FirebaseAuthHelper().signInWithFacebook();
       await _handleCreateLoginSuccess();
       ProgressDialogUtils.hideProgressDialog();
     } catch (e) {
+      ProgressDialogUtils.hideProgressDialog();
       throw e;
     }
   }
@@ -65,7 +70,6 @@ class LoginController extends GetxController {
       final idtoken = await postLoginResp?.user?.getIdToken();
       final res = await Get.find<ApiClient>().getTokenFromServer(idtoken ?? "");
       String _token = res["data"]?["token"] ?? "";
-      print(_token);
       if (_token.isNotEmpty) {
         await Get.find<PrefUtils>().setToken(_token);
       } else {

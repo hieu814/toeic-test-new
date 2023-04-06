@@ -7,7 +7,7 @@ import 'package:toeic_test/data/models/me/get_me_resp.dart';
 import 'package:http/http.dart' as http;
 
 class ApiClient extends GetConnect {
-  var url = "http://192.168.1.32:5000";
+  var url = ApiConstant.baseApiUrl;
 
   @override
   void onInit() {
@@ -91,7 +91,7 @@ class ApiClient extends GetConnect {
       };
 
       http.Response response = await http
-          .post(Uri.parse('$url/device/auth/login'), headers: headers);
+          .post(Uri.parse('$url/device/auth/firebase-login'), headers: headers);
       if (_isSuccessCall(response)) {
         final responseBody = json.decode(response.body);
         return responseBody;

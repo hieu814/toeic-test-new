@@ -14,14 +14,38 @@ class DashboardModel {
   RxList<CategoriesItemModel> categoriesReadingItemList =
       RxList.generate(3, (index) => CategoriesItemModel(part: index + 4));
 
-  RxList<ExamCategoryItemModel> fullTestCategoryItemList =
-      RxList.generate(3, (index) => ExamCategoryItemModel());
-  RxList<ExamCategoryItemModel> miniTestCategoryItemList =
-      RxList.generate(3, (index) => ExamCategoryItemModel());
+  RxList<ExamCategoryItemModel> fullTestCategoryItemList = RxList([]);
+  RxList<ExamCategoryItemModel> miniTestCategoryItemList = RxList([]);
 
-  RxList<MegasaleItemModel> megasaleItemList =
-      RxList.generate(3, (index) => MegasaleItemModel());
+  RxList<MegasaleItemModel> megasaleItemList = RxList([]);
 
-  RxList<DashboardItemModel> dashboardItemList =
-      RxList.generate(4, (index) => DashboardItemModel());
+  RxList<DashboardItemModel> dashboardItemList = RxList([]);
+  void setSliderofferbannertitlItemList(
+      List<SliderofferbannertitlItemModel> list) {
+    sliderofferbannertitlItemList.assignAll(list);
+  }
+
+  void setCategoriesListeningItemList(List<CategoriesItemModel> list) {
+    categoriesListeningItemList.assignAll(list);
+  }
+
+  void setCategoriesReadingItemList(List<CategoriesItemModel> list) {
+    categoriesReadingItemList.assignAll(list);
+  }
+
+  void setFullTestCategoryItemList(List<ExamCategoryItemModel> list) {
+    fullTestCategoryItemList.assignAll(list);
+  }
+
+  void setMiniTestCategoryItemList(List<ExamCategoryItemModel> list) {
+    miniTestCategoryItemList.assignAll(list);
+  }
+
+  void setMegasaleItemList(List<MegasaleItemModel> list) {
+    megasaleItemList.assignAll(list);
+  }
+
+  void setDashboardItemList(List<DashboardItemModel> list) {
+    dashboardItemList.assignAll(list);
+  }
 }
