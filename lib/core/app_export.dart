@@ -21,3 +21,4 @@ export 'package:toeic_test/core/utils/permission_manager.dart';
 export 'package:permission_handler/permission_handler.dart';
 export 'package:toeic_test/core/utils/file_upload_helper.dart';
 export 'package:toeic_test/core/utils/api_constant.dart';
+export 'package:toeic_test/core/utils/categoryType.dart';

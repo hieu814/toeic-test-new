@@ -7,7 +7,7 @@ import 'controller/dashboard_controller.dart';
 import 'models/categories_item_model.dart';
 import 'models/dashboard_item_model.dart';
 import 'models/dashboard_model.dart';
-import 'models/exam_category_item_model.dart';
+import 'models/category_item_model.dart';
 import 'models/megasale_item_model.dart';
 import 'models/sliderofferbannertitl_item_model.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -268,7 +268,7 @@ class DashboardPage extends StatelessWidget {
                                     Align(
                                         alignment: Alignment.centerRight,
                                         child: Container(
-                                            height: getVerticalSize(250),
+                                            height: getVerticalSize(200),
                                             child: Obx(() => ListView.separated(
                                                 padding: getPadding(top: 12),
                                                 scrollDirection:
@@ -285,16 +285,16 @@ class DashboardPage extends StatelessWidget {
                                                     .fullTestCategoryItemList
                                                     .length,
                                                 itemBuilder: (context, index) {
-                                                  ExamCategoryItemModel model =
+                                                  CategoryItemModel model =
                                                       controller
                                                               .dashboardModelObj
                                                               .value
                                                               .fullTestCategoryItemList[
                                                           index];
                                                   return ExamCategoryItemWidget(
-                                                      model,
-                                                      onTapProduct:
-                                                          onTapProduct);
+                                                      model, onTap: () {
+                                                    onTapCategory(model);
+                                                  });
                                                 })))),
                                     // -- full test
                                     // mini test
@@ -344,7 +344,7 @@ class DashboardPage extends StatelessWidget {
                                     Align(
                                         alignment: Alignment.centerRight,
                                         child: Container(
-                                            height: getVerticalSize(250),
+                                            height: getVerticalSize(200),
                                             child: Obx(() => ListView.separated(
                                                 padding: getPadding(top: 12),
                                                 scrollDirection:
@@ -362,7 +362,7 @@ class DashboardPage extends StatelessWidget {
                                                         .length) ??
                                                     0,
                                                 itemBuilder: (context, index) {
-                                                  ExamCategoryItemModel model =
+                                                  CategoryItemModel model =
                                                       controller
                                                               .dashboardModelObj
                                                               .value
@@ -371,9 +371,9 @@ class DashboardPage extends StatelessWidget {
                                                   print(
                                                       "------------------ ${controller.dashboardModelObj.value.miniTestCategoryItemList.length}");
                                                   return ExamCategoryItemWidget(
-                                                      model,
-                                                      onTapProduct:
-                                                          onTapProduct);
+                                                      model, onTap: () {
+                                                    onTapCategory(model);
+                                                  });
                                                 })))),
                                     // -- mini test
                                   ])));
@@ -395,8 +395,12 @@ class DashboardPage extends StatelessWidget {
   onTapTxtSearchproduct() {}
   onTapDownload() {}
   onTapNotification() {}
-  onTapProduct() {}
-  onTapProducts() {}
+  onTapCategory(CategoryItemModel data) {
+    Get.toNamed(AppRoutes.categoryScreen,
+        arguments: {"category": data, "type": CategoryType.exam});
+  }
+
+  onTapCategorys() {}
   onTapMegaSaleProduct() {
 // TODO: implement Actions
   }

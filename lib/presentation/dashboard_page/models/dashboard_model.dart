@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'sliderofferbannertitl_item_model.dart';
 import 'categories_item_model.dart';
-import 'exam_category_item_model.dart';
+import 'category_item_model.dart';
 import 'megasale_item_model.dart';
 import 'dashboard_item_model.dart';
 
@@ -14,8 +14,8 @@ class DashboardModel {
   RxList<CategoriesItemModel> categoriesReadingItemList =
       RxList.generate(3, (index) => CategoriesItemModel(part: index + 4));
 
-  RxList<ExamCategoryItemModel> fullTestCategoryItemList = RxList([]);
-  RxList<ExamCategoryItemModel> miniTestCategoryItemList = RxList([]);
+  RxList<CategoryItemModel> fullTestCategoryItemList = RxList([]);
+  RxList<CategoryItemModel> miniTestCategoryItemList = RxList([]);
 
   RxList<MegasaleItemModel> megasaleItemList = RxList([]);
 
@@ -33,11 +33,11 @@ class DashboardModel {
     categoriesReadingItemList.assignAll(list);
   }
 
-  void setFullTestCategoryItemList(List<ExamCategoryItemModel> list) {
+  void setFullTestCategoryItemList(List<CategoryItemModel> list) {
     fullTestCategoryItemList.assignAll(list);
   }
 
-  void setMiniTestCategoryItemList(List<ExamCategoryItemModel> list) {
+  void setMiniTestCategoryItemList(List<CategoryItemModel> list) {
     miniTestCategoryItemList.assignAll(list);
   }
 

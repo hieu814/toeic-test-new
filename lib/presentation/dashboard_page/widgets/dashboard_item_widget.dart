@@ -6,19 +6,19 @@ import 'package:toeic_test/core/app_export.dart';
 
 // ignore: must_be_immutable
 class DashboardItemWidget extends StatelessWidget {
-  DashboardItemWidget(this.dashboardItemModelObj, {this.onTapProducts});
+  DashboardItemWidget(this.dashboardItemModelObj, {this.onTaps});
 
   DashboardItemModel dashboardItemModelObj;
 
   var controller = Get.find<DashboardController>();
 
-  VoidCallback? onTapProducts;
+  VoidCallback? onTaps;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        onTapProducts?.call();
+        onTaps?.call();
       },
       child: Container(
         padding: getPadding(

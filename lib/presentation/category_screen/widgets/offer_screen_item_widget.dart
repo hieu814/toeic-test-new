@@ -6,19 +6,19 @@ import 'package:toeic_test/core/app_export.dart';
 
 // ignore: must_be_immutable
 class OfferScreenItemWidget extends StatelessWidget {
-  OfferScreenItemWidget(this.offerScreenItemModelObj, {this.onTapProduct});
+  OfferScreenItemWidget(this.offerScreenItemModelObj, {this.onTap});
 
   OfferScreenItemModel offerScreenItemModelObj;
 
   var controller = Get.find<CategoryController>();
 
-  VoidCallback? onTapProduct;
+  VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        onTapProduct?.call();
+        onTap?.call();
       },
       child: Container(
         padding: getPadding(

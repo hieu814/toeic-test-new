@@ -4,7 +4,7 @@ import 'package:toeic_test/core/app_export.dart';
 import 'package:toeic_test/data/apiClient/api_client.dart';
 import 'package:toeic_test/presentation/dashboard_page/models/categories_item_model.dart';
 import 'package:toeic_test/presentation/dashboard_page/models/dashboard_model.dart';
-import 'package:toeic_test/presentation/dashboard_page/models/exam_category_item_model.dart';
+import 'package:toeic_test/presentation/dashboard_page/models/category_item_model.dart';
 
 class DashboardController extends GetxController {
   DashboardController();
@@ -36,7 +36,7 @@ class DashboardController extends GetxController {
 
   Future<void> callFetchFullTestExamCategory() async {
     try {
-      List<ExamCategoryItemModel> list = [];
+      List<CategoryItemModel> list = [];
       Map<String, dynamic> query = Get.find<ApiClient>().buildQuery({
         "page": 0,
         "rowsPerPage": 10,
@@ -47,9 +47,8 @@ class DashboardController extends GetxController {
       final data = response['data']['data'] as List<dynamic>;
       print({"callFetchFullTestExamCategory": data});
       list.assignAll(
-          data.map((item) => ExamCategoryItemModel.fromJson(item)).toList());
+          data.map((item) => CategoryItemModel.fromJson(item)).toList());
       dashboardModelObj.value.setFullTestCategoryItemList(list);
-      dashboardModelObj.value.setMiniTestCategoryItemList([]);
     } catch (e) {
       rethrow;
     }
@@ -57,7 +56,7 @@ class DashboardController extends GetxController {
 
   Future<void> callFetchMiniTestExamCategory() async {
     try {
-      List<ExamCategoryItemModel> list = [];
+      List<CategoryItemModel> list = [];
       Map<String, dynamic> query = Get.find<ApiClient>().buildQuery({
         "page": 0,
         "rowsPerPage": 10,
@@ -68,7 +67,7 @@ class DashboardController extends GetxController {
       final data = response['data']['data'] as List<dynamic>;
       print({"callFetchMiniTestExamCategory": data});
       list.assignAll(
-          data.map((item) => ExamCategoryItemModel.fromJson(item)).toList());
+          data.map((item) => CategoryItemModel.fromJson(item)).toList());
       dashboardModelObj.value.setMiniTestCategoryItemList(list);
     } catch (e) {
       rethrow;

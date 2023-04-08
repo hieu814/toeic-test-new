@@ -73,7 +73,14 @@ class AppStyle {
     fontFamily: 'Poppins',
     fontWeight: FontWeight.w700,
   );
-
+  static TextStyle txtPoppinsBold18Indigo900 = TextStyle(
+    color: ColorConstant.indigo900,
+    fontSize: getFontSize(
+      18,
+    ),
+    fontFamily: 'Poppins',
+    fontWeight: FontWeight.w700,
+  );
   static TextStyle txtPoppinsBold10 = TextStyle(
     color: ColorConstant.pink300,
     fontSize: getFontSize(

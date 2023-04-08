@@ -1,11 +1,12 @@
-class ExamCategoryItemModel {
+
+class CategoryItemModel {
   String name;
   String image;
   String description;
   String id;
   int count;
 
-  ExamCategoryItemModel({
+  CategoryItemModel({
     this.name = "",
     this.image = "",
     this.description = "",
@@ -13,8 +14,8 @@ class ExamCategoryItemModel {
     this.id = "",
   });
 
-  factory ExamCategoryItemModel.fromJson(Map<String, dynamic> json) {
-    return ExamCategoryItemModel(
+  factory CategoryItemModel.fromJson(Map<String, dynamic> json) {
+    return CategoryItemModel(
       name: json['name'],
       image: json['image'],
       description: json['description'],
