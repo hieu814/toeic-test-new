@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:toeic_test/core/utils/api_constant.dart';
 
 class CustomImageView extends StatelessWidget {
   ///[url] is required parameter for fetching network image
@@ -97,6 +98,7 @@ class CustomImageView extends StatelessWidget {
   }
 
   Widget _buildImageView() {
+    String _url = ApiConstant.getFileUrl(url ?? "");
     if (svgPath != null && svgPath!.isNotEmpty) {
       return Container(
         height: height,
@@ -122,9 +124,9 @@ class CustomImageView extends StatelessWidget {
         height: height,
         width: width,
         fit: fit,
-        imageUrl: url!,
+        imageUrl: _url!,
         color: color,
-        placeholder: (context, url) => Container(
+        placeholder: (context, _url) => Container(
           height: 30,
           width: 30,
           child: LinearProgressIndicator(
@@ -132,7 +134,7 @@ class CustomImageView extends StatelessWidget {
             backgroundColor: Colors.grey.shade100,
           ),
         ),
-        errorWidget: (context, url, error) => Image.asset(
+        errorWidget: (context, _url, error) => Image.asset(
           placeHolder,
           height: height,
           width: width,

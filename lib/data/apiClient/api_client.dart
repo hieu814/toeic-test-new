@@ -81,6 +81,26 @@ class ApiClient extends GetConnect {
     }
   }
 
+  Future<Map<String, dynamic>> requestGet(String apiUrl) async {
+    // ProgressDialogUtils.showProgressDialog();
+    try {
+      await isNetworkConnected();
+      http.Response response =
+          await http.get(Uri.parse('$url$apiUrl'), headers: getHeader());
+      ProgressDialogUtils.hideProgressDialog();
+      if (_isSuccessCall(response)) {
+        final responseBody = json.decode(response.body);
+        return responseBody;
+      } else {
+        throw response.body != null ? response.body : 'Something Went Wrong!';
+      }
+    } catch (error, stackTrace) {
+      // ProgressDialogUtils.hideProgressDialog();
+      Logger.log(error, stackTrace: stackTrace);
+      rethrow;
+    }
+  }
+
   Future<Map<String, dynamic>> getTokenFromServer(
       String firebaseAccessToken) async {
     try {

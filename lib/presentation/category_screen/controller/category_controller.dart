@@ -34,8 +34,8 @@ class CategoryController extends GetxController {
         "queryField": {"category": category.value.id},
       });
 
-      final response =
-          await Get.find<ApiClient>().requestPost(ApiConstant.exams, query);
+      final response = await Get.find<ApiClient>()
+          .requestPost("${ApiConstant.exams}/list", query);
       final data = (response['data']['data'] ?? []) as List<dynamic>;
       list.assignAll(data.map((item) => ExamModel.fromJson(item)).toList());
       // print("------------------------- exams.value ${list.length}");

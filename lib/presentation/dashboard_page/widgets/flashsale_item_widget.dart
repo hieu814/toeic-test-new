@@ -25,20 +25,22 @@ class ExamCategoryItemWidget extends StatelessWidget {
           margin: getMargin(
             right: 10,
           ),
-          // padding: getPadding(
-          //   all: 10,
-          // ),
-          decoration: AppDecoration.outlineBlue501.copyWith(
-            borderRadius: BorderRadiusStyle.roundedBorder5,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.center,
+              end: Alignment.bottomCenter,
+              colors: [
+                ColorConstant.whiteA700,
+                Color.fromARGB(255, 183, 236, 166),
+              ],
+            ),
+            borderRadius: BorderRadius.circular(20),
           ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
+          child: Stack(
             children: [
               CustomImageView(
                 url: ApiConstant.getFileUrl(CategoryItemModelObj.image ?? ""),
-                // imagePath: ImageConstant.imgProductimage109x1091,
+                fit: BoxFit.fill,
                 height: getSize(
                   109,
                 ),
@@ -47,36 +49,34 @@ class ExamCategoryItemWidget extends StatelessWidget {
                 ),
                 radius: BorderRadius.circular(
                   getHorizontalSize(
-                    25,
+                    10,
                   ),
                 ),
               ),
-              Text(
-                CategoryItemModelObj.name ?? "",
-                maxLines: null,
-                textAlign: TextAlign.left,
-                style: AppStyle.txtPoppinsBold18Indigo900.copyWith(
-                  letterSpacing: getHorizontalSize(
-                    0.5,
+              Positioned.fill(
+                child: Container(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          CategoryItemModelObj.name,
+                          maxLines: 4,
+                          textAlign: TextAlign.center,
+                          style: AppStyle.txtPoppinsBold18Indigo900.copyWith(
+                              // letterSpacing: getHorizontalSize(
+                              //   0.5,
+                              // ),
+                              ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              )
-
-              // Padding(
-              //   padding: getPadding(
-              //     top: 11,
-              //   ),
-              //   child: Text(
-              //     "${CategoryItemModelObj.count ?? 0} ${"lbl_exam".tr}",
-              //     overflow: TextOverflow.ellipsis,
-              //     textAlign: TextAlign.left,
-              //     style: AppStyle.txtPoppinsBold12.copyWith(
-              //       letterSpacing: getHorizontalSize(
-              //         0.5,
-              //       ),
-              //     ),
-              //   ),
-              // ),
+              ),
             ],
           ),
         ),

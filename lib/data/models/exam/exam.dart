@@ -2,17 +2,19 @@ import 'package:toeic_test/data/models/exam/group_question.dart';
 
 class ExamModel {
   final String name;
+  final String id;
   final int type;
   final String image;
   final String description;
   final List<GroupQuestionModel> questions;
 
   ExamModel({
-    required this.name,
-    required this.type,
-    required this.image,
-    required this.description,
-    required this.questions,
+    this.id = "",
+    this.name = "",
+    this.type = 0,
+    this.image = "",
+    this.description = "",
+    this.questions = const [],
   });
 
   factory ExamModel.fromJson(Map<String, dynamic> json) {
@@ -23,7 +25,15 @@ class ExamModel {
           .map((question) => GroupQuestionModel.fromJson(question))
           .toList();
     }
+    groupQuestions.removeWhere((question) => question.questions.length == 0);
+    groupQuestions.sort(
+        (a, b) => a.minQuestion().number.compareTo(b.minQuestion().number));
+    // for (var question in groupQuestions) {
+    //   print('Question ${question.group}');
+    // }
+
     return ExamModel(
+      id: json['id'] ?? "",
       name: json['name'] ?? "",
       type: json['type'] ?? 0,
       image: json['image'] ?? "",
@@ -34,6 +44,7 @@ class ExamModel {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
     data['name'] = this.name;
     data['type'] = this.type;
     data['image'] = this.image;

@@ -1,3 +1,5 @@
+import 'package:toeic_test/presentation/exam_test_screen/binding/exam_test_binding.dart';
+import 'package:toeic_test/presentation/exam_test_screen/exam_test_screen.dart';
 import 'package:toeic_test/presentation/splash_screen/splash_screen.dart';
 import 'package:toeic_test/presentation/splash_screen/binding/splash_binding.dart';
 import 'package:toeic_test/presentation/login_screen/login_screen.dart';
@@ -50,6 +52,8 @@ class AppRoutes {
   static const String explorePage = '/explore_page';
 
   static const String listCategoryScreen = '/list_category_screen';
+
+  static const String examTestScreen = '/exam_test_screen';
 
   static const String successScreen = '/success_screen';
 
@@ -169,6 +173,13 @@ class AppRoutes {
       page: () => SplashScreen(),
       bindings: [
         SplashBinding(),
+      ],
+    ),
+    GetPage(
+      name: examTestScreen,
+      page: () => ExamTestScreen(),
+      bindings: [
+        ExamTestBinding(),
       ],
     )
   ];

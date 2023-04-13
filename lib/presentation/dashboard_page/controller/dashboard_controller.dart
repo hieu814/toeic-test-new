@@ -16,6 +16,7 @@ class DashboardController extends GetxController {
   @override
   void onReady() {
     super.onReady();
+    getAll();
   }
 
   @override
@@ -26,7 +27,6 @@ class DashboardController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    getAll();
   }
 
   Future<void> getAll() async {
@@ -43,7 +43,7 @@ class DashboardController extends GetxController {
         "queryField": {"type": 0},
       });
       final response = await Get.find<ApiClient>()
-          .requestPost(ApiConstant.examCategory, query);
+          .requestPost("${ApiConstant.examCategory}", query);
       final data = response['data']['data'] as List<dynamic>;
       print({"callFetchFullTestExamCategory": data});
       list.assignAll(
@@ -63,7 +63,7 @@ class DashboardController extends GetxController {
         "queryField": {"type": 1},
       });
       final response = await Get.find<ApiClient>()
-          .requestPost(ApiConstant.examCategory, query);
+          .requestPost("${ApiConstant.examCategory}", query);
       final data = response['data']['data'] as List<dynamic>;
       print({"callFetchMiniTestExamCategory": data});
       list.assignAll(

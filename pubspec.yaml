@@ -25,6 +25,7 @@ dependencies:
   flutter_facebook_auth: ^5.0.8
   http: ^0.13.5
   infinite_scroll_pagination: ^3.2.0
+  audioplayers: ^4.0.1
 dev_dependencies: 
   flutter_test: 
     sdk: flutter

@@ -26,12 +26,12 @@ class GroupQuestionModel {
     for (var question in json['questions'] ?? []) {
       questions.add(QuestionModel.fromJson(question));
     }
-
+    questions.sort((a, b) => a.number.compareTo(b.number));
     List<PassageModel> passages = [];
     for (var passage in json['passages'] ?? []) {
       passages.add(PassageModel.fromJson(passage));
     }
-
+    passages.sort((a, b) => a.number.compareTo(b.number));
     return GroupQuestionModel(
       group: json['group'] ?? "",
       type: json['type'] ?? 0,
@@ -44,7 +44,12 @@ class GroupQuestionModel {
       label: json['label'] ?? "",
     );
   }
+  QuestionModel minQuestion() {
+    return questions.reduce(
+        (current, next) => (current.number < next.number) ? current : next);
+  }
 
+  void sort() {}
   Map<String, dynamic> toJson() {
     List<Map<String, dynamic>> questions = [];
     for (var question in this.questions) {
