@@ -186,4 +186,111 @@ class AppStyle {
     fontFamily: 'Poppins',
     fontWeight: FontWeight.w700,
   );
+  static TextStyle txtRubikRegular14Bluegray600 = TextStyle(
+    color: ColorConstant.blueGray600,
+    fontSize: getFontSize(
+      14,
+    ),
+    fontFamily: 'Rubik',
+    fontWeight: FontWeight.w400,
+  );
+
+  static TextStyle txtRubikBold24 = TextStyle(
+    color: ColorConstant.blueA400,
+    fontSize: getFontSize(
+      24,
+    ),
+    fontFamily: 'Rubik',
+    fontWeight: FontWeight.w700,
+  );
+
+  static TextStyle txtRubikRegular18 = TextStyle(
+    color: ColorConstant.blueGray900,
+    fontSize: getFontSize(
+      18,
+    ),
+    fontFamily: 'Rubik',
+    fontWeight: FontWeight.w400,
+  );
+
+  static TextStyle txtRubikRegular12 = TextStyle(
+    color: ColorConstant.blueGray900,
+    fontSize: getFontSize(
+      12,
+    ),
+    fontFamily: 'Rubik',
+    fontWeight: FontWeight.w400,
+  );
+
+  static TextStyle txtRubikRegular14 = TextStyle(
+    color: ColorConstant.blueGray900,
+    fontSize: getFontSize(
+      14,
+    ),
+    fontFamily: 'Rubik',
+    fontWeight: FontWeight.w400,
+  );
+
+  static TextStyle txtRubikMedium12 = TextStyle(
+    color: ColorConstant.blueGray900,
+    fontSize: getFontSize(
+      12,
+    ),
+    fontFamily: 'Rubik',
+    fontWeight: FontWeight.w500,
+  );
+
+  static TextStyle txtRubikMedium12BlueA400 = TextStyle(
+    color: ColorConstant.blueA400,
+    fontSize: getFontSize(
+      12,
+    ),
+    fontFamily: 'Rubik',
+    fontWeight: FontWeight.w500,
+  );
+
+  static TextStyle txtRubikMedium16 = TextStyle(
+    color: ColorConstant.green700,
+    fontSize: getFontSize(
+      16,
+    ),
+    fontFamily: 'Rubik',
+    fontWeight: FontWeight.w500,
+  );
+
+  static TextStyle txtRubikMedium14 = TextStyle(
+    color: ColorConstant.blueGray900,
+    fontSize: getFontSize(
+      14,
+    ),
+    fontFamily: 'Rubik',
+    fontWeight: FontWeight.w500,
+  );
+
+  static TextStyle txtRubikMedium24 = TextStyle(
+    color: ColorConstant.whiteA700,
+    fontSize: getFontSize(
+      24,
+    ),
+    fontFamily: 'Rubik',
+    fontWeight: FontWeight.w500,
+  );
+
+  static TextStyle txtRubikMedium14BlueA400 = TextStyle(
+    color: ColorConstant.blueA400,
+    fontSize: getFontSize(
+      14,
+    ),
+    fontFamily: 'Rubik',
+    fontWeight: FontWeight.w500,
+  );
+
+  static TextStyle txtRubikMedium18 = TextStyle(
+    color: ColorConstant.blueGray900,
+    fontSize: getFontSize(
+      18,
+    ),
+    fontFamily: 'Rubik',
+    fontWeight: FontWeight.w500,
+  );
 }

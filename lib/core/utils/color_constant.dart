@@ -30,6 +30,31 @@ class ColorConstant {
   static Color whiteA700 = fromHex('#ffffff');
 
   static Color whiteA7002 = fromHex('#ede8e8');
+  static Color blueA400 = fromHex('#1f87fe');
+
+  static Color blueGray10000 = fromHex('#00d7d7d7');
+
+  static Color indigo50 = fromHex('#e9eef8');
+
+  static Color blueGray600 = fromHex('#4c5980');
+
+  static Color black9000c01 = fromHex('#0c090b0f');
+
+  static Color black9000c = fromHex('#0c000000');
+
+  static Color green700 = fromHex('#219653');
+
+  static Color blueGray9006c = fromHex('#6c2d3142');
+
+  static Color gray100 = fromHex('#f4f6fa');
+
+  static Color gray10001 = fromHex('#f0f3fa');
+
+  static Color indigo5001 = fromHex('#ebf0fa');
+
+  static Color blueGray900 = fromHex('#2d3142');
+
+  static Color blueA4006c = fromHex('#6c1f87fe');
 
 // #424242
 

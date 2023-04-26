@@ -24,10 +24,14 @@ class ExamModel {
       groupQuestions = questionList
           .map((question) => GroupQuestionModel.fromJson(question))
           .toList();
+      groupQuestions.removeWhere((question) => question.questions.length == 0);
+      groupQuestions.sort(
+          (a, b) => a.minQuestion().number.compareTo(b.minQuestion().number));
+    } else {
+      groupQuestions =
+          questionList.map((question) => GroupQuestionModel()).toList();
     }
-    groupQuestions.removeWhere((question) => question.questions.length == 0);
-    groupQuestions.sort(
-        (a, b) => a.minQuestion().number.compareTo(b.minQuestion().number));
+
     // for (var question in groupQuestions) {
     //   print('Question ${question.group}');
     // }

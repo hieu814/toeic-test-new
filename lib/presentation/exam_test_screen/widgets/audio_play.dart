@@ -109,14 +109,16 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
           ),
           Expanded(
             child: Slider(
-              value: sliderValue,
+              value: sliderValue < audioDuration.inMilliseconds.toDouble()
+                  ? sliderValue
+                  : audioDuration.inMilliseconds.toDouble(),
               min: 0.0,
               max: audioDuration.inMilliseconds.toDouble(),
               onChanged: (value) {
-                if (value < audioDuration.inMilliseconds.toDouble()) {
-                  setState(() {
-                    sliderValue = value;
-                  });
+                if (value < audioDuration.inMilliseconds.toDouble() - 100) {
+                  // setState(() {
+                  //   sliderValue = value;
+                  // });
                 }
               },
               onChangeEnd: _seek,

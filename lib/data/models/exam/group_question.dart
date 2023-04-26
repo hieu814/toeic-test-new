@@ -5,7 +5,7 @@ class GroupQuestionModel {
   String audio;
   String transcript;
   List<QuestionModel> questions;
-  List<PassageModel> passages;
+  String passage;
   String exam;
   String label;
 
@@ -16,7 +16,7 @@ class GroupQuestionModel {
     this.audio = "",
     this.transcript = "",
     this.questions = const [],
-    this.passages = const [],
+    this.passage = "",
     this.exam = "",
     this.label = "",
   });
@@ -27,11 +27,6 @@ class GroupQuestionModel {
       questions.add(QuestionModel.fromJson(question));
     }
     questions.sort((a, b) => a.number.compareTo(b.number));
-    List<PassageModel> passages = [];
-    for (var passage in json['passages'] ?? []) {
-      passages.add(PassageModel.fromJson(passage));
-    }
-    passages.sort((a, b) => a.number.compareTo(b.number));
     return GroupQuestionModel(
       group: json['group'] ?? "",
       type: json['type'] ?? 0,
@@ -39,7 +34,7 @@ class GroupQuestionModel {
       audio: json['audio'] ?? "",
       transcript: json['transcript'] ?? "",
       questions: questions,
-      passages: passages,
+      passage: json['passage'] ?? "",
       exam: json['exam'] ?? "",
       label: json['label'] ?? "",
     );
@@ -56,11 +51,6 @@ class GroupQuestionModel {
       questions.add(question.toJson());
     }
 
-    List<Map<String, dynamic>> passages = [];
-    for (var passage in this.passages) {
-      passages.add(passage.toJson());
-    }
-
     return {
       'group': this.group,
       'type': this.type,
@@ -68,7 +58,7 @@ class GroupQuestionModel {
       'audio': this.audio,
       'transcript': this.transcript,
       'questions': questions,
-      'passages': passages,
+      'passages': passage,
       'exam': this.exam,
       'label': this.label,
     };
@@ -77,31 +67,31 @@ class GroupQuestionModel {
 
 class QuestionModel {
   int number;
-  String question;
-  String a;
-  String b;
-  String c;
-  String d;
-  String correctAnswer;
+  String? question;
+  String? A;
+  String? B;
+  String? C;
+  String? D;
+  String? correctAnswer;
 
   QuestionModel({
-    required this.number,
-    required this.question,
-    required this.a,
-    required this.b,
-    required this.c,
-    required this.d,
-    required this.correctAnswer,
+    this.number = 0,
+    this.question,
+    this.A,
+    this.B,
+    this.C,
+    this.D,
+    this.correctAnswer,
   });
 
   factory QuestionModel.fromJson(Map<String, dynamic> json) {
     return QuestionModel(
       number: json['number'] ?? 0,
       question: json['question'] ?? "",
-      a: json['A'] ?? "",
-      b: json['B'] ?? "",
-      c: json['C'] ?? "",
-      d: json['D'] ?? "",
+      A: json['A'] ?? "",
+      B: json['B'] ?? "",
+      C: json['C'] ?? "",
+      D: json['D'] ?? "",
       correctAnswer: json['correct_answer'] ?? "",
     );
   }
@@ -110,10 +100,10 @@ class QuestionModel {
     return {
       'number': this.number,
       'question': this.question,
-      'A': this.a,
-      'B': this.b,
-      'C': this.c,
-      'D': this.d,
+      'A': this.A,
+      'B': this.B,
+      'C': this.C,
+      'D': this.D,
       'correct_answer': this.correctAnswer,
     };
   }

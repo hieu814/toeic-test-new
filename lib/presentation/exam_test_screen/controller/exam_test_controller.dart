@@ -8,8 +8,10 @@ import 'package:toeic_test/data/apiClient/api_client.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class TestController extends GetxController {
+  RxBool isSubmited = RxBool(false);
   Rx<ExamModel> exam = ExamModel().obs;
   RxList<GroupQuestionModel> questions = RxList([]);
+  Rx<Map<int, String>> answers = Rx<Map<int, String>>({});
   Rx<GroupQuestionModel> currentQuesttion = GroupQuestionModel().obs;
   RxString time = RxString("00:00:00");
   GetMeResp getMeResp = GetMeResp();
@@ -18,6 +20,7 @@ class TestController extends GetxController {
   Future<void> onReady() async {
     super.onReady();
     try {
+      answers.value = {};
       final arg = Get.arguments as ExamModel;
       getExam(arg.id);
     } catch (e) {
@@ -30,6 +33,15 @@ class TestController extends GetxController {
   @override
   void onClose() {
     super.onClose();
+  }
+
+  void selectAnswer(int question, String answer) {
+    answers.value[question] = answer;
+  }
+
+  void submit() {
+    print("submit");
+    isSubmited.value = true;
   }
 
   Future<void> getExam(String? examID) async {
@@ -113,6 +125,7 @@ class TestController extends GetxController {
   }
 
   void onBack() async {
+    print("on back");
     currentIndex--;
     if (currentIndex >= 0) {
       currentQuesttion.value = exam.value.questions[currentIndex];

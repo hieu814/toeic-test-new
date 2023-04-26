@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:toeic_test/core/app_export.dart';
 import 'package:toeic_test/presentation/exam_test_screen/widgets/audio_play.dart';
+import 'package:toeic_test/presentation/exam_test_screen/widgets/group_question_widget.dart';
+import 'package:toeic_test/presentation/exam_test_screen/widgets/question_wiget.dart';
 import 'package:toeic_test/widgets/app_bar/appbar_image.dart';
 import 'package:toeic_test/widgets/app_bar/appbar_title.dart';
 import 'package:toeic_test/widgets/app_bar/custom_app_bar.dart';
@@ -54,7 +56,7 @@ class ExamTestScreen extends GetWidget<TestController> {
                 padding: const EdgeInsets.all(4.0),
                 child: ElevatedButton(
                   onPressed: () async {
-                    // Get.toNamed(RouteName.testScreen);
+                    controller.submit();
                   },
                   style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.green,
@@ -75,11 +77,23 @@ class ExamTestScreen extends GetWidget<TestController> {
         body: SafeArea(
           child: Column(
             children: [
-              Expanded(child: Container()),
+              Expanded(
+                  child: Container(
+                child: Obx(() => GroupQuestionWidget(
+                      key: UniqueKey(),
+                      groupQuestion: controller.currentQuesttion.value,
+                    )),
+              )),
               Card(
                 child: Column(
                   children: [
                     Obx(() => controller.currentQuesttion.value.type < 5
+                        ? AudioPlayerWidget(
+                            key: UniqueKey(),
+                            autoPlay: true,
+                            audioUrl: controller.currentQuesttion.value.audio)
+                        : Container()),
+                    Obx(() => controller.currentQuesttion.value.type > 5
                         ? AudioPlayerWidget(
                             key: UniqueKey(),
                             autoPlay: true,
@@ -90,7 +104,7 @@ class ExamTestScreen extends GetWidget<TestController> {
                       children: [
                         IconButton(
                           icon: Icon(Icons.arrow_back_ios),
-                          onPressed: () => {print("Click next")},
+                          onPressed: () => {controller.onBack()},
                         ),
                         Expanded(
                             child: Row(
@@ -129,122 +143,5 @@ class ExamTestScreen extends GetWidget<TestController> {
             ],
           ),
         ));
-  }
-}
-
-class TopBar extends StatelessWidget {
-  const TopBar(
-      {Key? key, required this.text, required this.time, this.onPressed})
-      : super(key: key);
-  final String text;
-  final String time;
-
-  final void Function()? onPressed;
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: 50,
-      // color: kColorFimary,
-      child: Row(children: [
-        Padding(
-          padding: const EdgeInsets.all(4.0),
-          child: ElevatedButton(
-            onPressed: () async {
-              // Get.toNamed(RouteName.testScreen);
-            },
-            style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.green,
-                fixedSize: const Size(100, 70),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5))),
-            child: Text(
-              text,
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 15,
-                // color: invert(HexColor(color ?? "#FFFFFF"))
-              ),
-            ),
-          ),
-        ),
-        Expanded(
-            child: Center(
-          child: Text(
-            time,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 40,
-              // color: invert(HexColor(color ?? "#FFFFFF"))
-            ),
-          ),
-        )),
-        Padding(
-          padding: const EdgeInsets.all(4.0),
-          child: ElevatedButton(
-            onPressed: () async {
-              // Get.toNamed(RouteName.testScreen);
-            },
-            style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.green,
-                fixedSize: const Size(100, 70),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10))),
-            child: const Text(
-              'Submit',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
-                // color: invert(HexColor(color ?? "#FFFFFF"))
-              ),
-            ),
-          ),
-        ),
-      ]),
-    );
-  }
-}
-
-class BottomBar extends StatelessWidget {
-  const BottomBar({
-    Key? key,
-    this.onNext,
-    this.onBack,
-  }) : super(key: key);
-
-  final void Function()? onNext;
-  final void Function()? onBack;
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      child: Column(children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 8),
-              child: ElevatedButton(
-                // style: raisedButtonStyle,
-                onPressed: onBack,
-                child: const Text('Back'),
-              ),
-            ),
-            Expanded(child: Container()),
-            Padding(
-              padding: const EdgeInsets.only(right: 8),
-              child: ElevatedButton(
-                // style: raisedButtonStyle,
-                onPressed: onNext,
-                child: const Text('Next'),
-              ),
-            ),
-            const SizedBox(
-              height: 50,
-            )
-          ],
-        )
-      ]),
-    );
   }
 }
