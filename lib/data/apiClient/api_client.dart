@@ -5,14 +5,19 @@ import 'package:toeic_test/core/utils/progress_dialog_utils.dart';
 import 'package:toeic_test/data/models/login/post_login_resp.dart';
 import 'package:toeic_test/data/models/me/get_me_resp.dart';
 import 'package:http/http.dart' as http;
+import 'package:toeic_test/data/models/user/User.dart';
 
 class ApiClient extends GetConnect {
   var url = ApiConstant.baseApiUrl;
-
+  UserSchema currentUser = UserSchema();
   @override
   void onInit() {
     super.onInit();
     httpClient.timeout = Duration(seconds: 60);
+  }
+
+  void setCurrentUser(UserSchema user) {
+    currentUser = user;
   }
 
   ///method can be used for checking internet connection
@@ -165,7 +170,7 @@ class ApiClient extends GetConnect {
           ?.where((element) => element.value != null));
       query['query'].addAll(tmp);
     }
-    print(query);
+
     return query;
   }
 

@@ -1,4 +1,5 @@
 import 'package:toeic_test/data/models/exam/group_question.dart';
+import 'package:toeic_test/data/models/exam/result.dart';
 
 class ExamModel {
   final String name;
@@ -7,15 +8,15 @@ class ExamModel {
   final String image;
   final String description;
   final List<GroupQuestionModel> questions;
-
-  ExamModel({
-    this.id = "",
-    this.name = "",
-    this.type = 0,
-    this.image = "",
-    this.description = "",
-    this.questions = const [],
-  });
+  Result? result = null;
+  ExamModel(
+      {this.id = "",
+      this.name = "",
+      this.type = 0,
+      this.image = "",
+      this.description = "",
+      this.questions = const [],
+      this.result});
 
   factory ExamModel.fromJson(Map<String, dynamic> json) {
     List<GroupQuestionModel> groupQuestions = [];

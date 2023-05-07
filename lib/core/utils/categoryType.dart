@@ -1,8 +1,4 @@
-class CategoryType {
-  static int exam = 0;
-  static int article = 1;
-  static int word = 2;
-}
+enum CategoryType { non, miniTest, fullTest, word, article }
 
 class QuestionType {
   static int part1 = 1;

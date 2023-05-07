@@ -9,6 +9,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
       this.leading,
       this.title,
       this.centerTitle,
+      this.backgroundColor,
       this.actions});
 
   double height;
@@ -20,6 +21,8 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
   Widget? title;
 
   bool? centerTitle;
+
+  Color? backgroundColor = Colors.transparent;
 
   List<Widget>? actions;
 

@@ -23,7 +23,7 @@ class DashboardPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-            backgroundColor: ColorConstant.whiteA700,
+            backgroundColor: ColorConstant.gray100,
             appBar: CustomAppBar(
                 height: getVerticalSize(43),
                 leadingWidth: 48,
@@ -32,41 +32,7 @@ class DashboardPage extends StatelessWidget {
                     width: getSize(16),
                     svgPath: ImageConstant.imgSearchLightBlueA200,
                     margin: getMargin(left: 32, top: 4, bottom: 4)),
-                title: GestureDetector(
-                    onTap: () {
-                      onTapTxtSearchproduct();
-                    },
-                    child: Padding(
-                        padding: getPadding(left: 8),
-                        child: Text("lbl_search_product".tr,
-                            overflow: TextOverflow.ellipsis,
-                            textAlign: TextAlign.left,
-                            style: AppStyle.txtPoppinsRegular12.copyWith(
-                                letterSpacing: getHorizontalSize(0.5))))),
-                actions: [
-                  AppbarImage(
-                      height: getSize(24),
-                      width: getSize(24),
-                      svgPath: ImageConstant.imgDownload,
-                      margin: getMargin(left: 16),
-                      onTap: onTapDownload),
-                  Container(
-                      height: getSize(24),
-                      width: getSize(24),
-                      margin: getMargin(left: 16, right: 16),
-                      child: Stack(alignment: Alignment.topRight, children: [
-                        AppbarImage(
-                            height: getSize(24),
-                            width: getSize(24),
-                            svgPath: ImageConstant.imgNotification,
-                            onTap: onTapNotification),
-                        AppbarImage(
-                            height: getSize(8),
-                            width: getSize(8),
-                            svgPath: ImageConstant.imgClose8x8,
-                            margin: getMargin(left: 14, right: 2, bottom: 16))
-                      ]))
-                ]),
+                actions: []),
             body: SizedBox(
                 width: size.width,
                 child: GetBuilder<DashboardController>(
@@ -244,7 +210,7 @@ class DashboardPage extends StatelessWidget {
                                                     MainAxisAlignment
                                                         .spaceBetween,
                                                 children: [
-                                                  Text("lbl_full_test".tr,
+                                                  Text("lbl_pactice".tr,
                                                       overflow:
                                                           TextOverflow.ellipsis,
                                                       textAlign: TextAlign.left,
@@ -254,128 +220,207 @@ class DashboardPage extends StatelessWidget {
                                                               letterSpacing:
                                                                   getHorizontalSize(
                                                                       0.5))),
-                                                  Text("lbl_see_more".tr,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      textAlign: TextAlign.left,
-                                                      style: AppStyle
-                                                          .txtPoppinsBold14LightblueA200
-                                                          .copyWith(
-                                                              letterSpacing:
-                                                                  getHorizontalSize(
-                                                                      0.5)))
                                                 ]))),
                                     Align(
                                         alignment: Alignment.centerRight,
-                                        child: Container(
-                                            height: getVerticalSize(200),
-                                            child: Obx(() => ListView.separated(
-                                                padding: getPadding(top: 12),
-                                                scrollDirection:
-                                                    Axis.horizontal,
-                                                separatorBuilder:
-                                                    (context, index) {
-                                                  return SizedBox(
-                                                      height:
-                                                          getVerticalSize(16));
-                                                },
-                                                itemCount: controller
-                                                    .dashboardModelObj
-                                                    .value
-                                                    .fullTestCategoryItemList
-                                                    .length,
-                                                itemBuilder: (context, index) {
-                                                  CategoryItemModel model =
-                                                      controller
-                                                              .dashboardModelObj
-                                                              .value
-                                                              .fullTestCategoryItemList[
-                                                          index];
-                                                  return ExamCategoryItemWidget(
-                                                      model, onTap: () {
-                                                    onTapCategory(model);
-                                                  });
-                                                })))),
-                                    // -- full test
-                                    // mini test
-                                    GestureDetector(
-                                        onTap: () {
-                                          onTapMegasaleheader();
-                                        },
                                         child: Padding(
-                                            padding:
-                                                getPadding(top: 23, right: 16),
-                                            child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Padding(
-                                                      padding:
-                                                          getPadding(top: 1),
-                                                      child: Text(
-                                                          "lbl_mini_test".tr,
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                          textAlign:
-                                                              TextAlign.left,
-                                                          style: AppStyle
-                                                              .txtPoppinsBold14Indigo900
-                                                              .copyWith(
-                                                                  letterSpacing:
-                                                                      getHorizontalSize(
-                                                                          0.5)))),
-                                                  Padding(
-                                                      padding:
-                                                          getPadding(bottom: 1),
-                                                      child: Text(
-                                                          "lbl_see_more".tr,
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                          textAlign:
-                                                              TextAlign.left,
-                                                          style: AppStyle
-                                                              .txtPoppinsBold14LightblueA200
-                                                              .copyWith(
-                                                                  letterSpacing:
-                                                                      getHorizontalSize(
-                                                                          0.5))))
-                                                ]))),
-                                    Align(
-                                        alignment: Alignment.centerRight,
-                                        child: Container(
-                                            height: getVerticalSize(200),
-                                            child: Obx(() => ListView.separated(
-                                                padding: getPadding(top: 12),
-                                                scrollDirection:
-                                                    Axis.horizontal,
-                                                separatorBuilder:
-                                                    (context, index) {
-                                                  return SizedBox(
-                                                      height:
-                                                          getVerticalSize(16));
-                                                },
-                                                itemCount: (controller
-                                                        .dashboardModelObj
-                                                        .value
-                                                        .miniTestCategoryItemList
-                                                        .length) ??
-                                                    0,
-                                                itemBuilder: (context, index) {
-                                                  CategoryItemModel model =
-                                                      controller
-                                                              .dashboardModelObj
-                                                              .value
-                                                              .miniTestCategoryItemList[
-                                                          index];
-                                                  print(
-                                                      "------------------ ${controller.dashboardModelObj.value.miniTestCategoryItemList.length}");
-                                                  return ExamCategoryItemWidget(
-                                                      model, onTap: () {
-                                                    onTapCategory(model);
-                                                  });
-                                                })))),
-                                    // -- mini test
+                                          padding: getPadding(
+                                            all: 5,
+                                          ),
+                                          child: Row(
+                                            children: [
+                                              Expanded(
+                                                child: Padding(
+                                                  padding: getPadding(
+                                                    all: 10,
+                                                  ),
+                                                  child: GestureDetector(
+                                                    onTap: () {
+                                                      Get.toNamed(
+                                                          AppRoutes
+                                                              .categoryScreen,
+                                                          arguments: {
+                                                            "type": CategoryType
+                                                                .miniTest
+                                                          });
+                                                    },
+                                                    child: Container(
+                                                      height: 150,
+                                                      decoration: AppDecoration
+                                                          .fillWhiteA700
+                                                          .copyWith(
+                                                              borderRadius:
+                                                                  BorderRadiusStyle
+                                                                      .roundedBorder10,
+                                                              color: ColorConstant
+                                                                  .yellow700
+                                                                  .withOpacity(
+                                                                      0.5)),
+                                                      child: Padding(
+                                                        padding: getPadding(
+                                                          all: 20,
+                                                        ),
+                                                        child: FittedBox(
+                                                          child: Column(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .center,
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              Padding(
+                                                                padding:
+                                                                    getPadding(
+                                                                        top: 9,
+                                                                        bottom:
+                                                                            9),
+                                                                child: Column(
+                                                                  children: [
+                                                                    CustomImageView(
+                                                                      height:
+                                                                          100,
+                                                                      width:
+                                                                          100,
+                                                                      imagePath:
+                                                                          ImageConstant
+                                                                              .imgMiniTest,
+                                                                    ),
+                                                                    Padding(
+                                                                      padding: getPadding(
+                                                                          top:
+                                                                              9,
+                                                                          bottom:
+                                                                              9),
+                                                                      child:
+                                                                          Text(
+                                                                        "lbl_toeic_part_1"
+                                                                            .tr,
+                                                                        maxLines:
+                                                                            2,
+                                                                        overflow:
+                                                                            TextOverflow.clip,
+                                                                        textAlign:
+                                                                            TextAlign.left,
+                                                                        style: AppStyle
+                                                                            .txtRubikMedium18
+                                                                            .copyWith(
+                                                                          fontSize:
+                                                                              getFontSize(
+                                                                            30,
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              Expanded(
+                                                child: Padding(
+                                                  padding: getPadding(
+                                                    all: 10,
+                                                  ),
+                                                  child: GestureDetector(
+                                                    onTap: () {
+                                                      Get.toNamed(
+                                                          AppRoutes
+                                                              .categoryScreen,
+                                                          arguments: {
+                                                            "type": CategoryType
+                                                                .fullTest
+                                                          });
+                                                    },
+                                                    child: Container(
+                                                      height: 150,
+                                                      decoration: AppDecoration
+                                                          .fillWhiteA700
+                                                          .copyWith(
+                                                              borderRadius:
+                                                                  BorderRadiusStyle
+                                                                      .roundedBorder10,
+                                                              color: ColorConstant
+                                                                  .lightBlueA200
+                                                                  .withOpacity(
+                                                                      0.5)),
+                                                      child: Padding(
+                                                        padding: getPadding(
+                                                          all: 20,
+                                                        ),
+                                                        child: FittedBox(
+                                                          child: Column(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .center,
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              Padding(
+                                                                padding:
+                                                                    getPadding(
+                                                                        top: 9,
+                                                                        bottom:
+                                                                            9),
+                                                                child: Column(
+                                                                  children: [
+                                                                    CustomImageView(
+                                                                      height:
+                                                                          100,
+                                                                      width:
+                                                                          100,
+                                                                      imagePath:
+                                                                          ImageConstant
+                                                                              .imgFullTest,
+                                                                    ),
+                                                                    Padding(
+                                                                      padding: getPadding(
+                                                                          top:
+                                                                              9,
+                                                                          bottom:
+                                                                              9),
+                                                                      child:
+                                                                          Text(
+                                                                        "lbl_toeic_part_1"
+                                                                            .tr,
+                                                                        maxLines:
+                                                                            2,
+                                                                        overflow:
+                                                                            TextOverflow.clip,
+                                                                        textAlign:
+                                                                            TextAlign.left,
+                                                                        style: AppStyle
+                                                                            .txtRubikMedium18
+                                                                            .copyWith(
+                                                                          fontSize:
+                                                                              getFontSize(
+                                                                            30,
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        )),
+                                    // -- full test
                                   ])));
                     }))));
   }
@@ -385,20 +430,16 @@ class DashboardPage extends StatelessWidget {
   }
 
   onTapRowflashsale() {
-    Get.toNamed(AppRoutes.categoryScreen);
+    Get.toNamed(AppRoutes.examCategoryScreen);
   }
 
   onTapMegasaleheader() {
-    Get.toNamed(AppRoutes.categoryScreen);
+    Get.toNamed(AppRoutes.examCategoryScreen);
   }
 
   onTapTxtSearchproduct() {}
   onTapDownload() {}
   onTapNotification() {}
-  onTapCategory(CategoryItemModel data) {
-    Get.toNamed(AppRoutes.categoryScreen,
-        arguments: {"category": data, "type": CategoryType.exam});
-  }
 
   onTapCategorys() {}
   onTapMegaSaleProduct() {

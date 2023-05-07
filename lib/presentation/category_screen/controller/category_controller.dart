@@ -7,17 +7,19 @@ import 'package:toeic_test/presentation/category_screen/models/category_model.da
 import 'package:toeic_test/presentation/dashboard_page/models/category_item_model.dart';
 
 class CategoryController extends GetxController {
-  RxList<ExamModel> exams = RxList([]);
-  Rx<CategoryItemModel> category = CategoryItemModel().obs;
-  int categoryType = 0;
+  RxList<CategoryItemModel> categories = RxList([]);
+  Rx<CategoryType> categoryType = Rx<CategoryType>(CategoryType.non);
 
   @override
   void onReady() {
     super.onReady();
     final args = Get.arguments as Map<String, dynamic>;
-    category.value = args["category"] as CategoryItemModel;
-    categoryType = args["type"] as int;
-    callFetchExams();
+    categoryType.value = args["type"] as CategoryType;
+    if (categoryType == CategoryType.fullTest) {
+      callFetchFullTestExamCategory();
+    } else if (categoryType == CategoryType.miniTest) {
+      callFetchMiniTestExamCategory();
+    }
   }
 
   @override
@@ -25,21 +27,40 @@ class CategoryController extends GetxController {
     super.onInit();
   }
 
-  Future<void> callFetchExams() async {
+  Future<void> callFetchFullTestExamCategory() async {
     try {
-      List<ExamModel> list = [];
+      List<CategoryItemModel> list = [];
       Map<String, dynamic> query = Get.find<ApiClient>().buildQuery({
         "page": 0,
-        "rowsPerPage": 100,
-        "queryField": {"category": category.value.id},
+        "rowsPerPage": 10,
+        "queryField": {"type": 0},
       });
-
       final response = await Get.find<ApiClient>()
-          .requestPost("${ApiConstant.exams}/list", query);
-      final data = (response['data']['data'] ?? []) as List<dynamic>;
-      list.assignAll(data.map((item) => ExamModel.fromJson(item)).toList());
-      // print("------------------------- exams.value ${list.length}");
-      exams.value = list;
+          .requestPost("${ApiConstant.examCategory}", query);
+      final data = response['data']['data'] as List<dynamic>;
+      list.assignAll(
+          data.map((item) => CategoryItemModel.fromJson(item)).toList());
+      categories.value = list;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> callFetchMiniTestExamCategory() async {
+    try {
+      List<CategoryItemModel> list = [];
+      Map<String, dynamic> query = Get.find<ApiClient>().buildQuery({
+        "page": 0,
+        "rowsPerPage": 10,
+        "queryField": {"type": 1},
+      });
+      final response = await Get.find<ApiClient>()
+          .requestPost("${ApiConstant.examCategory}", query);
+      final data = response['data']['data'] as List<dynamic>;
+      print({"callFetchMiniTestExamCategory": data});
+      list.assignAll(
+          data.map((item) => CategoryItemModel.fromJson(item)).toList());
+      categories.value = list;
     } catch (e) {
       rethrow;
     }

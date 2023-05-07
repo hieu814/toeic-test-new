@@ -33,9 +33,10 @@ final Map<String, String> enUs = {
   "lbl_toeic_part_9": "Part 7",
   "lbl_reading": "Reading",
   "lbl_listening": "Listening",
-  "lbl_full_test": "Full test",
-  "lbl_mini_test": "Mini test",
+  "lbl_pactice": "Practice",
   "lbl_exam": "Exam",
+  "lbl_word_learning": "Word learning",
+  "lbl_article": "Article",
 };
 
 final Map<String, String> enUs2 = {

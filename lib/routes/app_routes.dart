@@ -1,3 +1,5 @@
+import 'package:toeic_test/presentation/category_screen/binding/category_binding.dart';
+import 'package:toeic_test/presentation/category_screen/category_screen.dart';
 import 'package:toeic_test/presentation/exam_test_screen/binding/exam_test_binding.dart';
 import 'package:toeic_test/presentation/exam_test_screen/exam_test_screen.dart';
 import 'package:toeic_test/presentation/splash_screen/splash_screen.dart';
@@ -8,8 +10,10 @@ import 'package:toeic_test/presentation/register_form_screen/register_form_scree
 import 'package:toeic_test/presentation/register_form_screen/binding/register_form_binding.dart';
 import 'package:toeic_test/presentation/dashboard_container_screen/dashboard_container_screen.dart';
 import 'package:toeic_test/presentation/dashboard_container_screen/binding/dashboard_container_binding.dart';
-import 'package:toeic_test/presentation/category_screen/category_screen.dart';
-import 'package:toeic_test/presentation/category_screen/binding/category_binding.dart';
+import 'package:toeic_test/presentation/exam_category_screen/exam_category_screen.dart';
+import 'package:toeic_test/presentation/exam_category_screen/binding/category_binding.dart';
+import 'package:toeic_test/presentation/test_result_screen/binding/test_result_binding.dart';
+import 'package:toeic_test/presentation/test_result_screen/test_result_screen.dart';
 import 'package:toeic_test/presentation/review_exam_screen/review_exam_screen.dart';
 import 'package:toeic_test/presentation/review_exam_screen/binding/review_exam_binding.dart';
 import 'package:toeic_test/presentation/write_review_fill_screen/write_review_fill_screen.dart';
@@ -42,6 +46,10 @@ class AppRoutes {
   static const String dashboardContainerScreen = '/dashboard_container_screen';
 
   static const String categoryScreen = '/category_screen';
+
+  static const String examCategoryScreen = '/exam_category_screen';
+
+  static const String examTestResultScreen = '/exam_test_result_screen';
 
   static const String reviewExamScreen = '/review_exam_screen';
 
@@ -99,6 +107,13 @@ class AppRoutes {
       ],
     ),
     GetPage(
+      name: examCategoryScreen,
+      page: () => ExamCategoryScreen(),
+      bindings: [
+        ExamCategoryBinding(),
+      ],
+    ),
+    GetPage(
       name: categoryScreen,
       page: () => CategoryScreen(),
       bindings: [
@@ -117,6 +132,13 @@ class AppRoutes {
       page: () => WriteReviewFillScreen(),
       bindings: [
         WriteReviewFillBinding(),
+      ],
+    ),
+    GetPage(
+      name: examTestResultScreen,
+      page: () => TestResultScreen(),
+      bindings: [
+        TestResultBinding(),
       ],
     ),
     GetPage(

@@ -674,7 +674,7 @@ class AppNavigationScreen extends GetWidget<AppNavigationController> {
   }
 
   onTapCategoryScreen() {
-    Get.toNamed(AppRoutes.categoryScreen);
+    Get.toNamed(AppRoutes.examCategoryScreen);
   }
 
   onTapReviewExam() {

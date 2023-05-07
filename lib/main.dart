@@ -26,6 +26,9 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        iconTheme: IconThemeData(
+          color: Colors.black, // change the color to your desired color
+        ),
         visualDensity: VisualDensity.standard,
       ),
       translations: AppLocalization(),

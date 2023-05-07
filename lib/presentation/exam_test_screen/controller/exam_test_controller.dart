@@ -1,6 +1,7 @@
 import 'package:toeic_test/core/app_export.dart';
 import 'package:toeic_test/data/models/exam/exam.dart';
 import 'package:toeic_test/data/models/exam/group_question.dart';
+import 'package:toeic_test/data/models/exam/result.dart';
 import 'package:toeic_test/presentation/profile_screen/models/profile_model.dart';
 import 'package:flutter/material.dart';
 import 'package:toeic_test/data/models/me/get_me_resp.dart';
@@ -16,14 +17,22 @@ class TestController extends GetxController {
   RxString time = RxString("00:00:00");
   GetMeResp getMeResp = GetMeResp();
   int currentIndex = 0;
+  Result result = Result();
   @override
   Future<void> onReady() async {
     super.onReady();
     try {
       answers.value = {};
       final arg = Get.arguments as ExamModel;
+      if (arg.result != null) {
+        result = arg.result ?? Result();
+        for (var e in result.answers!) {
+          selectAnswer(e.number, e.answer);
+        }
+      }
       getExam(arg.id);
     } catch (e) {
+      print("hieu ${e}");
       Get.rawSnackbar(message: "Cannot get data");
     } catch (e) {
       //TODO: Handle generic errors
@@ -36,12 +45,31 @@ class TestController extends GetxController {
   }
 
   void selectAnswer(int question, String answer) {
+    print("hieu selectAnswer ${question} - ${answer}");
     answers.value[question] = answer;
   }
 
-  void submit() {
+  void submit() async {
     print("submit");
     isSubmited.value = true;
+
+    List<Map<String, dynamic>> answ = [];
+    for (var groupQuestion in exam.value.questions) {
+      for (var question in groupQuestion.questions) {
+        answ.add({
+          'number': question.number,
+          'answer': answers.value[question.number] ?? "",
+          "correct_answer": question.correctAnswer
+        });
+      }
+    }
+    print(answ);
+    result.examId = exam.value.id;
+    result.answers = Result.fromJson({"answers": answ}).answers;
+
+    final response = await Get.find<ApiClient>()
+        .requestPost("${ApiConstant.result}/create", result.toJson());
+    print(response);
   }
 
   Future<void> getExam(String? examID) async {
@@ -55,11 +83,30 @@ class TestController extends GetxController {
       print(data);
       exam.value = ExamModel.fromJson(data);
       currentQuesttion.value = exam.value.questions[0];
-      // print("sssss part $")
     } catch (e) {
       rethrow;
     }
   }
+
+  // Future<void> callFetchResults() async {
+  //   try {
+  //     List<ExamModel> list = [];
+  //     Map<String, dynamic> query = Get.find<ApiClient>().buildQuery({
+  //       "page": 0,
+  //       "rowsPerPage": 100,
+  //       "queryField": {"category": category.value.id},
+  //     });
+
+  //     final response = await Get.find<ApiClient>()
+  //         .requestPost("${ApiConstant.exams}/list", query);
+  //     final data = (response['data']['data'] ?? []) as List<dynamic>;
+  //     list.assignAll(data.map((item) => ExamModel.fromJson(item)).toList());
+  //     // print("------------------------- exams.value ${list.length}");
+  //     exams.value = list;
+  //   } catch (e) {
+  //     rethrow;
+  //   }
+  // }
 
   Future<void> getExamData(String? examID) async {
     // try {

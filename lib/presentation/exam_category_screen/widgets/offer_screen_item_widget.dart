@@ -10,7 +10,7 @@ class OfferScreenItemWidget extends StatelessWidget {
 
   OfferScreenItemModel offerScreenItemModelObj;
 
-  var controller = Get.find<CategoryController>();
+  var controller = Get.find<ExamCategoryController>();
 
   VoidCallback? onTap;
 

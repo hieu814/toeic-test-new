@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:toeic_test/core/utils/progress_dialog_utils.dart';
 import 'package:toeic_test/core/app_export.dart';
 import 'package:toeic_test/data/apiClient/api_client.dart';
+import 'package:toeic_test/data/models/user/User.dart';
 import 'package:toeic_test/domain/firebase/firebase.dart';
 import 'package:toeic_test/presentation/login_screen/models/login_model.dart';
 import 'package:flutter/material.dart';
@@ -69,6 +70,8 @@ class LoginController extends GetxController {
     try {
       final idtoken = await postLoginResp?.user?.getIdToken();
       final res = await Get.find<ApiClient>().getTokenFromServer(idtoken ?? "");
+      UserSchema user = UserSchema.fromJson(res["data"]);
+      Get.find<ApiClient>().setCurrentUser(user);
       String _token = res["data"]?["token"] ?? "";
       if (_token.isNotEmpty) {
         await Get.find<PrefUtils>().setToken(_token);
