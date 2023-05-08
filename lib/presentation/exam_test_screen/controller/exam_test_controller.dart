@@ -57,6 +57,7 @@ class TestController extends GetxController {
     for (var groupQuestion in exam.value.questions) {
       for (var question in groupQuestion.questions) {
         answ.add({
+          'type': groupQuestion.type,
           'number': question.number,
           'answer': answers.value[question.number] ?? "",
           "correct_answer": question.correctAnswer

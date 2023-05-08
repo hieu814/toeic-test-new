@@ -1,5 +1,8 @@
+import 'package:http/http.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:toeic_test/data/models/exam/result.dart';
+import 'package:toeic_test/widgets/app_bar/appbar_image.dart';
+import 'package:toeic_test/widgets/app_bar/custom_app_bar.dart';
 
 import 'controller/test_result_controller.dart';
 
@@ -9,25 +12,42 @@ import 'package:toeic_test/core/app_export.dart';
 class TestResultScreen extends GetWidget<TestResultController> {
   @override
   Widget build(BuildContext context) {
-    List<Answer> dataEst = [];
-    for (var i = 0; i < 20; i++) {
-      dataEst.add(Answer(
-          answer: "A", correctAnswer: i % 2 == 0 ? "A" : "B", number: i));
-    }
-    List<Answer> dataEst2 = [];
-    for (var i = 0; i < 20; i++) {
-      dataEst2.add(Answer(
-          answer: i % 2 == 0 ? "A" : "",
-          correctAnswer: i % 2 == 0 ? "A" : "B",
-          number: i));
-    }
     return SafeArea(
       child: Scaffold(
           backgroundColor: ColorConstant.gray10001,
-          appBar: AppBar(
-            title: Text("ss"),
-            backgroundColor: Colors.white,
-          ),
+          appBar: CustomAppBar(
+              height: getVerticalSize(52),
+              backgroundColor: Colors.white,
+              leadingWidth: 50,
+              leading: Padding(
+                  padding: getPadding(all: 8),
+                  child: GestureDetector(
+                    onTap: () {
+                      Get.back();
+                    },
+                    child: Icon(
+                      Icons.arrow_back_ios,
+                      color: Colors.black,
+                    ),
+                  )),
+              title: Obx(() => Text(
+                    controller.exam.value.name,
+                    style: TextStyle(color: Colors.black),
+                  )),
+              actions: [
+                Padding(
+                  padding: getPadding(right: 8),
+                  child: TextButton(
+                    child: Text("retest",
+                        style: AppStyle.txtRubikMedium14BlueA400.copyWith(
+                          fontSize: getFontSize(
+                            20,
+                          ),
+                        )),
+                    onPressed: () {},
+                  ),
+                )
+              ]),
           body: Column(
             children: [
               Align(
@@ -157,7 +177,7 @@ class TestResultScreen extends GetWidget<TestResultController> {
                                             ),
                                           ),
                                         )),
-                                    Text(" blank",
+                                    Text(" incomplete",
                                         style: AppStyle.txtRubikMedium18
                                             .copyWith(color: Colors.black)),
                                   ],
@@ -170,32 +190,42 @@ class TestResultScreen extends GetWidget<TestResultController> {
                 ),
               ),
               Expanded(
-                child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Container(
-                        margin: getMargin(
-                          top: 20,
-                          left: 26,
-                          right: 26,
-                        ),
-                        padding: getPadding(
-                          top: 16,
-                          bottom: 16,
-                        ),
-                        decoration: AppDecoration.fillWhiteA700.copyWith(
-                          borderRadius: BorderRadiusStyle.roundedBorder10,
-                        ),
-                        child: Obx(
-                          () => AnswersWidget(
-                            type: 1,
-                            answers: controller.result.value.answers,
-                            result: true,
-                          ),
-                        ))),
+                child: Padding(
+                  padding: getPadding(all: 28),
+                  child: SingleChildScrollView(
+                      physics: AlwaysScrollableScrollPhysics(),
+                      child: Obx(
+                        () => ListView(
+                            physics: NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            children:
+                                buildAnswers(controller.answersData.value)),
+                      )),
+                ),
               )
             ],
           )),
     );
+  }
+
+  List<Widget> buildAnswers(Map<int, List<Answer>> answerData) {
+    List<Widget> data = [];
+    answerData.forEach((key, value) {
+      if (value.length > 0) {
+        data.add(Text("lbl_toeic_part_${key + 1}".tr,
+            overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.left,
+            style: AppStyle.txtPoppinsBold14Indigo900
+                .copyWith(letterSpacing: getHorizontalSize(0.5))));
+        data.add(AnswersWidget(
+          type: key,
+          answers: value,
+          result: true,
+        ));
+      }
+    });
+
+    return data;
   }
 
   onTapProduct() {
@@ -263,6 +293,8 @@ class AnswersWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
+        physics: NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 4, childAspectRatio: (1 / .4)),
         itemCount: answers.length,

@@ -30,7 +30,7 @@ final Map<String, String> enUs = {
   "lbl_toeic_part_5": "Part 4",
   "lbl_toeic_part_6": "Part 5",
   "lbl_toeic_part_7": "Part 6",
-  "lbl_toeic_part_9": "Part 7",
+  "lbl_toeic_part_8": "Part 7",
   "lbl_reading": "Reading",
   "lbl_listening": "Listening",
   "lbl_pactice": "Practice",

@@ -85,10 +85,12 @@ class Result {
 
 class Answer {
   int number;
+  int type;
   String answer;
   String correctAnswer;
   Answer({
     required this.number,
+    required this.type,
     required this.answer,
     required this.correctAnswer,
   });
@@ -96,6 +98,7 @@ class Answer {
   factory Answer.fromJson(Map<String, dynamic> json) {
     return Answer(
       number: json['number'],
+      type: json['type'],
       answer: json['answer'],
       correctAnswer: json['correct_answer'],
     );
@@ -103,6 +106,7 @@ class Answer {
 
   Map<String, dynamic> toJson() {
     return {
+      'type': type,
       'number': number,
       'answer': answer,
       'correct_answer': correctAnswer,
