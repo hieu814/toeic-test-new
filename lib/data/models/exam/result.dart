@@ -42,12 +42,13 @@ class Result {
   }
 
   factory Result.fromJson(Map<String, dynamic> json) {
+    // print(json['id']);
     var answersList = (json['answers'] ?? []) as List;
     List<Answer> answers =
         answersList.map((answer) => Answer.fromJson(answer)).toList();
 
     return Result(
-      id: json['_id'] ?? "",
+      id: json['id'] ?? "",
       userId: json['userId'] ?? "",
       examId: json['exam'] ?? "",
       answers: answers,
@@ -69,7 +70,7 @@ class Result {
         this.answers!.map((answer) => answer.toJson()).toList();
 
     return {
-      // '_id': id,
+      'id': id,
       // 'userId': userId,
       'exam': examId,
       'answers': answers,

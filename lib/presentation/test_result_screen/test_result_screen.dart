@@ -1,7 +1,8 @@
-import 'package:http/http.dart';
 import 'package:percent_indicator/percent_indicator.dart';
+import 'package:toeic_test/data/models/exam/exam.dart';
 import 'package:toeic_test/data/models/exam/result.dart';
-import 'package:toeic_test/widgets/app_bar/appbar_image.dart';
+import 'package:toeic_test/presentation/test_result_screen/widgets/score_widget.dart';
+
 import 'package:toeic_test/widgets/app_bar/custom_app_bar.dart';
 
 import 'controller/test_result_controller.dart';
@@ -44,7 +45,13 @@ class TestResultScreen extends GetWidget<TestResultController> {
                             20,
                           ),
                         )),
-                    onPressed: () {},
+                    onPressed: () {
+                      ExamModel ex = controller.exam.value;
+                      ex.retest = true;
+                      ex.result!.answers = [];
+                      print(ex.result!.toJson());
+                      Get.offNamed(AppRoutes.examTestScreen, arguments: ex);
+                    },
                   ),
                 )
               ]),
@@ -69,21 +76,14 @@ class TestResultScreen extends GetWidget<TestResultController> {
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          CircularPercentIndicator(
-                            animationDuration: 1000,
-                            radius: 40.0,
-                            lineWidth: 10.0,
-                            percent: (controller.score.value.correct /
-                                    controller.score.value.total)
-                                .toDouble(),
-                            center: new Text(
-                                "${controller.score.value.correct}/${controller.score.value.total}",
-                                style: AppStyle.txtRubikMedium18),
-                            progressColor: Colors.green,
+                          ScoreCardWidget(
+                            score: controller.score.value.correct,
+                            total: controller.result.value.answers.length,
+                            dateTime: controller.result.value.updatedAt,
                           ),
                           Padding(
                             padding: getPadding(
-                              top: 18,
+                              top: 1,
                             ),
                             child: Divider(
                               height: getVerticalSize(
@@ -101,88 +101,93 @@ class TestResultScreen extends GetWidget<TestResultController> {
                               top: 15,
                               right: 17,
                             ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Padding(
-                                        padding: getPadding(
-                                          left: 6,
-                                        ),
-                                        child: Card(
-                                          color: Colors.green.shade400,
-                                          child: Padding(
-                                            padding: getPadding(all: 5),
-                                            child: Center(
-                                              child: Text(
-                                                  "${controller.score.value.correct}",
-                                                  style: AppStyle
-                                                      .txtRubikMedium18
-                                                      .copyWith(
-                                                          color: Colors.white)),
-                                            ),
+                            child: FittedBox(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Padding(
+                                          padding: getPadding(
+                                            left: 6,
                                           ),
-                                        )),
-                                    Text(" correct",
-                                        style: AppStyle.txtRubikMedium18
-                                            .copyWith(color: Colors.black)),
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Padding(
-                                        padding: getPadding(
-                                          left: 6,
-                                        ),
-                                        child: Card(
-                                          color: Colors.red.shade400,
-                                          child: Padding(
-                                            padding: getPadding(all: 5),
-                                            child: Center(
-                                              child: Text(
-                                                  "${controller.score.value.incorrect}",
-                                                  style: AppStyle
-                                                      .txtRubikMedium18
-                                                      .copyWith(
-                                                          color: Colors.white)),
+                                          child: Card(
+                                            color: Colors.green.shade400,
+                                            child: Padding(
+                                              padding: getPadding(all: 5),
+                                              child: Center(
+                                                child: Text(
+                                                    "${controller.score.value.correct}",
+                                                    style: AppStyle
+                                                        .txtRubikMedium18
+                                                        .copyWith(
+                                                            color:
+                                                                Colors.white)),
+                                              ),
                                             ),
+                                          )),
+                                      Text(" correct",
+                                          style: AppStyle.txtRubikMedium18
+                                              .copyWith(color: Colors.black)),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Padding(
+                                          padding: getPadding(
+                                            left: 6,
                                           ),
-                                        )),
-                                    Text(" incorrect",
-                                        style: AppStyle.txtRubikMedium18
-                                            .copyWith(color: Colors.black)),
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Padding(
-                                        padding: getPadding(
-                                          left: 6,
-                                        ),
-                                        child: Card(
-                                          color: Colors.grey.shade400,
-                                          child: Padding(
-                                            padding: getPadding(all: 5),
-                                            child: Center(
-                                              child: Text(
-                                                  "${controller.score.value.blank}",
-                                                  style: AppStyle
-                                                      .txtRubikMedium18
-                                                      .copyWith(
-                                                          color: Colors.white)),
+                                          child: Card(
+                                            color: Colors.red.shade400,
+                                            child: Padding(
+                                              padding: getPadding(all: 5),
+                                              child: Center(
+                                                child: Text(
+                                                    "${controller.score.value.incorrect}",
+                                                    style: AppStyle
+                                                        .txtRubikMedium18
+                                                        .copyWith(
+                                                            color:
+                                                                Colors.white)),
+                                              ),
                                             ),
+                                          )),
+                                      Text(" incorrect",
+                                          style: AppStyle.txtRubikMedium18
+                                              .copyWith(color: Colors.black)),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Padding(
+                                          padding: getPadding(
+                                            left: 6,
                                           ),
-                                        )),
-                                    Text(" incomplete",
-                                        style: AppStyle.txtRubikMedium18
-                                            .copyWith(color: Colors.black)),
-                                  ],
-                                ),
-                              ],
+                                          child: Card(
+                                            color: Colors.grey.shade400,
+                                            child: Padding(
+                                              padding: getPadding(all: 5),
+                                              child: Center(
+                                                child: Text(
+                                                    "${controller.score.value.blank}",
+                                                    style: AppStyle
+                                                        .txtRubikMedium18
+                                                        .copyWith(
+                                                            color:
+                                                                Colors.white)),
+                                              ),
+                                            ),
+                                          )),
+                                      Text(" incomplete",
+                                          style: AppStyle.txtRubikMedium18
+                                              .copyWith(color: Colors.black)),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ],

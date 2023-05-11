@@ -30,11 +30,14 @@ class TestResultController extends GetxController {
         6: [],
         7: [],
       };
+
       for (var answer in result.value.answers) {
-        print("add ${answer.type}");
         _answerData[answer.type]?.add(answer);
       }
+
       answersData.value = _answerData;
+      print("hieu: ${answersData}");
+      exam.value = arg;
     } catch (e) {
       print(e);
       Get.rawSnackbar(message: "Cannot get datass");

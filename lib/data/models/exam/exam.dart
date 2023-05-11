@@ -8,6 +8,7 @@ class ExamModel {
   final String image;
   final String description;
   final List<GroupQuestionModel> questions;
+  bool retest = false;
   Result? result = null;
   ExamModel(
       {this.id = "",

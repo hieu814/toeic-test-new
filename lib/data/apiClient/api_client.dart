@@ -65,12 +65,42 @@ class ApiClient extends GetConnect {
     // }
   }
 
+  Future<Map<String, dynamic>> requestPostorPut(
+      String apiUrl, Map<String, dynamic> requestBody) async {
+    if (apiUrl.contains("update")) {
+      return requestPut(apiUrl, requestBody);
+    } else {
+      return requestPost(apiUrl, requestBody);
+    }
+  }
+
   Future<Map<String, dynamic>> requestPost(
       String apiUrl, Map<String, dynamic> requestBody) async {
     ProgressDialogUtils.showProgressDialog();
     try {
       await isNetworkConnected();
       http.Response response = await http.post(Uri.parse('$url$apiUrl'),
+          headers: getHeader(), body: json.encode(requestBody));
+      ProgressDialogUtils.hideProgressDialog();
+      if (_isSuccessCall(response)) {
+        final responseBody = json.decode(response.body);
+        return responseBody;
+      } else {
+        throw response.body != null ? response.body : 'Something Went Wrong!';
+      }
+    } catch (error, stackTrace) {
+      ProgressDialogUtils.hideProgressDialog();
+      Logger.log(error, stackTrace: stackTrace);
+      rethrow;
+    }
+  }
+
+  Future<Map<String, dynamic>> requestPut(
+      String apiUrl, Map<String, dynamic> requestBody) async {
+    ProgressDialogUtils.showProgressDialog();
+    try {
+      await isNetworkConnected();
+      final response = await http.put(Uri.parse('$url$apiUrl'),
           headers: getHeader(), body: json.encode(requestBody));
       ProgressDialogUtils.hideProgressDialog();
       if (_isSuccessCall(response)) {

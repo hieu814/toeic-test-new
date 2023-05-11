@@ -32,8 +32,10 @@ class GroupQuestionWidget extends GetWidget<TestController> {
                           selectedQuestion:
                               controller.answers.value[question.number] ?? "",
                           question: question,
-                          onSelect: (question, answer) =>
-                              {controller.selectAnswer(question, answer)},
+                          onSelect: (question, answer) => {
+                            controller.selectAnswer(
+                                groupQuestion.type, question, answer)
+                          },
                         )))
                     .toList())),
           )
