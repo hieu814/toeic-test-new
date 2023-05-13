@@ -15,7 +15,7 @@ class UserSchema {
   DateTime? updatedAt;
   String? addedBy;
   String? updatedBy;
-  List<ScoreStatistic>? scoreStatistics;
+  List<ScoreStatistic> scoreStatistics;
   int? userType;
   int? loginRetryLimit;
   DateTime? loginReactiveTime;
@@ -36,13 +36,24 @@ class UserSchema {
       this.updatedAt,
       this.addedBy,
       this.updatedBy,
-      this.scoreStatistics,
+      required this.scoreStatistics,
       this.userType,
       this.loginRetryLimit,
       this.loginReactiveTime,
       this.id});
 
   factory UserSchema.fromJson(Map<String, dynamic> json) {
+    print("hieu parse $json");
+    List<dynamic> dataList = ((json['score_statistics'] ?? []) as List);
+    List<ScoreStatistic> _scoreStatistics = dataList
+        .map((e) => ScoreStatistic.fromJson(e as Map<String, dynamic>))
+        .toList();
+    if (_scoreStatistics.length == 0) {
+      for (var i = 1; i <= 7; i++) {
+        _scoreStatistics
+            .add(ScoreStatistic(type: i, count: 0, totalCorrect: 0));
+      }
+    }
     return UserSchema(
       id: json['id'] as String?,
       username: json['username'] as String?,
@@ -64,26 +75,38 @@ class UserSchema {
           : DateTime.parse(json['updatedAt'] as String),
       addedBy: json['addedBy'] as String?,
       updatedBy: json['updatedBy'] as String?,
-      scoreStatistics: (json['score_statistics'] as List<dynamic>?)
-          ?.map((e) => ScoreStatistic.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      scoreStatistics: _scoreStatistics,
       userType: json['userType'] as int?,
     );
+  }
+  // void addCorrectScore
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'gender': gender,
+      'id': id,
+      'phone': phone,
+      'intro': intro,
+      'mobileNo': mobileNo,
+      'avatar': avatar,
+      'score_statistics': scoreStatistics?.map((e) => e.toJson()).toList(),
+    };
   }
 }
 
 class ScoreStatistic {
-  int? type;
-  int? totalCorrect;
-  int? count;
+  int type;
+  int totalCorrect;
+  int count;
 
-  ScoreStatistic({this.type, this.totalCorrect, this.count});
+  ScoreStatistic(
+      {required this.type, required this.totalCorrect, required this.count});
 
   factory ScoreStatistic.fromJson(Map<String, dynamic> json) {
     return ScoreStatistic(
-      type: json['type'] as int?,
-      totalCorrect: json['total_correct'] as int?,
-      count: json['count'] as int?,
+      type: json['type'] ?? 0,
+      totalCorrect: json['total_correct'] ?? 0,
+      count: json['count'] ?? 0,
     );
   }
 

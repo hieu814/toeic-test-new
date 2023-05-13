@@ -5,6 +5,7 @@ import 'package:toeic_test/data/models/exam/exam.dart';
 import 'package:toeic_test/data/models/exam/result.dart';
 import 'package:toeic_test/presentation/exam_test_screen/widgets/audio_play.dart';
 import 'package:toeic_test/presentation/exam_test_screen/widgets/group_question_widget.dart';
+import 'package:toeic_test/presentation/exam_test_screen/widgets/passage_widget.dart';
 import 'package:toeic_test/presentation/exam_test_screen/widgets/question_wiget.dart';
 import 'package:toeic_test/widgets/app_bar/appbar_image.dart';
 import 'package:toeic_test/widgets/app_bar/appbar_title.dart';
@@ -32,15 +33,19 @@ class ExamTestScreen extends GetWidget<TestController> {
         ),
         appBar: CustomAppBar(
             height: getVerticalSize(52),
-            leadingWidth: 40,
-            leading: AppbarImage(
-                height: getSize(24),
-                width: getSize(24),
-                svgPath: ImageConstant.imgArrowleft,
-                margin: getMargin(left: 16, bottom: 2),
-                onTap: () {
-                  Get.back();
-                }),
+            backgroundColor: Colors.white,
+            leadingWidth: 50,
+            leading: Padding(
+                padding: getPadding(all: 8),
+                child: GestureDetector(
+                  onTap: () {
+                    Get.back();
+                  },
+                  child: Icon(
+                    Icons.arrow_back_ios,
+                    color: Colors.black,
+                  ),
+                )),
             title: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -74,8 +79,6 @@ class ExamTestScreen extends GetWidget<TestController> {
                 child: ElevatedButton(
                   onPressed: () async {
                     await controller.submit().then((value) {
-                      Result sdsd = controller.exam.value.result ?? Result();
-
                       Get.offNamed(AppRoutes.examTestResultScreen,
                           arguments: controller.exam.value);
                     });
@@ -99,12 +102,14 @@ class ExamTestScreen extends GetWidget<TestController> {
         body: SafeArea(
           child: Column(
             children: [
-              Expanded(
-                  child: Container(
-                child: Obx(() => GroupQuestionWidget(
-                      key: UniqueKey(),
-                      groupQuestion: controller.currentQuesttion.value,
-                    )),
+              Expanded(child: Container(
+                child: Obx(() {
+                  _scaffoldKey.currentState!.closeEndDrawer();
+                  return GroupQuestionWidget(
+                    key: UniqueKey(),
+                    groupQuestion: controller.currentQuesttion.value,
+                  );
+                }),
               )),
               Card(
                 child: Column(
@@ -147,7 +152,50 @@ class ExamTestScreen extends GetWidget<TestController> {
                             IconData(0xe37c, fontFamily: 'MaterialIcons'),
                             color: Colors.yellow,
                           ),
-                          onPressed: () => {controller.onBack()},
+                          onPressed: () => {
+                            if (controller
+                                .currentQuesttion.value.transcript.isNotEmpty)
+                              showDraggableModalBottomSheet(
+                                  context,
+                                  Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text("lbl_transcripts".tr,
+                                            overflow: TextOverflow.ellipsis,
+                                            textAlign: TextAlign.left,
+                                            style: AppStyle.txtPoppinsBold16
+                                                .copyWith(
+                                                    letterSpacing:
+                                                        getHorizontalSize(
+                                                            0.5))),
+                                      ),
+                                      Expanded(
+                                        child: SingleChildScrollView(
+                                          child: Container(
+                                              decoration: AppDecoration
+                                                  .fillWhiteA700
+                                                  .copyWith(
+                                                borderRadius: BorderRadiusStyle
+                                                    .roundedBorder10,
+                                              ),
+                                              // color: Colors.white,
+                                              child: SingleChildScrollView(
+                                                padding:
+                                                    const EdgeInsets.all(16.0),
+                                                physics:
+                                                    const ClampingScrollPhysics(),
+                                                child: PassageWidget(
+                                                    text: controller
+                                                        .currentQuesttion
+                                                        .value
+                                                        .transcript),
+                                              )),
+                                        ),
+                                      ),
+                                    ],
+                                  ))
+                          },
                         ),
                         IconButton(
                           icon: Icon(Icons.menu),
@@ -214,6 +262,7 @@ class AnswersWidget extends GetWidget<TestController> {
           return GestureDetector(
             onTap: () {
               // print("hieu ontap ${answers[index].number}");
+
               controller.selectAnswerSheet(answers[index].number);
             },
             child: Card(
@@ -238,4 +287,48 @@ class AnswersWidget extends GetWidget<TestController> {
           );
         });
   }
+}
+
+void showDraggableModalBottomSheet(BuildContext context, Widget child) {
+  showModalBottomSheet(
+    context: context,
+    isScrollControlled: true,
+    // expand: false,
+    backgroundColor: Colors.transparent,
+    builder: (BuildContext context) {
+      return DraggableScrollableSheet(
+        initialChildSize: 0.5,
+        maxChildSize: 1,
+        minChildSize: 0.25,
+        builder: (BuildContext context, ScrollController scrollController) {
+          return Container(
+            decoration: BoxDecoration(
+              color: ColorConstant.gray10001,
+              borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              // physics: const ClampingScrollPhysics(),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: getPadding(bottom: 7),
+                    child: Container(
+                      height: 5,
+                      width: 40,
+                      decoration: BoxDecoration(
+                        color: ColorConstant.black900,
+                        borderRadius: BorderRadiusStyle.roundedBorder10,
+                      ),
+                    ),
+                  ),
+                  Expanded(child: child),
+                ],
+              ),
+            ),
+          );
+        },
+      );
+    },
+  );
 }

@@ -6,6 +6,7 @@ import 'package:toeic_test/data/models/exam/group_question.dart';
 import 'package:toeic_test/data/models/exam/result.dart';
 import 'package:toeic_test/data/models/me/get_me_resp.dart';
 import 'package:toeic_test/data/apiClient/api_client.dart';
+import 'package:toeic_test/data/models/user/User.dart';
 
 class TestController extends GetxController {
   RxBool isSubmited = RxBool(false);
@@ -71,7 +72,6 @@ class TestController extends GetxController {
       answersData.value = _answerData;
       startTimer(totalReading, totalListening);
     } catch (e) {
-      print("hieu ${e}");
       Get.rawSnackbar(message: "Cannot get data");
     }
   }
@@ -164,6 +164,51 @@ class TestController extends GetxController {
       exam.value.result = Result.fromJson(response["data"]);
     } else {
       exam.value.result = result.value;
+    }
+    await updateScoreStatics();
+  }
+
+  Future<void> updateScoreStatics() async {
+    try {
+      UserSchema currentUser = await Get.find<ApiClient>().fetchMe();
+      print("hieu ____ current  ${currentUser.toJson()}");
+      answersData.value.forEach((key, value) {
+        int _type = key;
+        int _count = 0;
+        int _correct = 0;
+        List<Answer> answers = value;
+        for (var answ in answers) {
+          if (answ.answer.isNotEmpty &&
+              ['A', 'B', 'C', 'D'].contains(answ.answer)) {
+            _count++;
+            if (answ.answer == answ.correctAnswer) _correct++;
+          }
+        }
+        print("hieu answe  ${{
+          "type": _type,
+          "_count": _count,
+          "_correct": _correct
+        }}");
+        print("hieu ____ current  ${currentUser.toJson()}");
+        for (var i = 0; i < currentUser.scoreStatistics.length; i++) {
+          if (currentUser.scoreStatistics[i].type == _type) {
+            currentUser.scoreStatistics[i].count =
+                currentUser.scoreStatistics[i].count + _count;
+            currentUser.scoreStatistics[i].totalCorrect =
+                currentUser.scoreStatistics[i].totalCorrect + _correct;
+          }
+        }
+      });
+      print("hieu ____ after  ${currentUser.toJson()}");
+      if ((currentUser.id ?? "").isNotEmpty) {
+        final response = await Get.find<ApiClient>().requestPostorPut(
+            "${ApiConstant.user}/update/${currentUser.id}",
+            {"score_statistics": currentUser.toJson()["score_statistics"]});
+        print("hieu update resutr ${response}");
+      }
+    } catch (e) {
+      print("hieu error  ${e}");
+      rethrow;
     }
   }
 

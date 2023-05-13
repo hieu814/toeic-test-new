@@ -9,7 +9,7 @@ import 'package:toeic_test/data/models/user/User.dart';
 
 class ApiClient extends GetConnect {
   var url = ApiConstant.baseApiUrl;
-  UserSchema currentUser = UserSchema();
+  UserSchema currentUser = UserSchema(scoreStatistics: []);
   @override
   void onInit() {
     super.onInit();
@@ -43,26 +43,10 @@ class ApiClient extends GetConnect {
     };
   }
 
-  Future<GetMeResp> fetchMe({Map<String, String> headers = const {}}) async {
-    return GetMeResp();
-    // ProgressDialogUtils.showProgressDialog();
-    // try {
-    //   await isNetworkConnected();
-    //   Response response =
-    //       await httpClient.get('$url/device/api/v1/user/me', headers: headers);
-    //   ProgressDialogUtils.hideProgressDialog();
-    //   if (_isSuccessCall(response)) {
-    //     return GetMeResp.fromJson(response.body);
-    //   } else {
-    //     throw response.body != null
-    //         ? GetMeResp.fromJson(response.body)
-    //         : 'Something Went Wrong!';
-    //   }
-    // } catch (error, stackTrace) {
-    //   ProgressDialogUtils.hideProgressDialog();
-    //   Logger.log(error, stackTrace: stackTrace);
-    //   rethrow;
-    // }
+  Future<UserSchema> fetchMe({Map<String, String> headers = const {}}) async {
+    Map<String, dynamic> respond = await requestGet("${ApiConstant.user}/me");
+
+    return UserSchema.fromJson(respond["data"] ?? {});
   }
 
   Future<Map<String, dynamic>> requestPostorPut(

@@ -9,7 +9,8 @@ class ExamModel {
   final String description;
   final List<GroupQuestionModel> questions;
   bool retest = false;
-  Result? result = null;
+  Result? result;
+  int total = 0;
   ExamModel(
       {this.id = "",
       this.name = "",
@@ -33,10 +34,6 @@ class ExamModel {
       groupQuestions =
           questionList.map((question) => GroupQuestionModel()).toList();
     }
-
-    // for (var question in groupQuestions) {
-    //   print('Question ${question.group}');
-    // }
 
     return ExamModel(
       id: json['id'] ?? "",

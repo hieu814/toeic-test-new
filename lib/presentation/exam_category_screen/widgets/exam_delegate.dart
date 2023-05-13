@@ -9,6 +9,7 @@ class ExamDelegate extends StatelessWidget {
       required this.type,
       this.lastTestDate,
       this.score,
+      this.total,
       this.onTap,
       required this.totalQuestion})
       : super(key: key);
@@ -16,6 +17,7 @@ class ExamDelegate extends StatelessWidget {
   final String type;
   final int totalQuestion;
   final int? score;
+  final int? total;
   final String? lastTestDate;
   final Function? onTap;
   @override
@@ -48,8 +50,9 @@ class ExamDelegate extends StatelessWidget {
                         new CircularPercentIndicator(
                           radius: 34.0,
                           lineWidth: 4.0,
-                          percent: 0.90,
-                          center: new Text("90%"),
+                          percent: (score ?? 0) / (total ?? 1),
+                          center: new Text(
+                              "${total == null ? "0/0" : "${score ?? 0}/${total ?? 0}"}"),
                           progressColor: Colors.green,
                         ),
                         Padding(
@@ -150,93 +153,25 @@ class ExamDelegate extends StatelessWidget {
                                             ),
                                             textAlign: TextAlign.left,
                                           ),
+                                          SizedBox(
+                                            height: 5,
+                                          ),
+                                          if (lastTestDate != null)
+                                            Text(
+                                              "Last test: $lastTestDate",
+                                              style: TextStyle(
+                                                color:
+                                                    ColorConstant.blueGray900,
+                                                fontSize: getFontSize(
+                                                  12,
+                                                ),
+                                                fontFamily: 'Rubik',
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            ),
                                         ],
                                       ),
                                     ),
-                                    if (score != null)
-                                      Padding(
-                                        padding: getPadding(
-                                          left: 10,
-                                          top: 2,
-                                          bottom: 1,
-                                        ),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          children: [
-                                            RichText(
-                                              text: TextSpan(
-                                                children: [
-                                                  TextSpan(
-                                                    text: "Score : ",
-                                                    style: TextStyle(
-                                                      color: ColorConstant
-                                                          .blueGray900,
-                                                      fontSize: getFontSize(
-                                                        12,
-                                                      ),
-                                                      fontFamily:
-                                                          'Font Awesome 5 Free',
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                    ),
-                                                  ),
-                                                  TextSpan(
-                                                    text: "$score",
-                                                    style: TextStyle(
-                                                      color: ColorConstant
-                                                          .blueGray900,
-                                                      fontSize: getFontSize(
-                                                        12,
-                                                      ),
-                                                      fontFamily: 'Rubik',
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              textAlign: TextAlign.left,
-                                            ),
-                                            RichText(
-                                              text: TextSpan(
-                                                children: [
-                                                  TextSpan(
-                                                    text: "Last test: ",
-                                                    style: TextStyle(
-                                                      color: ColorConstant
-                                                          .blueGray900,
-                                                      fontSize: getFontSize(
-                                                        12,
-                                                      ),
-                                                      fontFamily:
-                                                          'Font Awesome 5 Free',
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                    ),
-                                                  ),
-                                                  TextSpan(
-                                                    text: "$lastTestDate",
-                                                    style: TextStyle(
-                                                      color: ColorConstant
-                                                          .blueGray900,
-                                                      fontSize: getFontSize(
-                                                        12,
-                                                      ),
-                                                      fontFamily: 'Rubik',
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              textAlign: TextAlign.left,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
                                   ],
                                 )
                               ]),

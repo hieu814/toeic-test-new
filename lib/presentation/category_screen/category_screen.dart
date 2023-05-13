@@ -29,10 +29,26 @@ class CategoryScreen extends GetWidget<CategoryController> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: ColorConstant.gray10001,
-        appBar: AppBar(
-          title:
-              Obx(() => Text("${getTitle(controller.categoryType.value)}".tr)),
-        ),
+        appBar: CustomAppBar(
+            height: getVerticalSize(52),
+            backgroundColor: Colors.white,
+            leadingWidth: 50,
+            leading: Padding(
+                padding: getPadding(all: 8),
+                child: GestureDetector(
+                  onTap: () {
+                    Get.back();
+                  },
+                  child: Icon(
+                    Icons.arrow_back_ios,
+                    color: Colors.black,
+                  ),
+                )),
+            title: Obx(() => Text(
+                  "${getTitle(controller.categoryType.value)}".tr,
+                  style: TextStyle(color: Colors.black),
+                )),
+            actions: []),
         body: Container(
             width: double.maxFinite,
             child: Column(
@@ -50,11 +66,7 @@ class CategoryScreen extends GetWidget<CategoryController> {
                             Get.toNamed(AppRoutes.examCategoryScreen,
                                 arguments: {"category": exam});
                           },
-                          thumbnail: CustomImageView(
-                            url: exam.image,
-                            fit: BoxFit.fill,
-                            radius: BorderRadiusStyle.roundedBorder10,
-                          ),
+                          thumbnail: exam.image,
                           title: exam.name,
                           subtitle: exam.description,
                           author: "author",

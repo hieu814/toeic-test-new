@@ -36,7 +36,7 @@ class TestResultController extends GetxController {
       }
 
       answersData.value = _answerData;
-      print("hieu: ${answersData}");
+
       exam.value = arg;
     } catch (e) {
       print(e);

@@ -49,7 +49,6 @@ class TestResultScreen extends GetWidget<TestResultController> {
                       ExamModel ex = controller.exam.value;
                       ex.retest = true;
                       ex.result!.answers = [];
-                      print(ex.result!.toJson());
                       Get.offNamed(AppRoutes.examTestScreen, arguments: ex);
                     },
                   ),

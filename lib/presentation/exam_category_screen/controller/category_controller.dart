@@ -10,7 +10,7 @@ import 'package:toeic_test/presentation/dashboard_page/models/category_item_mode
 class ExamCategoryController extends GetxController {
   RxList<ExamModel> exams = RxList([]);
   Rx<CategoryItemModel> category = CategoryItemModel().obs;
-  List<Result> results = [];
+  RxList<Result> results = RxList<Result>([]);
   @override
   void onReady() async {
     super.onReady();
@@ -31,6 +31,7 @@ class ExamCategoryController extends GetxController {
       Map<String, dynamic> query = Get.find<ApiClient>().buildQuery({
         "page": 0,
         "rowsPerPage": 100,
+        "populate": "questions",
         "queryField": {"category": category.value.id},
       });
 
@@ -40,9 +41,11 @@ class ExamCategoryController extends GetxController {
       list.assignAll(data.map((item) => ExamModel.fromJson(item)).toList());
       for (var i = 0; i < list.length; i++) {
         list[i].result = findResult(list[i].id);
+        list[i].total = getTotalScore(list[i]);
       }
       exams.value = list;
     } catch (e) {
+      print(e);
       rethrow;
     }
   }
@@ -63,8 +66,9 @@ class ExamCategoryController extends GetxController {
         list.assignAll(data.map((item) => Result.fromJson(item)).toList());
       }
 
-      results = list;
+      results.value = list;
     } catch (e) {
+      print(e);
       rethrow;
     }
   }
@@ -74,6 +78,14 @@ class ExamCategoryController extends GetxController {
       if (element.examId == examid) return element;
     }
     return null;
+  }
+
+  int getTotalScore(ExamModel exam) {
+    int total = 0;
+    for (var element in exam.questions) {
+      total = total + element.questions.length;
+    }
+    return total;
   }
 
   @override

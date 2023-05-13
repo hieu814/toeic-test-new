@@ -37,6 +37,7 @@ final Map<String, String> enUs = {
   "lbl_exam": "Exam",
   "lbl_word_learning": "Word learning",
   "lbl_article": "Article",
+  "lbl_transcripts": "Transcripst",
 };
 
 final Map<String, String> enUs2 = {
