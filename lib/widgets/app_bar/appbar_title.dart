@@ -24,6 +24,7 @@ class AppbarTitle extends StatelessWidget {
           overflow: TextOverflow.ellipsis,
           textAlign: TextAlign.left,
           style: AppStyle.txtPoppinsBold16.copyWith(
+            fontSize: 25,
             letterSpacing: getHorizontalSize(
               0.5,
             ),

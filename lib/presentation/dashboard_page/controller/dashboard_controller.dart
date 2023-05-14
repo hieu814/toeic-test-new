@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:toeic_test/core/app_export.dart';
 import 'package:toeic_test/data/apiClient/api_client.dart';
-import 'package:toeic_test/presentation/dashboard_page/models/categories_item_model.dart';
 import 'package:toeic_test/presentation/dashboard_page/models/dashboard_model.dart';
 import 'package:toeic_test/presentation/dashboard_page/models/category_item_model.dart';
 

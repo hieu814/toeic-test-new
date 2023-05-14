@@ -1,3 +1,5 @@
+import 'package:toeic_test/presentation/account_page/account_page.dart';
+import 'package:toeic_test/presentation/account_page/binding/account_binding.dart';
 import 'package:toeic_test/presentation/category_screen/binding/category_binding.dart';
 import 'package:toeic_test/presentation/category_screen/category_screen.dart';
 import 'package:toeic_test/presentation/exam_test_screen/binding/exam_test_binding.dart';
@@ -67,6 +69,8 @@ class AppRoutes {
 
   static const String accountPage = '/account_page';
 
+  static const String wordCategoryPage = '/word_category_page';
+
   static const String profileScreen = '/profile_screen';
 
   static const String changePasswordScreen = '/change_password_screen';
@@ -78,6 +82,13 @@ class AppRoutes {
   static String initialRoute = '/initialRoute';
 
   static List<GetPage> pages = [
+    GetPage(
+      name: accountPage,
+      page: () => AccountPage(),
+      bindings: [
+        AccountBinding(),
+      ],
+    ),
     GetPage(
       name: splashScreen,
       page: () => SplashScreen(),

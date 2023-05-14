@@ -1,3 +1,5 @@
+import 'package:toeic_test/data/models/exam/exam.dart';
+
 class Result {
   String? id;
   String? userId;
@@ -9,18 +11,19 @@ class Result {
   DateTime? updatedAt;
   String? addedBy;
   String? updatedBy;
-  Result({
-    this.id,
-    this.userId,
-    this.examId,
-    this.answers = const [],
-    this.isDeleted,
-    this.isActive,
-    this.createdAt,
-    this.updatedAt,
-    this.addedBy,
-    this.updatedBy,
-  });
+  ExamModel? exam;
+  Result(
+      {this.id,
+      this.userId,
+      this.examId,
+      this.answers = const [],
+      this.isDeleted,
+      this.isActive,
+      this.createdAt,
+      this.updatedAt,
+      this.addedBy,
+      this.updatedBy,
+      this.exam});
   Score getScore() {
     int _correct = 0;
     int _blank = 0;
@@ -46,23 +49,27 @@ class Result {
     var answersList = (json['answers'] ?? []) as List;
     List<Answer> answers =
         answersList.map((answer) => Answer.fromJson(answer)).toList();
-
+    String examid = json['exam'] is String ? json['exam'] : "";
+    ExamModel? examss;
+    if (json['exam'] is Map<String, dynamic>) {
+      examss = ExamModel(name: json['exam']?["name"] ?? "");
+    }
     return Result(
-      id: json['id'] ?? "",
-      userId: json['userId'] ?? "",
-      examId: json['exam'] ?? "",
-      answers: answers,
-      isDeleted: json['isDeleted'] ?? true,
-      isActive: json['isActive'] ?? true,
-      createdAt: json['createdAt'] == null
-          ? DateTime(2023)
-          : DateTime.parse(json['createdAt']),
-      updatedAt: json['updatedAt'] == null
-          ? DateTime(2023)
-          : DateTime.parse(json['updatedAt']),
-      addedBy: json['addedBy'] ?? "",
-      updatedBy: json['updatedBy'] ?? "",
-    );
+        id: json['id'] ?? "",
+        userId: json['userId'] ?? "",
+        examId: examid,
+        answers: answers,
+        isDeleted: json['isDeleted'] ?? true,
+        isActive: json['isActive'] ?? true,
+        createdAt: json['createdAt'] == null
+            ? DateTime(2023)
+            : DateTime.parse(json['createdAt']),
+        updatedAt: json['updatedAt'] == null
+            ? DateTime(2023)
+            : DateTime.parse(json['updatedAt']),
+        addedBy: json['addedBy'] ?? "",
+        updatedBy: json['updatedBy'] ?? "",
+        exam: examss);
   }
 
   Map<String, dynamic> toJson() {

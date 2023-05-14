@@ -12,6 +12,7 @@ class ProfileScreen extends GetWidget<ProfileController> {
         child: Scaffold(
             backgroundColor: ColorConstant.whiteA700,
             appBar: CustomAppBar(
+                backgroundColor: ColorConstant.whiteA700,
                 height: getVerticalSize(65),
                 leadingWidth: 40,
                 leading: AppbarImage(

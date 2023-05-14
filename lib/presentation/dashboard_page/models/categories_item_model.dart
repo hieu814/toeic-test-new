@@ -10,7 +10,7 @@ class CategoriesItemModel {
     this.part = 1,
     this.id = "",
   }) {
-    categoryPartTxt = Rx("lbl_toeic_part_${part ?? 1}".tr);
+    categoryPartTxt = Rx("lbl_toeic_part_type_${part ?? 1}".tr);
     image = ImageConstant().getCategoryPartImage(part ?? 1);
   }
 }

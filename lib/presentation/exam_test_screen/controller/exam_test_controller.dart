@@ -184,12 +184,12 @@ class TestController extends GetxController {
             if (answ.answer == answ.correctAnswer) _correct++;
           }
         }
-        print("hieu answe  ${{
-          "type": _type,
-          "_count": _count,
-          "_correct": _correct
-        }}");
-        print("hieu ____ current  ${currentUser.toJson()}");
+        // print("hieu answe  ${{
+        //   "type": _type,
+        //   "_count": _count,
+        //   "_correct": _correct
+        // }}");
+
         for (var i = 0; i < currentUser.scoreStatistics.length; i++) {
           if (currentUser.scoreStatistics[i].type == _type) {
             currentUser.scoreStatistics[i].count =
@@ -199,7 +199,6 @@ class TestController extends GetxController {
           }
         }
       });
-      print("hieu ____ after  ${currentUser.toJson()}");
       if ((currentUser.id ?? "").isNotEmpty) {
         final response = await Get.find<ApiClient>().requestPostorPut(
             "${ApiConstant.user}/update/${currentUser.id}",

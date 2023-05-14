@@ -1,3 +1,5 @@
+import 'package:toeic_test/presentation/word_category_screen/word_category_screen.dart';
+
 import 'controller/dashboard_container_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:toeic_test/core/app_export.dart';
@@ -29,7 +31,7 @@ class DashboardContainerScreen extends GetWidget<DashboardContainerController> {
       case BottomBarEnum.Home:
         return AppRoutes.dashboardPage;
       case BottomBarEnum.Explore:
-        return AppRoutes.explorePage;
+        return AppRoutes.wordCategoryPage;
       case BottomBarEnum.Cart:
         return "/";
       case BottomBarEnum.Offer:
@@ -49,6 +51,8 @@ class DashboardContainerScreen extends GetWidget<DashboardContainerController> {
         return ExplorePage();
       case AppRoutes.accountPage:
         return AccountPage();
+      case AppRoutes.wordCategoryPage:
+        return WordCategoryScreen();
       default:
         return DefaultWidget();
     }

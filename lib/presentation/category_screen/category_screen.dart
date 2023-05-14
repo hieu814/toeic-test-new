@@ -1,11 +1,7 @@
-import 'package:toeic_test/data/models/exam/exam.dart';
 import 'package:toeic_test/presentation/category_screen/widgets/category_widget.dart';
 import 'controller/category_controller.dart';
-import 'models/offer_screen_item_model.dart';
 import 'package:flutter/material.dart';
 import 'package:toeic_test/core/app_export.dart';
-import 'package:toeic_test/widgets/app_bar/appbar_image.dart';
-import 'package:toeic_test/widgets/app_bar/appbar_title.dart';
 import 'package:toeic_test/widgets/app_bar/custom_app_bar.dart';
 
 class CategoryScreen extends GetWidget<CategoryController> {
@@ -15,9 +11,9 @@ class CategoryScreen extends GetWidget<CategoryController> {
       case CategoryType.article:
         return "lbl_article";
       case CategoryType.fullTest:
-        return "lbl_toeic_part_0";
+        return "lbl_toeic_part_type_0";
       case CategoryType.miniTest:
-        return "lbl_toeic_part_1";
+        return "lbl_toeic_part_type_1";
       case CategoryType.word:
         return "lbl_word_learning";
       default:

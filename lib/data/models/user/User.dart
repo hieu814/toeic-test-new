@@ -1,3 +1,6 @@
+import 'package:toeic_test/core/app_export.dart';
+import 'package:toeic_test/presentation/account_page/models/account_model.dart';
+
 class UserSchema {
   String? username;
   String? password;
@@ -43,7 +46,7 @@ class UserSchema {
       this.id});
 
   factory UserSchema.fromJson(Map<String, dynamic> json) {
-    print("hieu parse $json");
+    // print("hieu parse $json");
     List<dynamic> dataList = ((json['score_statistics'] ?? []) as List);
     List<ScoreStatistic> _scoreStatistics = dataList
         .map((e) => ScoreStatistic.fromJson(e as Map<String, dynamic>))
@@ -91,6 +94,50 @@ class UserSchema {
       'avatar': avatar,
       'score_statistics': scoreStatistics?.map((e) => e.toJson()).toList(),
     };
+  }
+
+  ToeicScore getScoreStatics() {
+    try {
+      int listeningCount = 0;
+
+      int readingCount = 0;
+
+      ToeicScore toeicScore = ToeicScore();
+      for (var score in scoreStatistics) {
+        toeicScore.setPercentCorrect(score.type,
+            score.count == 0 ? 0.0 : (score.totalCorrect / score.count));
+
+        if (score.type < 5) {
+          listeningCount += score.count == 0
+              ? 0
+              : ((score.totalCorrect / score.count) *
+                      getToeicQuestionCount(score.type))
+                  .round();
+        } else {
+          readingCount += score.count == 0
+              ? 0
+              : ((score.totalCorrect / score.count) *
+                      getToeicQuestionCount(score.type))
+                  .toInt();
+        }
+      }
+
+      toeicScore.listeningScore =
+          listeningCount == 0 ? 0 : toeicListeningScore[listeningCount] ?? 5;
+      toeicScore.readingScore =
+          readingCount == 0 ? 0 : toeicReadingScore[readingCount] ?? 5;
+      return toeicScore;
+    } catch (e) {}
+    return ToeicScore();
+  }
+
+  int getToeicQuestionCount(int type) {
+    final count = toeicSections[type];
+    print("hieu $type :  $count");
+    if (count != null && !count.isNaN && !count.isInfinite) {
+      return count;
+    }
+    return 1;
   }
 }
 

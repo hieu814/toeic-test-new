@@ -216,7 +216,7 @@ class TestResultScreen extends GetWidget<TestResultController> {
     List<Widget> data = [];
     answerData.forEach((key, value) {
       if (value.length > 0) {
-        data.add(Text("lbl_toeic_part_${key + 1}".tr,
+        data.add(Text("lbl_toeic_part_type_${key + 1}".tr,
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.left,
             style: AppStyle.txtPoppinsBold14Indigo900

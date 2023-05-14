@@ -2,8 +2,6 @@ import 'dart:convert';
 
 import 'package:toeic_test/core/app_export.dart';
 import 'package:toeic_test/core/utils/progress_dialog_utils.dart';
-import 'package:toeic_test/data/models/login/post_login_resp.dart';
-import 'package:toeic_test/data/models/me/get_me_resp.dart';
 import 'package:http/http.dart' as http;
 import 'package:toeic_test/data/models/user/User.dart';
 

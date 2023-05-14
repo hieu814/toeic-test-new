@@ -60,7 +60,7 @@ class ExamCategoryScreen extends GetWidget<ExamCategoryController> {
                       score: score.correct,
                       total: exam.total,
                       name: exam.name,
-                      type: "lbl_toeic_part_${exam.type}".tr,
+                      type: "lbl_toeic_part_type_${exam.type}".tr,
                       totalQuestion: exam.total);
                 }))),
       ),

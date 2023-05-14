@@ -28,6 +28,7 @@ dependencies:
   audioplayers: ^4.0.1
   flutter_widget_from_html: ^0.10.0
   percent_indicator: ^4.2.3
+  fl_chart: ^0.62.0
 dev_dependencies: 
   flutter_test: 
     sdk: flutter

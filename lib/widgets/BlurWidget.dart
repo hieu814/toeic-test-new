@@ -4,11 +4,9 @@ import 'package:flutter/material.dart';
 
 class BlurWidget extends StatelessWidget {
   final Widget? background;
+  final Widget? nonBlurBackground;
   final Widget child;
-  BlurWidget({
-    required this.child,
-    this.background,
-  });
+  BlurWidget({required this.child, this.background, this.nonBlurBackground});
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +19,8 @@ class BlurWidget extends StatelessWidget {
             child: background,
           ),
         ),
+        if (nonBlurBackground != null)
+          Positioned.fill(child: nonBlurBackground ?? Container()),
         Positioned.fill(
           child: Container(
             color: Colors.black.withOpacity(0.3),

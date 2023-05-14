@@ -58,7 +58,7 @@ class ExamTestScreen extends GetWidget<TestController> {
                     child: Obx(() => Text(
                           controller.currentQuesttion.value.type > 0 &&
                                   controller.currentQuesttion.value.type < 8
-                              ? "lbl_toeic_part_${controller.currentQuesttion.value.type}"
+                              ? "lbl_toeic_part_type_${controller.currentQuesttion.value.type}"
                                   .tr
                               : "",
                           style: TextStyle(color: Colors.black),
@@ -222,7 +222,7 @@ List<Widget> buildAnswers(Map<int, List<Answer>> answerData) {
   List<Widget> data = [];
   answerData.forEach((key, value) {
     if (value.length > 0) {
-      data.add(Text("lbl_toeic_part_${key + 1}".tr,
+      data.add(Text("lbl_toeic_part_type_${key + 1}".tr,
           overflow: TextOverflow.ellipsis,
           textAlign: TextAlign.left,
           style: AppStyle.txtPoppinsBold14Indigo900

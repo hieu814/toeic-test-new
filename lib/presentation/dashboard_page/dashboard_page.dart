@@ -1,14 +1,11 @@
+import 'package:toeic_test/widgets/app_bar/appbar_title.dart';
+
 import '../dashboard_page/widgets/categories_item_widget.dart';
-import '../dashboard_page/widgets/dashboard_item_widget.dart';
-import '../dashboard_page/widgets/flashsale_item_widget.dart';
-import '../dashboard_page/widgets/megasale_item_widget.dart';
+
 import '../dashboard_page/widgets/sliderofferbannertitl_item_widget.dart';
 import 'controller/dashboard_controller.dart';
 import 'models/categories_item_model.dart';
-import 'models/dashboard_item_model.dart';
-import 'models/dashboard_model.dart';
-import 'models/category_item_model.dart';
-import 'models/megasale_item_model.dart';
+
 import 'models/sliderofferbannertitl_item_model.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -25,13 +22,10 @@ class DashboardPage extends StatelessWidget {
         child: Scaffold(
             backgroundColor: ColorConstant.gray100,
             appBar: CustomAppBar(
-                height: getVerticalSize(43),
-                leadingWidth: 48,
-                leading: AppbarImage(
-                    height: getSize(16),
-                    width: getSize(16),
-                    svgPath: ImageConstant.imgSearchLightBlueA200,
-                    margin: getMargin(left: 32, top: 4, bottom: 4)),
+                backgroundColor: Colors.white,
+                height: getVerticalSize(66),
+                title: AppbarTitle(
+                    text: "lbl_home".tr, margin: getMargin(left: 16)),
                 actions: []),
             body: SizedBox(
                 width: size.width,
@@ -294,7 +288,7 @@ class DashboardPage extends StatelessWidget {
                                                                               9),
                                                                       child:
                                                                           Text(
-                                                                        "lbl_toeic_part_1"
+                                                                        "lbl_toeic_part_type_1"
                                                                             .tr,
                                                                         maxLines:
                                                                             2,
@@ -388,7 +382,7 @@ class DashboardPage extends StatelessWidget {
                                                                               9),
                                                                       child:
                                                                           Text(
-                                                                        "lbl_toeic_part_1"
+                                                                        "lbl_toeic_part_type_1"
                                                                             .tr,
                                                                         maxLines:
                                                                             2,
