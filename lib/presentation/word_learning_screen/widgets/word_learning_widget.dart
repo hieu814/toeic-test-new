@@ -4,8 +4,8 @@ import 'package:toeic_test/presentation/dashboard_page/models/category_item_mode
 import 'package:toeic_test/widgets/BlurWidget.dart';
 
 // ignore: must_be_immutable
-class WordCategoryItemWidget extends StatelessWidget {
-  const WordCategoryItemWidget(
+class WordTopicItemWidget extends StatelessWidget {
+  const WordTopicItemWidget(
       {required this.thumbnail,
       required this.title,
       required this.subtitle,
@@ -30,20 +30,24 @@ class WordCategoryItemWidget extends StatelessWidget {
               onTap?.call();
             },
             child: Padding(
-              padding: getPadding(all: 4),
+              padding: const EdgeInsets.symmetric(vertical: 10.0),
               child: SizedBox(
                 height: 100,
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    CustomImageView(
-                        url: thumbnail,
-                        // fit: BoxFit.fill,
-                        width: 150,
-                        height: 350,
-                        radius: BorderRadius.all(Radius.circular(10))),
                     Expanded(
-                      // flex: 7,
+                      flex: 3,
+                      child: AspectRatio(
+                        aspectRatio: 1.0,
+                        child: CustomImageView(
+                            url: thumbnail,
+                            fit: BoxFit.fill,
+                            radius: BorderRadius.all(Radius.circular(10))),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 7,
                       child: Padding(
                         padding: const EdgeInsets.fromLTRB(20.0, 0.0, 2.0, 0.0),
                         child: Column(
@@ -63,17 +67,14 @@ class WordCategoryItemWidget extends StatelessWidget {
                                   ),
                                   const Padding(
                                       padding: EdgeInsets.only(bottom: 2.0)),
-                                  Padding(
-                                    padding: getPadding(left: 4),
-                                    child: SingleChildScrollView(
-                                      child: Text(
-                                        subtitle,
-                                        maxLines: 4,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: const TextStyle(
-                                          fontSize: 12.0,
-                                          color: Colors.black54,
-                                        ),
+                                  SingleChildScrollView(
+                                    child: Text(
+                                      subtitle,
+                                      maxLines: 4,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: const TextStyle(
+                                        fontSize: 12.0,
+                                        color: Colors.black54,
                                       ),
                                     ),
                                   ),

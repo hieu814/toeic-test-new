@@ -2,6 +2,8 @@ import 'dart:math';
 
 import 'package:toeic_test/core/app_export.dart';
 import 'package:toeic_test/data/apiClient/api_client.dart';
+import 'package:toeic_test/data/models/user/User.dart';
+import 'package:toeic_test/presentation/account_page/models/account_model.dart';
 import 'package:toeic_test/presentation/dashboard_page/models/dashboard_model.dart';
 import 'package:toeic_test/presentation/dashboard_page/models/category_item_model.dart';
 
@@ -9,13 +11,14 @@ class DashboardController extends GetxController {
   DashboardController();
 
   Rx<DashboardModel> dashboardModelObj = DashboardModel().obs;
-
+  Rx<ToeicScore> toeicScore = Rx<ToeicScore>(ToeicScore());
   Rx<int> silderIndex = 0.obs;
 
   @override
-  void onReady() {
+  void onReady() async {
     super.onReady();
-    getAll();
+    UserSchema currentUser = await Get.find<ApiClient>().fetchMe();
+    toeicScore.value = currentUser.getScoreStatics();
   }
 
   @override

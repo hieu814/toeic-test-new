@@ -12,7 +12,7 @@ const Map<int, int> toeicSections = {
   4: 30,
   5: 30,
   6: 29,
-  7: 25,
+  7: 54,
 };
 
 const Map<int, int> toeicListeningScore = {

@@ -10,9 +10,9 @@ class DashboardModel {
       RxList.generate(1, (index) => SliderofferbannertitlItemModel());
 
   RxList<CategoriesItemModel> categoriesListeningItemList =
-      RxList.generate(4, (index) => CategoriesItemModel(part: index + 1));
+      RxList.generate(4, (index) => CategoriesItemModel(part: index + 2));
   RxList<CategoriesItemModel> categoriesReadingItemList =
-      RxList.generate(3, (index) => CategoriesItemModel(part: index + 4));
+      RxList.generate(3, (index) => CategoriesItemModel(part: index + 6));
 
   RxList<CategoryItemModel> fullTestCategoryItemList = RxList([]);
   RxList<CategoryItemModel> miniTestCategoryItemList = RxList([]);

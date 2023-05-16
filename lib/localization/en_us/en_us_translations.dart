@@ -43,6 +43,13 @@ final Map<String, String> enUs = {
   "lbl_toeic_skill": "TOEIC skill",
   "lbl_home": "Home",
   "lbl_Vocabulary": "Vocabulary",
+  "lbl_Photographs": "Photographs",
+  "lbl_Question_Response": "Question-Response",
+  "lbl_Conversations": "Conversations",
+  "lbl_Talks": "Talks",
+  "lbl_Incomplete_Sentences": "Incomplete Sentences",
+  "lbl_Text_Completion": "Text Completion",
+  "lbl_Passages": "Passages",
 };
 
 final Map<String, String> enUs2 = {

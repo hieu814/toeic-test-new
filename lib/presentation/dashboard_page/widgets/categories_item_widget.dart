@@ -4,55 +4,65 @@ import 'package:flutter/material.dart';
 import 'package:toeic_test/core/app_export.dart';
 import 'package:toeic_test/widgets/custom_icon_button.dart';
 
-// ignore: must_be_immutable
 class CategoriesItemWidget extends StatelessWidget {
-  CategoriesItemWidget(this.categoriesItemModelObj);
-
-  CategoriesItemModel categoriesItemModelObj;
-
-  var controller = Get.find<DashboardController>();
-
+  const CategoriesItemWidget(
+      {Key? key,
+      required this.backgroundColor,
+      required this.title,
+      required this.image,
+      required this.width,
+      required this.height,
+      required this.subTitle})
+      : super(key: key);
+  final Color backgroundColor;
+  final String image;
+  final String title;
+  final String subTitle;
+  final double? width;
+  final double? height;
   @override
   Widget build(BuildContext context) {
-    return IntrinsicWidth(
-      child: Align(
-        alignment: Alignment.centerRight,
-        child: Padding(
-          padding: getPadding(
-            right: 12,
-            bottom: 15,
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              CustomIconButton(
-                height: 70,
-                width: 70,
-                child: CustomImageView(
-                  imagePath: categoriesItemModelObj.image,
-                ),
-              ),
-              Padding(
-                padding: getPadding(
-                  top: 7,
-                ),
-                child: Obx(
-                  () => Text(
-                    categoriesItemModelObj.categoryPartTxt.value,
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.left,
-                    style: AppStyle.txtRobotoRegular10.copyWith(
-                      letterSpacing: getHorizontalSize(
-                        1,
-                      ),
-                    ),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+            width: (width ?? 0) * 0.8,
+            height: (height ?? 0) * 0.8,
+            decoration: AppDecoration.fillBlueA400.copyWith(
+                color: backgroundColor,
+                borderRadius: BorderRadiusStyle.roundedBorder5),
+            child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CustomImageView(
+                    imagePath: image,
+                    width: (height ?? 0) * 0.5,
+                    height: (height ?? 0) * 0.5,
                   ),
-                ),
-              ),
-            ],
+                  Text(title,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.left,
+                      style: AppStyle.txtRubikMedium12.copyWith(
+                          fontSize: 20, letterSpacing: getHorizontalSize(0.2))),
+                ])),
+        Padding(
+          padding: getPadding(top: 5, left: 10, right: 10),
+          child: Container(
+            width: (width ?? 0) * 0.8,
+            child: Text(subTitle,
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.center,
+                maxLines: 2,
+                style: AppStyle.txtRubikMedium12.copyWith(
+                    fontSize: 15, letterSpacing: getHorizontalSize(0.2))),
           ),
         ),
-      ),
+        Spacer()
+      ],
     );
   }
 }

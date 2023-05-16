@@ -18,6 +18,10 @@ import 'package:toeic_test/presentation/test_result_screen/binding/test_result_b
 import 'package:toeic_test/presentation/test_result_screen/test_result_screen.dart';
 import 'package:toeic_test/presentation/review_exam_screen/review_exam_screen.dart';
 import 'package:toeic_test/presentation/review_exam_screen/binding/review_exam_binding.dart';
+import 'package:toeic_test/presentation/word_learning_screen/binding/word_learning_binding.dart';
+import 'package:toeic_test/presentation/word_learning_screen/word_learning_screen.dart';
+import 'package:toeic_test/presentation/word_topic_screen/binding/word_category_binding.dart';
+import 'package:toeic_test/presentation/word_topic_screen/word_topic_screen.dart';
 import 'package:toeic_test/presentation/write_review_fill_screen/write_review_fill_screen.dart';
 import 'package:toeic_test/presentation/write_review_fill_screen/binding/write_review_fill_binding.dart';
 import 'package:toeic_test/presentation/notification_screen/notification_screen.dart';
@@ -62,6 +66,10 @@ class AppRoutes {
   static const String explorePage = '/explore_page';
 
   static const String listCategoryScreen = '/list_category_screen';
+
+  static const String wordTopicScreen = '/word_topic_screen';
+
+  static const String wordLearningScreen = '/word_learning_screen';
 
   static const String examTestScreen = '/exam_test_screen';
 
@@ -164,6 +172,20 @@ class AppRoutes {
       page: () => ListCategoryScreen(),
       bindings: [
         ListCategoryBinding(),
+      ],
+    ),
+    GetPage(
+      name: wordTopicScreen,
+      page: () => WordTopicScreen(),
+      bindings: [
+        WordTopiBinding(),
+      ],
+    ),
+    GetPage(
+      name: wordLearningScreen,
+      page: () => WordLearningScreen(),
+      bindings: [
+        WordLearningBinding(),
       ],
     ),
     GetPage(

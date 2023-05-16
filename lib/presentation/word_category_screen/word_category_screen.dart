@@ -47,15 +47,15 @@ class WordCategoryScreen extends StatelessWidget {
                             },
                             itemCount: controller.categories.length,
                             itemBuilder: (context, index) {
-                              final exam = controller.categories[index];
+                              final category = controller.categories[index];
                               return WordCategoryItemWidget(
                                 onTap: () {
-                                  Get.toNamed(AppRoutes.examCategoryScreen,
-                                      arguments: {"category": exam});
+                                  Get.toNamed(AppRoutes.wordTopicScreen,
+                                      arguments: {"category": category});
                                 },
-                                thumbnail: exam.image,
-                                title: exam.name,
-                                subtitle: exam.description,
+                                thumbnail: category.image,
+                                title: category.name,
+                                subtitle: category.description,
                                 count: "",
                                 typeName: "Exam",
                               );

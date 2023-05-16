@@ -1,6 +1,6 @@
 class ImageConstant {
   String getCategoryPartImage(int part) {
-    switch (part) {
+    switch (part - 1) {
       case 1:
         return imgpart1;
       case 2:
