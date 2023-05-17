@@ -65,8 +65,7 @@ class CategoryScreen extends GetWidget<CategoryController> {
                           thumbnail: exam.image,
                           title: exam.name,
                           subtitle: exam.description,
-                          author: "author",
-                          count: "100",
+                          count: "${exam.count}",
                           typeName: "Exam",
                         );
                       })),

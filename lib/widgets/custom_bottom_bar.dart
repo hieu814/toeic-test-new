@@ -13,19 +13,9 @@ class CustomBottomBar extends StatelessWidget {
       type: BottomBarEnum.Home,
     ),
     BottomMenuModel(
-      icon: ImageConstant.imgSearch,
-      title: "lbl_explore".tr,
+      icon: ImageConstant.imgDictionary,
+      title: "lbl_word_learning".tr,
       type: BottomBarEnum.Explore,
-    ),
-    BottomMenuModel(
-      icon: ImageConstant.imgCart,
-      title: "lbl_cart".tr,
-      type: BottomBarEnum.Cart,
-    ),
-    BottomMenuModel(
-      icon: ImageConstant.imgOffer,
-      title: "lbl_offer".tr,
-      type: BottomBarEnum.Offer,
     ),
     BottomMenuModel(
       icon: ImageConstant.imgUser,

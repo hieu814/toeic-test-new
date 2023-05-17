@@ -9,7 +9,6 @@ class CategoryItemWidget extends StatelessWidget {
       {required this.thumbnail,
       required this.title,
       required this.subtitle,
-      required this.author,
       required this.count,
       required this.typeName,
       this.onTap});
@@ -17,7 +16,7 @@ class CategoryItemWidget extends StatelessWidget {
   final String thumbnail;
   final String title;
   final String subtitle;
-  final String author;
+
   final String count;
   final String typeName;
   final VoidCallback? onTap;
@@ -27,45 +26,74 @@ class CategoryItemWidget extends StatelessWidget {
     return Padding(
         padding: const EdgeInsets.all(8.0),
         child: GestureDetector(
-          onTap: () {
-            onTap?.call();
-          },
-          child: Container(
-            height: 180,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(9),
-              child: BlurWidget(
-                background: CustomImageView(url: thumbnail, fit: BoxFit.fill),
-                child: Column(
+            onTap: () {
+              onTap?.call();
+            },
+            child: Padding(
+              padding: getPadding(all: 4),
+              child: SizedBox(
+                height: 100,
+                child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(title,
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.center,
-                          maxLines: 2,
-                          style: AppStyle.txtRobotoRegular20
-                              .copyWith(fontSize: 20, color: Colors.white)),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(subtitle,
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.left,
-                          maxLines: 6,
-                          style: AppStyle.txtRobotoRegular20.copyWith(
-                              fontSize: 15, color: Colors.grey.shade200)),
+                  children: <Widget>[
+                    CustomImageView(
+                        url: thumbnail,
+                        // fit: BoxFit.fill,
+                        width: 150,
+                        height: 350,
+                        radius: BorderRadius.all(Radius.circular(10))),
+                    Expanded(
+                      // flex: 7,
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(20.0, 0.0, 2.0, 0.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Text(
+                                    title,
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  const Padding(
+                                      padding: EdgeInsets.only(bottom: 2.0)),
+                                  Padding(
+                                    padding: getPadding(left: 4),
+                                    child: SingleChildScrollView(
+                                      child: Text(
+                                        subtitle,
+                                        maxLines: 4,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: const TextStyle(
+                                          fontSize: 12.0,
+                                          color: Colors.black54,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            // Text(
+                            //   count,
+                            //   style: const TextStyle(
+                            //     fontSize: 12.0,
+                            //     color: Colors.black54,
+                            //   ),
+                            // ),
+                          ],
+                        ),
+                      ),
                     ),
                   ],
                 ),
               ),
-            ),
-          ),
-        ));
+            )));
   }
 }

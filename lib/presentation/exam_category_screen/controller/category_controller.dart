@@ -11,11 +11,19 @@ class ExamCategoryController extends GetxController {
   RxList<ExamModel> exams = RxList([]);
   Rx<CategoryItemModel> category = CategoryItemModel().obs;
   RxList<Result> results = RxList<Result>([]);
+  int? type = ExamType.fullTest;
   @override
   void onReady() async {
     super.onReady();
     final args = Get.arguments as Map<String, dynamic>;
-    category.value = args["category"] as CategoryItemModel;
+    if (args["category"] != null) {
+      category.value = args["category"] as CategoryItemModel;
+    } else {
+      type = args["type"] ?? ExamType.fullTest;
+      category.value =
+          CategoryItemModel(name: ("lbl_toeic_part_type_${type ?? 1}".tr));
+    }
+
     await callFetchResult();
     await callFetchExams();
   }
@@ -32,7 +40,10 @@ class ExamCategoryController extends GetxController {
         "page": 0,
         "rowsPerPage": 100,
         "populate": "questions",
-        "queryField": {"category": category.value.id},
+        "queryField": {
+          "category": category.value.id.isEmpty ? null : category.value.id,
+          "type": type
+        },
       });
 
       final response = await Get.find<ApiClient>()

@@ -15,9 +15,9 @@ class CategoryController extends GetxController {
     super.onReady();
     final args = Get.arguments as Map<String, dynamic>;
     categoryType.value = args["type"] as CategoryType;
-    if (categoryType == CategoryType.fullTest) {
+    if (categoryType.value == CategoryType.fullTest) {
       callFetchFullTestExamCategory();
-    } else if (categoryType == CategoryType.miniTest) {
+    } else if (categoryType.value == CategoryType.miniTest) {
       callFetchMiniTestExamCategory();
     }
   }
@@ -58,6 +58,25 @@ class CategoryController extends GetxController {
           .requestPost("${ApiConstant.examCategory}", query);
       final data = response['data']['data'] as List<dynamic>;
       print({"callFetchMiniTestExamCategory": data});
+      list.assignAll(
+          data.map((item) => CategoryItemModel.fromJson(item)).toList());
+      categories.value = list;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> callFetchCategory() async {
+    try {
+      List<CategoryItemModel> list = [];
+      Map<String, dynamic> query = Get.find<ApiClient>().buildQuery({
+        "page": 0,
+        "rowsPerPage": 10,
+        "queryField": {"type": 0},
+      });
+      final response = await Get.find<ApiClient>()
+          .requestPost("${ApiConstant.wordCategory}", query);
+      final data = response['data']['data'] as List<dynamic>;
       list.assignAll(
           data.map((item) => CategoryItemModel.fromJson(item)).toList());
       categories.value = list;

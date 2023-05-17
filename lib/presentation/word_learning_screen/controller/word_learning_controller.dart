@@ -6,6 +6,7 @@ import 'package:toeic_test/presentation/word_topic_screen/models/topic_model.dar
 
 class WordLearningController extends GetxController {
   Rx<TopicModel> topic = TopicModel(words: []).obs;
+  RxInt index = RxInt(0);
   @override
   void onReady() {
     super.onReady();

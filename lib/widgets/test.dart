@@ -1,385 +1,395 @@
-// import 'controller/iphone_11_pro_max_one_controller.dart';
-// import 'package:flutter/material.dart';
-// import 'package:hieu_s_application11/core/app_export.dart';
-// import 'package:hieu_s_application11/widgets/custom_button.dart';
-// import 'package:percent_indicator/percent_indicator.dart';
 
-// class Iphone11ProMaxOneScreen extends GetWidget<Iphone11ProMaxOneController> {
+// class WordCategory extends GetWidget<WordCategoryController> {
 //   @override
 //   Widget build(BuildContext context) {
-//     List<AnswerData> dataEst = [];
-//     for (var i = 0; i < 20; i++) {
-//       dataEst.add(AnswerData(
-//           answer: "A", correctAnswer: i % 2 == 0 ? "A" : "B", number: i));
-//     }
-//     List<AnswerData> dataEst2 = [];
-//     for (var i = 0; i < 20; i++) {
-//       dataEst2.add(AnswerData(
-//           answer: i % 2 == 0 ? "A" : "",
-//           correctAnswer: i % 2 == 0 ? "A" : "B",
-//           number: i));
-//     }
 //     return SafeArea(
 //       child: Scaffold(
-//         backgroundColor: ColorConstant.gray100,
-//        endDrawer: Drawer(child: AnswerSheetWidget(
-//                           result: false,
-//                           answerDatas: {1: dataEst, 2: dataEst2})),
-//         body: Container(
-//           width: double.maxFinite,
-//           height: double.infinity,
-//           child: Column(
-//             mainAxisAlignment: MainAxisAlignment.start,
-//             children: [
-//               Container(
-//                 height: getVerticalSize(
-//                   223,
-//                 ),
-//                 width: double.maxFinite,
-//                 child: Stack(
-//                   alignment: Alignment.bottomCenter,
-//                   children: [
-//                     Align(
-//                       alignment: Alignment.topCenter,
-//                       child: Container(
-//                         width: double.maxFinite,
-//                         margin: getMargin(
-//                           bottom: 60,
-//                         ),
-//                         padding: getPadding(
-//                           left: 26,
-//                           top: 24,
-//                           right: 26,
-//                           bottom: 24,
-//                         ),
-//                         decoration: AppDecoration.fillBlueA400.copyWith(
-//                           borderRadius: BorderRadiusStyle.customBorderBL40,
-//                         ),
-//                         child: Row(
-//                           crossAxisAlignment: CrossAxisAlignment.start,
-//                           children: [
-//                             CustomImageView(
-//                               svgPath: ImageConstant.imgMenu,
-//                               height: getVerticalSize(
-//                                 28,
-//                               ),
-//                               width: getHorizontalSize(
-//                                 24,
-//                               ),
-//                               margin: getMargin(
-//                                 bottom: 85,
-//                               ),
-//                             ),
-//                             Padding(
-//                               padding: getPadding(
-//                                 left: 101,
-//                                 bottom: 85,
-//                               ),
-//                               child: Text(
-//                                 "lbl_dashbord".tr,
-//                                 overflow: TextOverflow.ellipsis,
-//                                 textAlign: TextAlign.left,
-//                                 style: AppStyle.txtRubikMedium24,
-//                               ),
-//                             ),
-//                           ],
-//                         ),
-//                       ),
-//                     ),
-//                     Align(
-//                       alignment: Alignment.bottomCenter,
-//                       child: Container(
-//                         margin: getMargin(
-//                           left: 26,
-//                           right: 26,
-//                         ),
-//                         padding: getPadding(
-//                           top: 16,
-//                           bottom: 16,
-//                         ),
-//                         decoration: AppDecoration.fillWhiteA700.copyWith(
-//                           borderRadius: BorderRadiusStyle.roundedBorder10,
-//                         ),
-//                         child: Column(
-//                           mainAxisSize: MainAxisSize.min,
-//                           mainAxisAlignment: MainAxisAlignment.end,
-//                           children: [
-//                             Padding(
-//                               padding: getPadding(
-//                                 top: 7,
-//                               ),
-//                               child: Text(
-//                                 "lbl_today".tr,
-//                                 overflow: TextOverflow.ellipsis,
-//                                 textAlign: TextAlign.left,
-//                                 style: AppStyle.txtRubikMedium18.copyWith(
-//                                   letterSpacing: getHorizontalSize(
-//                                     0.2,
-//                                   ),
-//                                 ),
-//                               ),
-//                             ),
-//                             Padding(
-//                               padding: getPadding(
-//                                 top: 1,
-//                               ),
-//                               child: Text(
-//                                 "asasdadsdasasd".tr,
-//                                 overflow: TextOverflow.ellipsis,
-//                                 textAlign: TextAlign.left,
-//                                 style: AppStyle.txtRubikBold24.copyWith(
-//                                   letterSpacing: getHorizontalSize(
-//                                     0.2,
-//                                   ),
-//                                 ),
-//                               ),
-//                             ),
-//                             Padding(
-//                               padding: getPadding(
-//                                 top: 18,
-//                               ),
-//                               child: Divider(
-//                                 height: getVerticalSize(
-//                                   1,
-//                                 ),
-//                                 thickness: getVerticalSize(
-//                                   1,
-//                                 ),
-//                                 color: ColorConstant.indigo50,
-//                               ),
-//                             ),
-//                             Padding(
-//                               padding: getPadding(
-//                                 left: 16,
-//                                 top: 15,
-//                                 right: 17,
-//                               ),
-//                               child: Row(
-//                                 mainAxisAlignment: MainAxisAlignment.center,
-//                                 children: [
-//                                   Padding(
-//                                       padding: getPadding(
-//                                         left: 6,
-//                                       ),
-//                                       child: Card(
-//                                         color: Colors.greenAccent.shade100,
-//                                         child: Center(
-//                                           child: Padding(
-//                                             padding: getPadding(
-//                                               all: 8,
-//                                             ),
-//                                             child: Text("1",
-//                                                 style: AppStyle.txtRubikMedium18
-//                                                     .copyWith(
-//                                                         color: Colors.white)),
-//                                           ),
-//                                         ),
-//                                       )),
-//                                   Text(" correct",
-//                                       style: AppStyle.txtRubikMedium18
-//                                           .copyWith(color: Colors.black)),
-//                                   SizedBox(
-//                                     width: 30,
-//                                   ),
-//                                   Padding(
-//                                       padding: getPadding(
-//                                         left: 6,
-//                                       ),
-//                                       child: Card(
-//                                         color: Colors.redAccent.shade100,
-//                                         child: Center(
-//                                           child: Padding(
-//                                             padding: getPadding(
-//                                               all: 8,
-//                                             ),
-//                                             child: Text("2",
-//                                                 style: AppStyle.txtRubikMedium18
-//                                                     .copyWith(
-//                                                         color: Colors.white)),
-//                                           ),
-//                                         ),
-//                                       )),
-//                                   Text(" incorrect",
-//                                       style: AppStyle.txtRubikMedium18
-//                                           .copyWith(color: Colors.black)),
-//                                   SizedBox(
-//                                     width: 30,
-//                                   ),
-//                                   Padding(
-//                                       padding: getPadding(
-//                                         left: 6,
-//                                       ),
-//                                       child: Card(
-//                                         color: Colors.grey.shade100,
-//                                         child: Center(
-//                                           child: Padding(
-//                                             padding: getPadding(
-//                                               all: 8,
-//                                             ),
-//                                             child: Text("2",
-//                                                 style: AppStyle.txtRubikMedium18
-//                                                     .copyWith(
-//                                                         color: Colors.black)),
-//                                           ),
-//                                         ),
-//                                       )),
-//                                   Text(" blank",
-//                                       style: AppStyle.txtRubikMedium18
-//                                           .copyWith(color: Colors.black)),
-//                                 ],
-//                               ),
-//                             ),
-//                           ],
-//                         ),
-//                       ),
-//                     ),
-//                   ],
-//                 ),
-//               ),
-//               Expanded(
-//                 child: Container(
-//                     margin: getMargin(
-//                       left: 26,
-//                       top: 16,
-//                       right: 26,
-//                     ),
-//                     padding: getPadding(
-//                       top: 15,
-//                       bottom: 15,
-//                     ),
-//                     height: 100,
-//                     // constraints: BoxConstraints.expand(),
-//                     decoration: AppDecoration.fillWhiteA700.copyWith(
-//                       borderRadius: BorderRadiusStyle.roundedBorder10,
-//                     ),
-//                     child: Padding(
-//                       padding: getPadding(
-//                         all: 16,
-//                       ),
-//                       child: AnswerSheetWidget(
-//                           result: false,
-//                           answerDatas: {1: dataEst, 2: dataEst2}),
-//                     )),
-//               ),
-//             ],
+//           backgroundColor: Colors.transparent,
+//           body: CategoryWidget(
+//             index: 1,
+//           )),
+//     );
+//   }
+// }
+
+// class CategoryWidget extends StatefulWidget {
+//   final int index;
+//   const CategoryWidget({
+//     Key? key,
+//     required this.index,
+//   }) : super(key: key);
+
+//   @override
+//   State<CategoryWidget> createState() => _CategoryWidgetState();
+// }
+
+// class _CategoryWidgetState extends State<CategoryWidget> {
+//   List<Topic> categories = [];
+//   String str =
+//       "";
+//   List<Topic> createCategoryList(String jsonStr) {
+//     Map<String, dynamic> jsonList = jsonDecode(jsonStr);
+//     List<dynamic> jsss = jsonList["topics"] ?? [];
+//     // print(jsonList["topics"]);
+//     return jsss.map((json) => Topic.fromJson(json)).toList();
+//   }
+
+//   int _currentCarouselIndex = 0;
+//   @override
+//   void initState() {
+//     // TODO: implement initState
+//     super.initState();
+//   }
+
+//   final CarouselController _controller = CarouselController();
+//   @override
+//   Widget build(BuildContext context) {
+//     categories = createCategoryList(str);
+//     return Scaffold(
+//         appBar: AppBar(
+//           backgroundColor: Colors.white,
+//           title: Text(
+//             "$_currentCarouselIndex" ?? "",
+//             style: TextStyle(color: Colors.black),
 //           ),
 //         ),
+//         body: Column(
+//           children: [
+//             Padding(
+//               padding: getPadding(top: 20, left: 10, right: 10),
+//               child: LinearPercentIndicator(
+//                 percent: _currentCarouselIndex / categories[0].words.length,
+//                 lineHeight: 10,
+//                 barRadius: Radius.circular(5),
+//               ),
+//             ),
+//             Expanded(
+//               child: CarouselSlider.builder(
+//                 carouselController: _controller,
+//                 itemCount: categories[0].words.length,
+//                 itemBuilder: (BuildContext context, int index, int realIndex) {
+//                   final WordModel word = categories[0].words[index];
+//                   return FlipWordWidget(
+//                     word: word,
+//                   );
+//                 },
+//                 options: CarouselOptions(
+//                   onPageChanged: (index, reason) {
+//                     setState(() {
+//                       _currentCarouselIndex = index;
+//                     });
+//                   },
+//                   aspectRatio: 10 / 11,
+//                   viewportFraction: 0.9,
+//                   enlargeCenterPage: true,
+//                 ),
+//               ),
+//             ),
+//             Padding(
+//               padding: getPadding(all: 10),
+//               child: Row(
+//                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//                 children: [
+//                   IconButton(
+//                       onPressed: () {
+//                         _controller.previousPage();
+//                       },
+//                       icon: Icon(
+//                         Icons.arrow_back_ios,
+//                         color: Colors.black,
+//                       )),
+//                   Spacer(),
+//                   IconButton(
+//                       onPressed: () {
+//                         _controller.nextPage();
+//                       },
+//                       icon: Icon(Icons.arrow_forward_ios, color: Colors.black))
+//                 ],
+//               ),
+//             )
+//           ],
+//         ));
+//   }
+// }
+
+// class Category {
+//   String id;
+//   String image;
+//   String name;
+//   String description;
+//   List<Topic> topics;
+
+//   Category({
+//     required this.id,
+//     required this.image,
+//     required this.name,
+//     required this.description,
+//     required this.topics,
+//   });
+
+//   factory Category.fromJson(Map<String, dynamic> json) {
+//     List<dynamic> topicList = json['topics'] ?? [];
+//     List<Topic> topics =
+//         topicList.map((topic) => Topic.fromJson(topic)).toList();
+
+//     return Category(
+//       id: json['id'],
+//       image: json['image'],
+//       name: json['name'],
+//       description: json['description'],
+//       topics: topics,
+//     );
+//   }
+
+//   Map<String, dynamic> toJson() {
+//     List<Map<String, dynamic>> topics =
+//         this.topics.map((topic) => topic.toJson()).toList();
+
+//     return {
+//       'id': this.id,
+//       'image': this.image,
+//       'name': this.name,
+//       'description': this.description,
+//       'topics': topics,
+//     };
+//   }
+// }
+
+// class Topic {
+//   final String id;
+//   final String image;
+//   final String name;
+//   final int priorityWeight;
+//   final bool statusDelete;
+//   final List<WordModel> words;
+
+//   Topic({
+//     required this.id,
+//     required this.image,
+//     required this.name,
+//     required this.priorityWeight,
+//     required this.statusDelete,
+//     required this.words,
+//   });
+
+//   factory Topic.fromJson(Map<String, dynamic> json) {
+//     print(json['words'].runtimeType);
+//     List<WordModel> words = [];
+//     if (json['words'] is List<dynamic>) {
+//       final wordsJson = json['words'] as List;
+//       words =
+//           wordsJson.map((wordJson) => WordModel.fromJson(wordJson)).toList();
+//     }
+
+//     return Topic(
+//       id: json['id'] as String,
+//       image: json['image'] as String,
+//       name: json['name'] as String,
+//       priorityWeight: json['priorityWeight'] as int,
+//       statusDelete: json['statusDelete'] as bool,
+//       words: words,
+//     );
+//   }
+
+//   Map<String, dynamic> toJson() => {
+//         'id': id,
+//         'image': image,
+//         'name': name,
+//         'priorityWeight': priorityWeight,
+//         'statusDelete': statusDelete,
+//         'words': words.map((word) => word.toJson()).toList(),
+//       };
+// }
+
+// class WordModel {
+//   String id;
+//   String name;
+//   String definition;
+//   String example;
+//   String image;
+//   String mean;
+//   String pronounce;
+//   String sound;
+//   String type;
+
+//   WordModel({
+//     required this.id,
+//     required this.name,
+//     required this.definition,
+//     required this.example,
+//     required this.image,
+//     required this.mean,
+//     required this.pronounce,
+//     required this.sound,
+//     required this.type,
+//   });
+
+//   factory WordModel.fromJson(Map<String, dynamic> json) {
+//     return WordModel(
+//       id: json['_id'] ?? "",
+//       name: json['name'] ?? "",
+//       definition: json['definition'] ?? "",
+//       example: json['example'] ?? "",
+//       image: json['image'] ?? "",
+//       mean: json['mean'] ?? "",
+//       pronounce: json['pronounce'] ?? "",
+//       sound: json['sound'] ?? "",
+//       type: json['type'] ?? "",
+//     );
+//   }
+
+//   Map<String, dynamic> toJson() {
+//     final Map<String, dynamic> data = <String, dynamic>{};
+//     data['_id'] = id;
+//     data['name'] = name;
+//     data['definition'] = definition;
+//     data['example'] = example;
+//     data['image'] = image;
+//     data['mean'] = mean;
+//     data['pronounce'] = pronounce;
+//     data['sound'] = sound;
+//     data['type'] = type;
+//     return data;
+//   }
+// }
+
+// class FlipWordWidget extends StatelessWidget {
+//   final WordModel word;
+
+//   FlipWordWidget({required this.word});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return FlipCard(
+//       fill: Fill
+//           .fillBack, // Fill the back side of the card to make in the same size as the front.
+//       direction: FlipDirection.HORIZONTAL, // default
+//       front: Card(
+//         shape: RoundedRectangleBorder(
+//           borderRadius: BorderRadius.circular(15.0),
+//         ),
+//         child: Column(children: [
+//           Padding(
+//             padding: getPadding(all: 28),
+//             child: CustomImageView(
+//               imagePath: ImageConstant.wordBackground,
+//               radius: BorderRadiusStyle.circleBorder5,
+//             ),
+//           ),
+//           Container(
+//             padding: getPadding(top: 32, left: 10, right: 10, bottom: 20),
+//             child: Row(
+//               children: [
+//                 Expanded(
+//                   child: Column(
+//                     crossAxisAlignment: CrossAxisAlignment.center,
+//                     children: [
+//                       Container(
+//                         padding: const EdgeInsets.only(bottom: 8),
+//                         child: Text(word.name,
+//                             overflow: TextOverflow.ellipsis,
+//                             textAlign: TextAlign.left,
+//                             style:
+//                                 AppStyle.txtRubikBold24.copyWith(fontSize: 24)),
+//                       ),
+//                       Text(word.type,
+//                           overflow: TextOverflow.ellipsis,
+//                           textAlign: TextAlign.left,
+//                           style: AppStyle.txtRubikRegular14
+//                               .copyWith(fontSize: 22)),
+//                     ],
+//                   ),
+//                 ),
+//                 /*3*/
+//               ],
+//             ),
+//           ),
+//         ]),
+//       ),
+//       back: Card(
+//         shape: RoundedRectangleBorder(
+//           borderRadius: BorderRadius.circular(15.0),
+//         ),
+//         child: SingleChildScrollView(
+//             child: Padding(
+//           padding: getPadding(all: 10),
+//           child: WordWidget(
+//             word: word,
+//           ),
+//         )),
 //       ),
 //     );
 //   }
 // }
 
-// class AnswerSheetWidget extends StatelessWidget {
-//   const AnswerSheetWidget(
-//       {Key? key, required this.answerDatas, required this.result})
-//       : super(key: key);
-//   final Map<int, List<AnswerData>> answerDatas;
-//   final bool result;
-//   List<Widget> buldList() {
-//     List<Widget> widgetList = [];
-//     answerDatas.forEach((key, value) {
-//       widgetList.add(Expanded(
-//           child: AnswersWidget(
-//         type: key,
-//         answers: value,
-//         result: result,
-//       )));
-//     });
-//     return widgetList;
-//   }
+// class WordWidget extends StatelessWidget {
+//   final WordModel word;
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Column(
-//         mainAxisSize: MainAxisSize.min,
-//         mainAxisAlignment: MainAxisAlignment.start,
-//         children: buldList());
-//   }
-// }
-
-// class AnswersWidget extends StatelessWidget {
-//   const AnswersWidget(
-//       {Key? key,
-//       required this.answers,
-//       required this.type,
-//       required this.result})
-//       : super(key: key);
-//   final List<AnswerData> answers;
-//   final bool result;
-//   final int type;
-//   Color getColor(AnswerData data) {
-//     if (!result) return Colors.blueAccent.shade100;
-//     Color color = Colors.grey.shade100;
-//     if (['A', 'B', 'C', 'D'].contains(data.answer)) {
-//       color = data.answer == data.correctAnswer
-//           ? Colors.greenAccent.shade100
-//           : Colors.redAccent.shade100;
-//     }
-//     return color;
-//   }
+//   WordWidget({required this.word});
 
 //   @override
 //   Widget build(BuildContext context) {
 //     return Column(
 //       crossAxisAlignment: CrossAxisAlignment.start,
 //       children: [
-//         Padding(
-//           padding: getPadding(
-//             left: 12,
-//             bottom: 1,
-//           ),
-//           child: Text(
-//             "lbl_dashbord".tr,
-//             overflow: TextOverflow.ellipsis,
-//             textAlign: TextAlign.left,
-//             style: AppStyle.txtRubikMedium24.copyWith(color: Colors.black),
+//         Text(
+//           word.name,
+//           style: TextStyle(
+//             fontSize: 24,
+//             fontWeight: FontWeight.bold,
 //           ),
 //         ),
-//         SizedBox(width: 26),
-//         Expanded(
-//           child: Padding(
-//             padding: getPadding(
-//               left: 12,
-//               bottom: 1,
+//         Text(
+//           "(${word.type})",
+//           style: TextStyle(
+//             fontSize: 16,
+//             fontStyle: FontStyle.italic,
+//           ),
+//         ),
+//         if (word.mean.isNotEmpty) ...[
+//           SizedBox(height: 10),
+//           Text('Meaning:',
+//               overflow: TextOverflow.ellipsis,
+//               textAlign: TextAlign.left,
+//               style: AppStyle.txtRubikRegular18
+//                   .copyWith(letterSpacing: getHorizontalSize(0.23))),
+//           SizedBox(height: 2),
+//           Text(word.mean,
+//               overflow: TextOverflow.ellipsis,
+//               textAlign: TextAlign.left,
+//               style: AppStyle.txtRubikBold24),
+//         ],
+//         SizedBox(height: 8),
+//         if (word.definition.isNotEmpty) ...[
+//           SizedBox(height: 10),
+//           Text('Definition:',
+//               // overflow: TextOverflow.ellipsis,
+//               maxLines: 20,
+//               // textAlign: TextAlign.,
+//               style: AppStyle.txtRubikRegular18),
+//           SizedBox(height: 2),
+//           Text(word.definition,
+//               // overflow: TextOverflow.ellipsis,
+//               textAlign: TextAlign.left,
+//               style: AppStyle.txtRubikRegular18),
+//         ],
+//         if (word.example.isNotEmpty) ...[
+//           SizedBox(height: 10),
+//           Text('Example:',
+//               overflow: TextOverflow.ellipsis,
+//               textAlign: TextAlign.left,
+//               style: AppStyle.txtRubikRegular18
+//                   .copyWith(letterSpacing: getHorizontalSize(0.23))),
+//           SizedBox(height: 8),
+//           Text(
+//             word.example,
+//             style: TextStyle(
+//               fontSize: 16,
+//               fontStyle: FontStyle.italic,
 //             ),
-//             child: GridView.builder(
-//                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-//                     crossAxisCount: 4, childAspectRatio: (1 / .4)),
-//                 itemCount: answers.length,
-//                 itemBuilder: (BuildContext context, int index) {
-//                   return Card(
-//                     color: getColor(answers[index]),
-//                     child: Center(
-//                       child: Text(
-//                           "${answers[index].number}${[
-//                             'A',
-//                             'B',
-//                             'C',
-//                             'D'
-//                           ].contains(answers[index].answer) ? "-${answers[index].answer}" : ""}",
-//                           style: AppStyle.txtRubikMedium14.copyWith(
-//                               color: !result
-//                                   ? Colors.white
-//                                   : ['A', 'B', 'C', 'D']
-//                                           .contains(answers[index].answer)
-//                                       ? Colors.white
-//                                       : Colors.black)),
-//                     ),
-//                   );
-//                 }),
 //           ),
-//         ),
+//         ],
 //       ],
 //     );
 //   }
-// }
-
-// class AnswerData {
-//   AnswerData(
-//       {required this.number,
-//       required this.answer,
-//       required this.correctAnswer});
-//   final int number;
-//   final String answer;
-//   final String correctAnswer;
 // }

@@ -350,20 +350,31 @@ class DashboardPage extends StatelessWidget {
                                                               .value
                                                               .categoriesListeningItemList[
                                                           index];
-                                                  return CategoriesItemWidget(
-                                                    height: 100,
-                                                    width: 150,
-                                                    image: model.image ?? "",
-                                                    backgroundColor: model
-                                                            .color ??
-                                                        Colors.green
-                                                            .withOpacity(0.1),
-                                                    subTitle:
-                                                        (model.subTitle ?? "")
-                                                            .tr,
-                                                    title: model.categoryPartTxt
-                                                            .value ??
-                                                        "",
+                                                  return GestureDetector(
+                                                    onTap: () {
+                                                      Get.toNamed(
+                                                          AppRoutes
+                                                              .examCategoryScreen,
+                                                          arguments: {
+                                                            "type": model.part
+                                                          });
+                                                    },
+                                                    child: CategoriesItemWidget(
+                                                      height: 100,
+                                                      width: 150,
+                                                      image: model.image ?? "",
+                                                      backgroundColor: model
+                                                              .color ??
+                                                          Colors.green
+                                                              .withOpacity(0.1),
+                                                      subTitle:
+                                                          (model.subTitle ?? "")
+                                                              .tr,
+                                                      title: model
+                                                              .categoryPartTxt
+                                                              .value ??
+                                                          "",
+                                                    ),
                                                   );
                                                 })))),
                                     // -- listening category
@@ -411,20 +422,31 @@ class DashboardPage extends StatelessWidget {
                                                               .value
                                                               .categoriesReadingItemList[
                                                           index];
-                                                  return CategoriesItemWidget(
-                                                    height: 100,
-                                                    width: 150,
-                                                    image: model.image ?? "",
-                                                    backgroundColor: model
-                                                            .color ??
-                                                        Colors.green
-                                                            .withOpacity(0.1),
-                                                    subTitle:
-                                                        (model.subTitle ?? "")
-                                                            .tr,
-                                                    title: model.categoryPartTxt
-                                                            .value ??
-                                                        "",
+                                                  return GestureDetector(
+                                                    onTap: () {
+                                                      Get.toNamed(
+                                                          AppRoutes
+                                                              .examCategoryScreen,
+                                                          arguments: {
+                                                            "type": model.part
+                                                          });
+                                                    },
+                                                    child: CategoriesItemWidget(
+                                                      height: 100,
+                                                      width: 150,
+                                                      image: model.image ?? "",
+                                                      backgroundColor: model
+                                                              .color ??
+                                                          Colors.green
+                                                              .withOpacity(0.1),
+                                                      subTitle:
+                                                          (model.subTitle ?? "")
+                                                              .tr,
+                                                      title: model
+                                                              .categoryPartTxt
+                                                              .value ??
+                                                          "",
+                                                    ),
                                                   );
                                                 })))),
                                     // -- reading category

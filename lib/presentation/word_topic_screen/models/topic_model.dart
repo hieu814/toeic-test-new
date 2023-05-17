@@ -18,6 +18,7 @@ class TopicModel {
     if (wordsJson.length > 0 && !(wordsJson[0] is String)) {
       words =
           wordsJson.map((wordJson) => WordModel.fromJson(wordJson)).toList();
+      words.removeWhere((w) => w.name.isEmpty);
     } else {
       _count = wordsJson.length;
     }

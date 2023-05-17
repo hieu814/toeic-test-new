@@ -127,6 +127,8 @@ class ImageConstant {
 
   static String imgVector41 = 'assets/images/img_vector41.svg';
 
+  static String imgDictionary = 'assets/images/dictionary.svg';
+
   static String imgUpload = 'assets/images/img_upload.svg';
 
   static String imgProfilepicture72x72 =
