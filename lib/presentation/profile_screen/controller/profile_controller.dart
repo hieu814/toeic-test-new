@@ -9,16 +9,13 @@ import 'package:fluttertoast/fluttertoast.dart';
 class ProfileController extends GetxController {
   Rx<ProfileModel> profileModelObj = ProfileModel().obs;
 
-  UserSchema getMeResp = UserSchema(scoreStatistics: []);
+  Rx<UserSchema> user = Rx<UserSchema>(UserSchema(scoreStatistics: []));
 
   @override
   Future<void> onReady() async {
     super.onReady();
     try {
       await this.callFetchMe();
-      _onFetchMeSuccess();
-    } on GetMeResp {
-      _onFetchMeError();
     } catch (e) {
       //TODO: Handle generic errors
     }
@@ -31,19 +28,9 @@ class ProfileController extends GetxController {
 
   Future<void> callFetchMe() async {
     try {
-      getMeResp = await Get.find<ApiClient>().fetchMe();
-      _handleFetchMeSuccess();
+      user.value = await Get.find<ApiClient>().fetchMe();
     } catch (e) {
       rethrow;
     }
   }
-
-  void _handleFetchMeSuccess() {
-    profileModelObj.value.usernameTxt.value = getMeResp.username ?? "";
-    profileModelObj.value.emailOneTxt.value = getMeResp.email ?? "";
-    profileModelObj.value.nameTxt.value = getMeResp.name ?? "";
-  }
-
-  void _onFetchMeSuccess() {}
-  void _onFetchMeError() {}
 }

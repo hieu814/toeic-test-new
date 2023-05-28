@@ -1,3 +1,4 @@
+import 'package:toeic_test/presentation/lession_category_screen/lession_category_screen.dart';
 import 'package:toeic_test/presentation/word_category_screen/word_category_screen.dart';
 
 import 'controller/dashboard_container_controller.dart';
@@ -30,12 +31,10 @@ class DashboardContainerScreen extends GetWidget<DashboardContainerController> {
     switch (type) {
       case BottomBarEnum.Home:
         return AppRoutes.dashboardPage;
-      case BottomBarEnum.Explore:
+      case BottomBarEnum.Word:
         return AppRoutes.wordCategoryPage;
-      case BottomBarEnum.Cart:
-        return "/";
-      case BottomBarEnum.Offer:
-        return "/";
+      case BottomBarEnum.Lession:
+        return AppRoutes.lessionCategoryPage;
       case BottomBarEnum.Account:
         return AppRoutes.accountPage;
       default:
@@ -53,6 +52,8 @@ class DashboardContainerScreen extends GetWidget<DashboardContainerController> {
         return AccountPage();
       case AppRoutes.wordCategoryPage:
         return WordCategoryScreen();
+      case AppRoutes.lessionCategoryPage:
+        return LessionCategoryScreen();
       default:
         return DefaultWidget();
     }

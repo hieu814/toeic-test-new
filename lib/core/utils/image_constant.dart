@@ -129,6 +129,8 @@ class ImageConstant {
 
   static String imgDictionary = 'assets/images/dictionary.svg';
 
+  static String imgLession = 'assets/images/result-pass-icon.svg';
+
   static String imgUpload = 'assets/images/img_upload.svg';
 
   static String imgProfilepicture72x72 =

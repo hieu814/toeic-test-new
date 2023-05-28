@@ -1,6 +1,6 @@
 final Map<String, String> enUs = {
   "lbl_your_email": "Your Email",
-  "msg_welcome_to_e_co": "Welcome to E-com",
+  "msg_welcome_to_e_co": "Welcome to TOEIC Test",
   "lbl_password": "Password",
   "msg_sign_in_to_cont": "Sign in to continue",
   "lbl_sign_up": "Sign Up",
@@ -50,6 +50,20 @@ final Map<String, String> enUs = {
   "lbl_Incomplete_Sentences": "Incomplete Sentences",
   "lbl_Text_Completion": "Text Completion",
   "lbl_Passages": "Passages",
+  "lbl_Lession": "Lession",
+  "lbl_profile": "Profile",
+  "lbl_gender": "Gender",
+  "lbl_birthday": "Birthday",
+  "lbl_email": "Email",
+  "lbl_phone_number": "Phone Number",
+  "lbl_change_password": "Change Password",
+  "lbl_new_password": "New Password",
+  "lbl_old_password": "Old Password",
+  "lbl_save": "Save",
+  "lbl_intro": "Intro",
+  "msg_new_password_ag": "New Password Again",
+  "msg": "•••••••••••••••••",
+  "lbl_Sign_out": "Sign_Out",
 };
 
 final Map<String, String> enUs2 = {

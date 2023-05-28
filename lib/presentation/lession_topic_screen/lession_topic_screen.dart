@@ -1,9 +1,10 @@
-import 'controller/word_topic_controller.dart';
+import 'package:toeic_test/presentation/lession_topic_screen/controller/lession_topic_controller.dart';
+
 import 'package:flutter/material.dart';
 import 'package:toeic_test/core/app_export.dart';
 import 'package:toeic_test/widgets/app_bar/custom_app_bar.dart';
 
-class WordTopicScreen extends GetWidget<WordTopicController> {
+class LessionTopicScreen extends GetWidget<LessionTopicController> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -32,33 +33,31 @@ class WordTopicScreen extends GetWidget<WordTopicController> {
         body: Container(
             width: double.maxFinite,
             child: Obx(() => ListView.builder(
-                itemCount: controller.topics.length,
+                itemCount: controller.lessions.length,
                 itemBuilder: (context, index) {
-                  final topic = controller.topics[index];
+                  final lession = controller.lessions[index];
 
                   return GestureDetector(
                     onTap: () {
-                      print("asdasdasd");
-                      Get.toNamed(AppRoutes.wordLearningScreen,
-                          arguments: topic);
+                      Get.toNamed(AppRoutes.lessionScreen, arguments: lession);
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: ListTile(
                         leading: CustomImageView(
-                          url: topic.image,
+                          url: lession.thumbail,
                           width: 100,
                           height: 80,
                         ),
                         title: Text(
-                          topic.name,
+                          lession.name,
                           maxLines: 2,
                           overflow: TextOverflow.clip,
                           textAlign: TextAlign.left,
                           style: AppStyle.txtRubikMedium18,
                         ),
                         subtitle: Text(
-                          "${topic.count} words",
+                          "${lession.description} words",
                           maxLines: 4,
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(

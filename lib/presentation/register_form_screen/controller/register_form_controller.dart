@@ -33,6 +33,7 @@ class RegisterFormController extends GetxController {
   Future<void> callCreateRegister(Map req) async {
     try {
       postLoginResp = await FirebaseAuthHelper().signUp(req);
+      print("postLoginResp $postLoginResp");
     } catch (e) {
       throw e;
     }

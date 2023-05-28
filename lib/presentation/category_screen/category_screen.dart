@@ -1,4 +1,5 @@
-import 'package:toeic_test/presentation/category_screen/widgets/category_widget.dart';
+import 'package:toeic_test/widgets/category_widget.dart';
+
 import 'controller/category_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:toeic_test/core/app_export.dart';

@@ -4,6 +4,10 @@ import 'package:toeic_test/presentation/category_screen/binding/category_binding
 import 'package:toeic_test/presentation/category_screen/category_screen.dart';
 import 'package:toeic_test/presentation/exam_test_screen/binding/exam_test_binding.dart';
 import 'package:toeic_test/presentation/exam_test_screen/exam_test_screen.dart';
+import 'package:toeic_test/presentation/lession_topic_screen/lession_topic_screen.dart';
+import 'package:toeic_test/presentation/lession_topic_screen/binding/lession_topic_binding.dart';
+import 'package:toeic_test/presentation/lession_screen/binding/lession_binding.dart';
+import 'package:toeic_test/presentation/lession_screen/lession_screen.dart';
 import 'package:toeic_test/presentation/splash_screen/splash_screen.dart';
 import 'package:toeic_test/presentation/splash_screen/binding/splash_binding.dart';
 import 'package:toeic_test/presentation/login_screen/login_screen.dart';
@@ -69,6 +73,10 @@ class AppRoutes {
 
   static const String wordTopicScreen = '/word_topic_screen';
 
+  static const String lessionTopicScreen = '/lession_topic_screen';
+
+  static const String lessionScreen = '/lession_screen';
+
   static const String wordLearningScreen = '/word_learning_screen';
 
   static const String examTestScreen = '/exam_test_screen';
@@ -78,6 +86,8 @@ class AppRoutes {
   static const String accountPage = '/account_page';
 
   static const String wordCategoryPage = '/word_category_page';
+
+  static const String lessionCategoryPage = '/lession_category_page';
 
   static const String profileScreen = '/profile_screen';
 
@@ -179,6 +189,20 @@ class AppRoutes {
       page: () => WordTopicScreen(),
       bindings: [
         WordTopiBinding(),
+      ],
+    ),
+    GetPage(
+      name: lessionTopicScreen,
+      page: () => LessionTopicScreen(),
+      bindings: [
+        LessionTopicBinding(),
+      ],
+    ),
+    GetPage(
+      name: lessionScreen,
+      page: () => LessionScreen(),
+      bindings: [
+        LessionBinding(),
       ],
     ),
     GetPage(

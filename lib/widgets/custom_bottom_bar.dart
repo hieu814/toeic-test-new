@@ -15,7 +15,12 @@ class CustomBottomBar extends StatelessWidget {
     BottomMenuModel(
       icon: ImageConstant.imgDictionary,
       title: "lbl_word_learning".tr,
-      type: BottomBarEnum.Explore,
+      type: BottomBarEnum.Word,
+    ),
+    BottomMenuModel(
+      icon: ImageConstant.imgLession,
+      title: "lbl_Lession".tr,
+      type: BottomBarEnum.Lession,
     ),
     BottomMenuModel(
       icon: ImageConstant.imgUser,
@@ -141,10 +146,10 @@ class CustomBottomBar extends StatelessWidget {
 
 enum BottomBarEnum {
   Home,
-  Explore,
-  Cart,
-  Offer,
+  Word,
+  Lession,
   Account,
+  // Account,
 }
 
 class BottomMenuModel {

@@ -4,8 +4,8 @@ import 'package:toeic_test/presentation/dashboard_page/models/category_item_mode
 import 'package:toeic_test/widgets/BlurWidget.dart';
 
 // ignore: must_be_immutable
-class WordCategoryItemWidget extends StatelessWidget {
-  const WordCategoryItemWidget(
+class CategoryItemWidget extends StatelessWidget {
+  const CategoryItemWidget(
       {required this.thumbnail,
       required this.title,
       required this.subtitle,

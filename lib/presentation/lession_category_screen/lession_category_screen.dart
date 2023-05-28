@@ -1,11 +1,11 @@
 import 'package:toeic_test/widgets/category_widget.dart';
 import 'package:toeic_test/widgets/app_bar/appbar_title.dart';
-import 'controller/category_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:toeic_test/core/app_export.dart';
 import 'package:toeic_test/widgets/app_bar/custom_app_bar.dart';
+import 'package:toeic_test/presentation/lession_category_screen/controller/lession_controller.dart';
 
-class WordCategoryScreen extends StatelessWidget {
+class LessionCategoryScreen extends StatelessWidget {
   bool isFetch = false;
   @override
   Widget build(BuildContext context) {
@@ -16,10 +16,10 @@ class WordCategoryScreen extends StatelessWidget {
             backgroundColor: Colors.white,
             height: getVerticalSize(66),
             title: AppbarTitle(
-                text: "lbl_Vocabulary".tr, margin: getMargin(left: 16)),
+                text: "lbl_Lession".tr, margin: getMargin(left: 16)),
             actions: []),
-        body: GetBuilder<WordCategoryController>(
-            init: WordCategoryController(),
+        body: GetBuilder<LessionCategoryController>(
+            init: LessionCategoryController(),
             builder: (controller) {
               if (!isFetch) {
                 controller.callFetchCategory();
@@ -49,14 +49,14 @@ class WordCategoryScreen extends StatelessWidget {
                               final category = controller.categories[index];
                               return CategoryItemWidget(
                                 onTap: () {
-                                  Get.toNamed(AppRoutes.wordTopicScreen,
+                                  Get.toNamed(AppRoutes.lessionTopicScreen,
                                       arguments: {"category": category});
                                 },
                                 thumbnail: category.image,
                                 title: category.name,
                                 subtitle: category.description,
                                 count: "",
-                                typeName: "Exam",
+                                typeName: "Lession",
                               );
                             })),
                       ),

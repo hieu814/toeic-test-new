@@ -27,7 +27,7 @@ class AccountPage extends StatelessWidget {
                   AppbarImage(
                       height: getSize(24),
                       width: getSize(24),
-                      svgPath: ImageConstant.imgNotification,
+                      svgPath: ImageConstant.imgUser,
                       margin:
                           getMargin(left: 13, top: 15, right: 13, bottom: 16),
                       onTap: onTapNotification2)
@@ -186,7 +186,7 @@ class AccountPage extends StatelessWidget {
 // TODO: implement Actions
   }
   onTapNotification2() {
-// TODO: implement Actions
+    Get.toNamed(AppRoutes.profileScreen);
   }
 }
 

@@ -1,3 +1,7 @@
+import 'package:toeic_test/data/apiClient/api_client.dart';
+import 'package:toeic_test/data/models/user/User.dart';
+import 'package:toeic_test/domain/firebase/firebase.dart';
+
 import 'controller/change_password_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:toeic_test/core/app_export.dart';
@@ -8,24 +12,32 @@ import 'package:toeic_test/widgets/custom_button.dart';
 import 'package:toeic_test/widgets/custom_text_form_field.dart';
 
 class ChangePasswordScreen extends GetWidget<ChangePasswordController> {
-  @override
+  @override //lbl_change_password
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
             resizeToAvoidBottomInset: false,
             backgroundColor: ColorConstant.whiteA700,
             appBar: CustomAppBar(
-                height: getVerticalSize(56),
-                leadingWidth: 40,
-                leading: AppbarImage(
-                    height: getSize(24),
-                    width: getSize(24),
-                    svgPath: ImageConstant.imgArrowleft,
-                    margin: getMargin(left: 16, top: 14, bottom: 17),
-                    onTap: onTapArrowleft6),
-                title: AppbarTitle(
-                    text: "lbl_change_password".tr,
-                    margin: getMargin(left: 12))),
+                height: getVerticalSize(52),
+                backgroundColor: Colors.white,
+                leadingWidth: 50,
+                leading: Padding(
+                    padding: getPadding(all: 8),
+                    child: GestureDetector(
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: Icon(
+                        Icons.arrow_back_ios,
+                        color: Colors.black,
+                      ),
+                    )),
+                title: Text(
+                  "lbl_change_password".tr,
+                  style: TextStyle(color: Colors.black),
+                ),
+                actions: []),
             body: Container(
                 width: double.maxFinite,
                 padding: getPadding(left: 16, top: 26, right: 16, bottom: 26),
@@ -111,8 +123,14 @@ class ChangePasswordScreen extends GetWidget<ChangePasswordController> {
                 onTap: onTapSave)));
   }
 
-  onTapSave() {
-    Get.offNamed(AppRoutes.loginScreen);
+  onTapSave() async {
+    await controller.changePass().then((value) async {
+      if (value["status"] != null && value["status"] != "SUCCESS") {
+        Get.rawSnackbar(message: value["message"] ?? "");
+      } else {
+        await FirebaseAuthHelper().signOut();
+      }
+    });
   }
 
   onTapArrowleft6() {
