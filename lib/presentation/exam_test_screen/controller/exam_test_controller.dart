@@ -65,7 +65,21 @@ class TestController extends GetxController {
         6: [],
         7: [],
       };
-
+      if (result.value.answers.length == 0) {
+        List<Map<String, dynamic>> answ = [];
+        for (var groupQuestion in exam.value.questions) {
+          for (var question in groupQuestion.questions) {
+            answ.add({
+              'type': groupQuestion.type,
+              'number': question.number,
+              'answer': answers.value[question.number] ?? "",
+              "correct_answer": question.correctAnswer
+            });
+          }
+        }
+        result.value.examId = exam.value.id;
+        result.value.answers = Result.fromJson({"answers": answ}).answers;
+      }
       for (var answer in result.value.answers) {
         _answerData[answer.type]?.add(answer);
       }
@@ -91,13 +105,16 @@ class TestController extends GetxController {
   }
 
   void selectAnswerSheet(int questionNumber) {
+    int index = 0;
     for (var groupquestion in exam.value.questions) {
       for (var question in groupquestion.questions) {
         if (question.number == questionNumber) {
           currentQuesttion.value = groupquestion;
+          currentIndex = index;
           return;
         }
       }
+      index++;
     }
   }
 

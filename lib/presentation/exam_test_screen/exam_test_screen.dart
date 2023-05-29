@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+
 import 'package:toeic_test/core/app_export.dart';
-import 'package:toeic_test/data/models/exam/exam.dart';
+
 import 'package:toeic_test/data/models/exam/result.dart';
 import 'package:toeic_test/presentation/exam_test_screen/widgets/audio_play.dart';
 import 'package:toeic_test/presentation/exam_test_screen/widgets/group_question_widget.dart';
 import 'package:toeic_test/presentation/exam_test_screen/widgets/passage_widget.dart';
-import 'package:toeic_test/presentation/exam_test_screen/widgets/question_wiget.dart';
-import 'package:toeic_test/widgets/app_bar/appbar_image.dart';
-import 'package:toeic_test/widgets/app_bar/appbar_title.dart';
+
 import 'package:toeic_test/widgets/app_bar/custom_app_bar.dart';
 import 'controller/exam_test_controller.dart';
 
@@ -58,7 +56,7 @@ class ExamTestScreen extends GetWidget<TestController> {
                     child: Obx(() => Text(
                           controller.currentQuesttion.value.type > 0 &&
                                   controller.currentQuesttion.value.type < 8
-                              ? "lbl_toeic_part_type_${controller.currentQuesttion.value.type}"
+                              ? "lbl_toeic_part_type_${controller.currentQuesttion.value.type + 1}"
                                   .tr
                               : "",
                           style: TextStyle(color: Colors.black),

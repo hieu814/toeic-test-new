@@ -27,21 +27,6 @@ class _AudioPlayerWidgetState extends State<PassageWidget> {
       padding: const EdgeInsets.only(left: 1, right: 1),
       child: HtmlWidget(
         widget.text,
-        customWidgetBuilder: (element) {
-          if (element.localName == 'img') {
-            final src = element.attributes['src'];
-            final alt = element.attributes['alt'] ?? '';
-
-            return Image.network(
-              "https://i.stack.imgur.com/5zdJz.jpg",
-              semanticLabel: alt,
-              width: 100,
-              height: 100,
-            );
-          }
-
-          return null;
-        },
       ),
     );
   }
