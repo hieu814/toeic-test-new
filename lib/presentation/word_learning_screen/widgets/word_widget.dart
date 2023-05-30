@@ -31,7 +31,7 @@ class FlipWordWidget extends StatelessWidget {
             ),
           ),
           Container(
-            padding: getPadding(top: 32, left: 10, right: 10, bottom: 20),
+            // padding: getPadding(top: 32, left: 10, right: 10, bottom: 20),
             child: Row(
               children: [
                 Expanded(
@@ -51,6 +51,14 @@ class FlipWordWidget extends StatelessWidget {
                           textAlign: TextAlign.left,
                           style: AppStyle.txtRubikRegular14
                               .copyWith(fontSize: 22)),
+                      GestureDetector(
+                        onTap: () {},
+                        child: Icon(
+                          Icons.volume_up_sharp,
+                          size: 50,
+                          color: Colors.blue,
+                        ),
+                      )
                     ],
                   ),
                 ),

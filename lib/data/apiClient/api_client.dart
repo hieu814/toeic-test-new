@@ -43,8 +43,8 @@ class ApiClient extends GetConnect {
 
   Future<UserSchema> fetchMe({Map<String, String> headers = const {}}) async {
     Map<String, dynamic> respond = await requestGet("${ApiConstant.user}/me");
-
-    return UserSchema.fromJson(respond["data"] ?? {});
+    setCurrentUser(UserSchema.fromJson(respond["data"] ?? {}));
+    return currentUser;
   }
 
   Future<Map<String, dynamic>> requestPostorPut(

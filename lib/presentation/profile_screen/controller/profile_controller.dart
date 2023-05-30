@@ -26,6 +26,17 @@ class ProfileController extends GetxController {
     super.onClose();
   }
 
+  Future<void> updateProfile(Map<String, dynamic> data) async {
+    try {
+      final response = await Get.find<ApiClient>()
+          .requestPut("${ApiConstant.user}/update-profile", data);
+      print(response);
+      user.value = await Get.find<ApiClient>().fetchMe();
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   Future<void> callFetchMe() async {
     try {
       user.value = await Get.find<ApiClient>().fetchMe();

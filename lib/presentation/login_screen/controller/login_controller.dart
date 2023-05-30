@@ -34,7 +34,7 @@ class LoginController extends GetxController {
       ProgressDialogUtils.showProgressDialog();
       postLoginResp = await FirebaseAuthHelper()
           .signInWithEmailAndPassword(req['username'], req['password']);
-      await _handleCreateLoginSuccess();
+      await _handleCreateLoginSuccess(false);
       ProgressDialogUtils.hideProgressDialog();
     } catch (e) {
       ProgressDialogUtils.hideProgressDialog();
@@ -46,7 +46,7 @@ class LoginController extends GetxController {
     try {
       ProgressDialogUtils.showProgressDialog();
       postLoginResp = await FirebaseAuthHelper().googleSignInProcess();
-      await _handleCreateLoginSuccess();
+      await _handleCreateLoginSuccess(true);
       ProgressDialogUtils.hideProgressDialog();
     } catch (e) {
       ProgressDialogUtils.hideProgressDialog();
@@ -58,7 +58,7 @@ class LoginController extends GetxController {
     try {
       ProgressDialogUtils.showProgressDialog();
       postLoginResp = await FirebaseAuthHelper().signInWithFacebook();
-      await _handleCreateLoginSuccess();
+      await _handleCreateLoginSuccess(true);
       ProgressDialogUtils.hideProgressDialog();
     } catch (e) {
       ProgressDialogUtils.hideProgressDialog();
@@ -66,11 +66,12 @@ class LoginController extends GetxController {
     }
   }
 
-  Future<void> _handleCreateLoginSuccess() async {
+  Future<void> _handleCreateLoginSuccess(bool isSocialLogin) async {
     try {
       final idtoken = await postLoginResp?.user?.getIdToken();
       final res = await Get.find<ApiClient>().getTokenFromServer(idtoken ?? "");
       UserSchema user = UserSchema.fromJson(res["data"]);
+      user.isSocialLogin = isSocialLogin;
       Get.find<ApiClient>().setCurrentUser(user);
       String _token = res["data"]?["token"] ?? "";
       if (_token.isNotEmpty) {

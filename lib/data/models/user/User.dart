@@ -22,7 +22,7 @@ class UserSchema {
   int? userType;
   int? loginRetryLimit;
   DateTime? loginReactiveTime;
-
+  bool isSocialLogin = false;
   UserSchema(
       {this.username,
       this.password,

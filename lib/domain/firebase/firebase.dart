@@ -30,6 +30,44 @@ class FirebaseAuthHelper {
     }
   }
 
+  Future<Map<String, dynamic>> changePass(
+      String oldPass, String newPass) async {
+    bool isSucces = false;
+    String message = "";
+    try {
+      final user = FirebaseAuth.instance.currentUser;
+
+      if (user == null) {
+        // User is not authenticated, perform sign out if necessary
+        await signOut();
+      } else {
+        AuthCredential credential = EmailAuthProvider.credential(
+          email: user.email ?? "",
+          password: oldPass,
+        );
+        await user.reauthenticateWithCredential(credential);
+        await user.updatePassword(newPass);
+        isSucces = true;
+        // Password change successful
+        message = ('Password changed successfully');
+      }
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'wrong-password') {
+        // Wrong current password provided
+        message = ('Wrong password provided');
+      } else if (e.code == 'weak-password') {
+        // New password is too weak
+        message = ('New password is too weak');
+      } else {
+        message = e.code;
+      }
+    } catch (e) {
+      // Handle other errors that may occur during the process
+      print('Error: $e');
+    }
+    return {"success": isSucces, "message": message};
+  }
+
   Future<void> signOut() async {
     try {
       await GoogleSignIn().signOut();

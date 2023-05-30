@@ -124,12 +124,8 @@ class ChangePasswordScreen extends GetWidget<ChangePasswordController> {
   }
 
   onTapSave() async {
-    await controller.changePass().then((value) async {
-      if (value["status"] != null && value["status"] != "SUCCESS") {
-        Get.rawSnackbar(message: value["message"] ?? "");
-      } else {
-        await FirebaseAuthHelper().signOut();
-      }
+    await controller.changePass().then((data) async {
+      Get.rawSnackbar(message: data["message"] ?? "Change pass error");
     });
   }
 

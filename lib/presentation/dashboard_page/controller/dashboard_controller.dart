@@ -13,12 +13,12 @@ class DashboardController extends GetxController {
   Rx<DashboardModel> dashboardModelObj = DashboardModel().obs;
   Rx<ToeicScore> toeicScore = Rx<ToeicScore>(ToeicScore());
   Rx<int> silderIndex = 0.obs;
-
+  Rx<UserSchema> currentUser = Rx<UserSchema>(UserSchema(scoreStatistics: []));
   @override
   void onReady() async {
     super.onReady();
-    UserSchema currentUser = await Get.find<ApiClient>().fetchMe();
-    toeicScore.value = currentUser.getScoreStatics();
+    await getUser();
+    toeicScore.value = currentUser.value.getScoreStatics();
   }
 
   @override
@@ -29,6 +29,10 @@ class DashboardController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+  }
+
+  Future<void> getUser() async {
+    currentUser.value = await Get.find<ApiClient>().fetchMe();
   }
 
   Future<void> getAll() async {
