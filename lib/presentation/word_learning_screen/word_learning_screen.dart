@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:toeic_test/presentation/word_learning_screen/widgets/word_widget.dart';
@@ -10,6 +11,15 @@ import 'package:toeic_test/widgets/app_bar/custom_app_bar.dart';
 
 class WordLearningScreen extends GetWidget<WordLearningController> {
   final CarouselController _controller = CarouselController();
+  final AudioPlayer audioPlayer = AudioPlayer();
+  Future<void> _play(String url) async {
+    try {
+      await audioPlayer.play(UrlSource(ApiConstant.getFileUrl(url)));
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,6 +67,9 @@ class WordLearningScreen extends GetWidget<WordLearningController> {
                             controller.topic.value.words[index];
                         return FlipWordWidget(
                           word: word,
+                          onTapPlayAudio: () {
+                            _play(word.sound);
+                          },
                         );
                       },
                       options: CarouselOptions(

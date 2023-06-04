@@ -5,8 +5,8 @@ import 'package:toeic_test/core/app_export.dart';
 
 class FlipWordWidget extends StatelessWidget {
   final WordModel word;
-
-  FlipWordWidget({required this.word});
+  VoidCallback? onTapPlayAudio;
+  FlipWordWidget({required this.word, this.onTapPlayAudio});
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +52,9 @@ class FlipWordWidget extends StatelessWidget {
                           style: AppStyle.txtRubikRegular14
                               .copyWith(fontSize: 22)),
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          onTapPlayAudio?.call();
+                        },
                         child: Icon(
                           Icons.volume_up_sharp,
                           size: 50,

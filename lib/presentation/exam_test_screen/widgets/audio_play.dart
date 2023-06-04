@@ -6,8 +6,12 @@ import 'package:toeic_test/core/app_export.dart';
 class AudioPlayerWidget extends StatefulWidget {
   final String audioUrl;
   final bool autoPlay;
+  final bool isWordWidget;
   const AudioPlayerWidget(
-      {Key? key, required this.audioUrl, required this.autoPlay})
+      {Key? key,
+      this.isWordWidget = false,
+      required this.audioUrl,
+      required this.autoPlay})
       : super(key: key);
 
   @override
@@ -95,6 +99,18 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.isWordWidget) {
+      return GestureDetector(
+        onTap: () {
+          _play();
+        },
+        child: Icon(
+          Icons.volume_up_sharp,
+          size: 50,
+          color: Colors.blue,
+        ),
+      );
+    }
     return Padding(
       padding: const EdgeInsets.only(left: 10, right: 10),
       child: Row(
