@@ -14,7 +14,7 @@ class GroupQuestionWidget extends GetWidget<TestController> {
     return SingleChildScrollView(
       child: Column(
         children: [
-          if (groupQuestion.type < 5 && groupQuestion.image != null)
+          if (groupQuestion.image != null)
             CustomImageView(
               url: groupQuestion.image,
             ),

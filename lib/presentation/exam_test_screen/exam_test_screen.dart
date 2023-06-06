@@ -118,12 +118,6 @@ class ExamTestScreen extends GetWidget<TestController> {
                             autoPlay: true,
                             audioUrl: controller.currentQuesttion.value.audio)
                         : Container()),
-                    Obx(() => controller.currentQuesttion.value.type > 5
-                        ? AudioPlayerWidget(
-                            key: UniqueKey(),
-                            autoPlay: true,
-                            audioUrl: controller.currentQuesttion.value.audio)
-                        : Container()),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
