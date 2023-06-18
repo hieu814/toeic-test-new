@@ -25,7 +25,33 @@ class ExamTestScreen extends GetWidget<TestController> {
                   child: ListView(
                       physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
-                      children: buildAnswers(controller.answersData.value)),
+                      children:
+                          controller.answersData.value.entries.map((entry) {
+                        final key = entry.key;
+                        final value = entry.value;
+
+                        if (value.isNotEmpty) {
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "lbl_toeic_part_type_${key + 1}".tr,
+                                overflow: TextOverflow.ellipsis,
+                                textAlign: TextAlign.left,
+                                style: AppStyle.txtPoppinsBold14Indigo900
+                                    .copyWith(
+                                        letterSpacing: getHorizontalSize(0.5)),
+                              ),
+                              AnswersWidget(
+                                answers: value,
+                                result: true,
+                              ),
+                            ],
+                          );
+                        } else {
+                          return Container(); // Return an empty container if the value is empty
+                        }
+                      }).toList()),
                 )),
           ),
         ),
@@ -76,7 +102,22 @@ class ExamTestScreen extends GetWidget<TestController> {
                 padding: const EdgeInsets.all(4.0),
                 child: ElevatedButton(
                   onPressed: () async {
-                    await controller.submit().then((value) {
+                    if (controller.result.value.getScore().blank > 0) {
+                      bool? result = await showConfirmationDialog(context);
+                      if (result == null || !result) {
+                        return;
+                      }
+                    }
+                    await controller.submit().then((value) async {
+                      if (controller.result.value.getScore().blank > 0) {
+                      } else {
+                        await controller.submit().then((value) {
+                          controller.exam.value.result =
+                              controller.result.value;
+                          Get.offNamed(AppRoutes.examTestResultScreen,
+                              arguments: controller.exam.value);
+                        });
+                      }
                       Get.offNamed(AppRoutes.examTestResultScreen,
                           arguments: controller.exam.value);
                     });
@@ -105,6 +146,7 @@ class ExamTestScreen extends GetWidget<TestController> {
                   _scaffoldKey.currentState!.closeEndDrawer();
                   return GroupQuestionWidget(
                     key: UniqueKey(),
+                    isTip: controller.isTip.value,
                     groupQuestion: controller.currentQuesttion.value,
                   );
                 }),
@@ -132,7 +174,7 @@ class ExamTestScreen extends GetWidget<TestController> {
                                   "Question ${controller.currentQuesttion.value.group}",
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 20,
+                                      fontSize: 15,
                                       color: Colors.deepOrange
                                       // color: invert(HexColor(color ?? "#FFFFFF"))
                                       ),
@@ -144,7 +186,11 @@ class ExamTestScreen extends GetWidget<TestController> {
                             IconData(0xe37c, fontFamily: 'MaterialIcons'),
                             color: Colors.yellow,
                           ),
-                          onPressed: () => {
+                          onPressed: () {
+                            if (controller.currentQuesttion.value.type <= 2 &&
+                                !controller.isFirstTest.value) {
+                              controller.isTip.value = true;
+                            }
                             if (controller
                                 .currentQuesttion.value.transcript.isNotEmpty)
                               showDraggableModalBottomSheet(
@@ -186,7 +232,7 @@ class ExamTestScreen extends GetWidget<TestController> {
                                         ),
                                       ),
                                     ],
-                                  ))
+                                  ));
                           },
                         ),
                         IconButton(
@@ -197,7 +243,9 @@ class ExamTestScreen extends GetWidget<TestController> {
                         ),
                         IconButton(
                           icon: Icon(Icons.arrow_forward_ios),
-                          onPressed: () => {controller.onNext()},
+                          onPressed: () {
+                            controller.onNext();
+                          },
                         ),
                       ],
                     )
@@ -225,7 +273,6 @@ List<Widget> buildAnswers(Map<int, List<Answer>> answerData) {
       ));
     }
   });
-
   return data;
 }
 
@@ -320,6 +367,35 @@ void showDraggableModalBottomSheet(BuildContext context, Widget child) {
             ),
           );
         },
+      );
+    },
+  );
+}
+
+Future<bool?> showConfirmationDialog(BuildContext context) async {
+  return showDialog<bool>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Confirmation'),
+        content: Text(
+            'You should complete the test in order to calculate the skills.\n Continue?'),
+        actions: [
+          TextButton(
+            child: Text('No'),
+            onPressed: () {
+              Navigator.of(context)
+                  .pop(false); // Return false if "No" is selected
+            },
+          ),
+          TextButton(
+            child: Text('Yes'),
+            onPressed: () {
+              Navigator.of(context)
+                  .pop(true); // Return true if "Yes" is selected
+            },
+          ),
+        ],
       );
     },
   );

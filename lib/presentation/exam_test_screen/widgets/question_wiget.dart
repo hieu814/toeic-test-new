@@ -8,12 +8,14 @@ class QuestionWidget extends StatefulWidget {
       required this.onSelect,
       this.selectedQuestion,
       this.type = 0,
+      this.isTip = false,
       this.isFinish = false})
       : super(key: key);
   final QuestionModel? question;
   final String? selectedQuestion;
   final int type;
   final bool isFinish;
+  final bool isTip;
   final void Function(int, String) onSelect;
   @override
   State<QuestionWidget> createState() => _QuestionWidgetState();
@@ -28,7 +30,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
     super.initState();
     selectedQuestion = widget.selectedQuestion ?? "";
     if ((widget.type == 1 || widget.type == 2)) {
-      isShowTheAnswer = widget.isFinish;
+      isShowTheAnswer = widget.isTip || widget.isFinish;
     }
   }
 
@@ -79,7 +81,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                           ),
                           if (item.question != null)
                             TextSpan(
-                              text: " ${item.question}",
+                              text: " ${isShowTheAnswer ? item.question : ""}",
                               style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 15,

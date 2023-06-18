@@ -44,7 +44,17 @@ class AccountController extends GetxController {
         final data = (response['data']['data'] ?? []) as List<dynamic>;
         list.assignAll(data.map((item) => Result.fromJson(item)).toList());
       }
-
+      list.sort((a, b) {
+        if (a.updatedAt == null && b.updatedAt == null) {
+          return 0;
+        } else if (a.updatedAt == null) {
+          return -1;
+        } else if (b.updatedAt == null) {
+          return 1;
+        } else {
+          return b.updatedAt!.compareTo(a.updatedAt!);
+        }
+      });
       results.value = list;
     } catch (e) {
       print(e);

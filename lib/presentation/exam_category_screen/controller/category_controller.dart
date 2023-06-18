@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 import 'package:toeic_test/core/app_export.dart';
@@ -15,11 +17,15 @@ class ExamCategoryController extends GetxController {
   @override
   void onReady() async {
     super.onReady();
+    print("hieu ExamCategoryController ${type}");
+
     final args = Get.arguments as Map<String, dynamic>;
+    type = args["type"] ?? ExamType.fullTest;
+
+    print("hieu type ${type}");
     if (args["category"] != null) {
       category.value = args["category"] as CategoryItemModel;
     } else {
-      type = args["type"] ?? ExamType.fullTest;
       category.value =
           CategoryItemModel(name: ("lbl_toeic_part_type_${type ?? 1}".tr));
     }

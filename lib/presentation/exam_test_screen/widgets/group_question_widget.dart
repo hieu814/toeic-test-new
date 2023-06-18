@@ -6,9 +6,11 @@ import 'package:toeic_test/presentation/exam_test_screen/widgets/passage_widget.
 import 'package:toeic_test/presentation/exam_test_screen/widgets/question_wiget.dart';
 
 class GroupQuestionWidget extends GetWidget<TestController> {
-  const GroupQuestionWidget({Key? key, required this.groupQuestion})
+  const GroupQuestionWidget(
+      {Key? key, required this.groupQuestion, this.isTip = false})
       : super(key: key);
   final GroupQuestionModel groupQuestion;
+  final bool isTip;
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -29,6 +31,7 @@ class GroupQuestionWidget extends GetWidget<TestController> {
                           key: UniqueKey(),
                           isFinish: controller.isSubmited.value,
                           type: groupQuestion.type,
+                          isTip: isTip,
                           selectedQuestion:
                               controller.answers.value[question.number] ?? "",
                           question: question,

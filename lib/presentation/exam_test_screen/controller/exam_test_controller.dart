@@ -10,6 +10,8 @@ import 'package:toeic_test/data/models/user/User.dart';
 
 class TestController extends GetxController {
   RxBool isSubmited = RxBool(false);
+  RxBool isTip = RxBool(false);
+  RxBool isFirstTest = RxBool(true);
   Rx<ExamModel> exam = ExamModel().obs;
   RxList<GroupQuestionModel> questions = RxList([]);
   Rx<Map<int, String>> answers = Rx<Map<int, String>>({});
@@ -26,6 +28,7 @@ class TestController extends GetxController {
       answers.value = {};
       final arg = Get.arguments as ExamModel;
       if (arg.result != null) {
+        isFirstTest.value = arg.retest;
         result.value = arg.result ?? Result();
         if (!arg.retest) {
           for (var e in result.value.answers!) {
@@ -84,7 +87,7 @@ class TestController extends GetxController {
         _answerData[answer.type]?.add(answer);
       }
       answersData.value = _answerData;
-      startTimer(totalReading, totalListening);
+      startTimer(exam.value.type);
     } catch (e) {
       Get.rawSnackbar(message: "Cannot get data");
     }
@@ -105,6 +108,7 @@ class TestController extends GetxController {
   }
 
   void selectAnswerSheet(int questionNumber) {
+    isTip.value = false;
     int index = 0;
     for (var groupquestion in exam.value.questions) {
       for (var question in groupquestion.questions) {
@@ -118,29 +122,36 @@ class TestController extends GetxController {
     }
   }
 
-  void startTimer(int numReadingQuestions, int numListeningQuestions) {
-    int totalReading = 4500; // 75 minutes in seconds
-    int totalListening = 2700; // 45 minutes in seconds
-    double timePerReadingQuestion = (totalReading / 100) * numReadingQuestions;
-    double timePerListeningQuestion =
-        (totalListening / 100) * numListeningQuestions;
+  void startTimer(int type) {
+    int totalTime;
 
-    int totalTime = (timePerReadingQuestion + timePerListeningQuestion).toInt();
-    // print("hieu total ${totalListening}, $totalReading , time ${totalTime}");
+    if (type == 0) {
+      // 2 hours
+      totalTime = 7200;
+    } else if (type == 1) {
+      // 30 minutes
+      totalTime = 1800;
+    } else {
+      // No time limit
+      totalTime = -1;
+      time.value = "";
+      return;
+    }
+
     Timer.periodic(Duration(seconds: 1), (timer) {
-      if (totalTime <= 0) {
+      if (totalTime == 0) {
         timer.cancel();
         time.value = "00:00:00";
         submit().then((value) {
           Get.offNamed(AppRoutes.examTestResultScreen, arguments: exam.value);
         });
-      } else {
+      } else if (totalTime > 0) {
         totalTime--;
-        int minutes = totalTime ~/ 60;
-        int remainingMinutes = minutes ~/ 60;
-        int remainingSeconds = minutes % 60;
+        int hours = totalTime ~/ 3600;
+        int minutes = (totalTime % 3600) ~/ 60;
+        int seconds = totalTime % 60;
         String formattedTime =
-            '${(remainingMinutes % 60).toString().padLeft(2, '0')}:${(remainingSeconds % 60).toString().padLeft(2, '0')}:${(totalTime % 60).toString().padLeft(2, '0')}';
+            '${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
         time.value = formattedTime;
       }
     });
@@ -164,8 +175,16 @@ class TestController extends GetxController {
       }
     }
     result.value.examId = exam.value.id;
-    result.value.answers = Result.fromJson({"answers": answ}).answers;
+    if (result.value.id == null || result.value.id!.isEmpty) {
+      UserSchema currentUser = await Get.find<ApiClient>().fetchMe();
+      result.value.userId = currentUser.id;
+    }
 
+    result.value.answers = Result.fromJson({"answers": answ}).answers;
+    exam.value.result = result.value;
+    if (exam.value.result != null && exam.value.result!.getScore().blank > 0) {
+      return;
+    }
     final response = await Get.find<ApiClient>().requestPostorPut(
         "${ApiConstant.result}/${result.value.id == null || result.value.id!.isEmpty ? "create" : "update/${result.value.id}"}",
         result.value.toJson());
@@ -174,21 +193,17 @@ class TestController extends GetxController {
       final data = response["data"] as List<dynamic>;
       if (data.length > 0) {
         exam.value.result = Result.fromJson(data[0]);
-        print(exam.value.result!.toJson());
       }
     } else if (response["data"] != null &&
         response["data"] is Map<String, dynamic>) {
       exam.value.result = Result.fromJson(response["data"]);
-    } else {
-      exam.value.result = result.value;
     }
-    await updateScoreStatics();
+    if (!isFirstTest.value) await updateScoreStatics();
   }
 
   Future<void> updateScoreStatics() async {
     try {
       UserSchema currentUser = await Get.find<ApiClient>().fetchMe();
-      print("hieu ____ current  ${currentUser.toJson()}");
       answersData.value.forEach((key, value) {
         int _type = key;
         int _count = 0;
@@ -245,6 +260,7 @@ class TestController extends GetxController {
   }
 
   void onNext() async {
+    isTip.value = false;
     currentIndex++;
     if (currentIndex < exam.value.questions.length) {
       currentQuesttion.value = exam.value.questions[currentIndex];
@@ -254,7 +270,7 @@ class TestController extends GetxController {
   }
 
   void onBack() async {
-    print("on back");
+    isTip.value = false;
     currentIndex--;
     if (currentIndex >= 0) {
       currentQuesttion.value = exam.value.questions[currentIndex];

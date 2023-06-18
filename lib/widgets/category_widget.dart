@@ -68,7 +68,7 @@ class CategoryItemWidget extends StatelessWidget {
                                     child: SingleChildScrollView(
                                       child: Text(
                                         subtitle,
-                                        maxLines: 4,
+                                        maxLines: 3,
                                         overflow: TextOverflow.ellipsis,
                                         style: const TextStyle(
                                           fontSize: 12.0,

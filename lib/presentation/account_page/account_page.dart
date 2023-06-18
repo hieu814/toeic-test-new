@@ -36,11 +36,7 @@ class AccountPage extends StatelessWidget {
               child: GetBuilder<AccountController>(
                   init: AccountController(),
                   builder: (controller) {
-                    if (!isFetch) {
-                      print("hieu get data");
-                      controller.getData();
-                      isFetch = true;
-                    }
+                    controller.getData();
 
                     return Column(
                       children: [
@@ -152,7 +148,10 @@ class AccountPage extends StatelessWidget {
                                                         color: ColorConstant
                                                             .indigo5001)));
                                           },
-                                          itemCount: controller.results.length,
+                                          itemCount:
+                                              controller.results.length > 5
+                                                  ? 5
+                                                  : controller.results.length,
                                           itemBuilder: (context, index) {
                                             Result result =
                                                 controller.results[index];
@@ -549,23 +548,27 @@ class ListrectangleItemWidget extends StatelessWidget {
               left: 16,
               top: 1,
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  name,
-                  style: AppStyle.txtRubikRegular14
-                      .copyWith(fontSize: 17, fontWeight: FontWeight.w700),
-                ),
-                Text(
-                  date,
-                  style: AppStyle.txtRubikRegular14.copyWith(
-                    letterSpacing: getHorizontalSize(
-                      0.23,
+            child: SizedBox(
+              width: width / 1.8,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    name,
+                    overflow: TextOverflow.ellipsis,
+                    style: AppStyle.txtRubikRegular14
+                        .copyWith(fontSize: 17, fontWeight: FontWeight.w700),
+                  ),
+                  Text(
+                    date,
+                    style: AppStyle.txtRubikRegular14.copyWith(
+                      letterSpacing: getHorizontalSize(
+                        0.23,
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             )
 
             // Text(

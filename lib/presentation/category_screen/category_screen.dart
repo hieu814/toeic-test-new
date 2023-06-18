@@ -60,8 +60,12 @@ class CategoryScreen extends GetWidget<CategoryController> {
                         final exam = controller.categories[index];
                         return CategoryItemWidget(
                           onTap: () {
+                            int type = controller.categoryType.value ==
+                                    CategoryType.miniTest
+                                ? ExamType.fullMiniTest
+                                : ExamType.fullTest;
                             Get.toNamed(AppRoutes.examCategoryScreen,
-                                arguments: {"category": exam});
+                                arguments: {"category": exam, "type": type});
                           },
                           thumbnail: exam.image,
                           title: exam.name,

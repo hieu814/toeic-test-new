@@ -50,7 +50,9 @@ class ExamDelegate extends StatelessWidget {
                         new CircularPercentIndicator(
                           radius: 34.0,
                           lineWidth: 4.0,
-                          percent: (score ?? 0) / (total ?? 1),
+                          percent: (total ?? 0) == 0
+                              ? 0
+                              : (score ?? 0) / (total ?? 1),
                           center: new Text(
                               "${total == null ? "0/0" : "${score ?? 0}/${total ?? 0}"}"),
                           progressColor: Colors.green,
@@ -71,7 +73,7 @@ class ExamDelegate extends StatelessWidget {
                                     ),
                                     child: Container(
                                       width:
-                                          MediaQuery.of(context).size.width / 3,
+                                          MediaQuery.of(context).size.width / 2,
                                       child: Text(
                                         name,
                                         maxLines: 2,
